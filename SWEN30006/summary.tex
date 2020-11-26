@@ -1,0 +1,428 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\begin{document}
+
+\section*{Lecture 1 - Use Cases}
+\textcolor{ForestGreen}{\textbf{Use Cases:}} Text stories of some actor using a system to meet goals, aims to emphasize the user's goals and perspective. Should cover both success and failure scenarios. \\ \\
+\textcolor{ForestGreen}{\textbf{System under Discussion (SuD):}} The system that we are attempting to model or explain \\\\
+\textcolor{ForestGreen}{\textbf{Actor:}} The person interacting with the system, involves behaviour and can be a person, a computer system or an organisation.\\\\
+\textcolor{ForestGreen}{\textbf{Scenario:}} Also known as a case instance, explains a specific sequence of actions and interactions between actors and the SuD. \\\\
+\textcolor{ForestGreen}{\textbf{Use Case:}} A collection of related success and failure scenarios that describe an actor using the SuD to support a goal.\\\\
+\indent \textcolor{ForestGreen}{Levels of Detail:} \\
+\indent \textcolor{ForestGreen}{Brief:} Paragraph summary of the use case. Includes success scenario only. \\
+\indent \textcolor{ForestGreen}{Casual:} Paragraph summary of the use case, but includes both success and alternate scenarios. \\
+\indent \textcolor{ForestGreen}{Fully Dressed:} Step by step rundown of the use case. Can also include alternate scenarios using 1a\\ \\
+\textcolor{ForestGreen}{\textbf{Primary Actor:}} Has user goals fulfilled through using the SuD. User goals drives the use case.\\\\
+\textcolor{ForestGreen}{\textbf{Supporting Actor:}} Provides a service or extra information to the SuD to clarify external interfaces and protcols, for example an automated payment authorization service. Generally would be a computer system, but can also be an organization or a person as well.\\\\
+\textcolor{ForestGreen}{\textbf{Offstage Actor:}} has an interest in the behaviour of the use case, but is not primary or supporting (eg. a government tax agency). Ensures that all interests are identified or satisfied.\\\\
+\textcolor{ForestGreen}{\textbf{Use Case Model:}} A mode of the system's functionality and enviroment. Primaru includes the set of all written use cases, and optionally can include a UML use case diagram.\\\\
+\textcolor{ForestGreen}{\textbf{UML Use Case Diagram:}} Gives a context diagram of a system and its environment, displays the name of use cases, actors and their relationships.\\\\
+\textcolor{ForestGreen}{\textbf{Boss Test:}} Determines if a use case is considered \emph{useful} or not. If you boss asks `what have you been doing all day?' and you respond with your use case, will your boss be happy? More generally, would you consider this use case to be useful? \\\\
+\textcolor{ForestGreen}{\textbf{Elementary Business Process (EBP) Test:}} A task performed by one person in one place at one time, in response to a business event and should add measurable business value and leaves the data in a consistent state.\\\\
+\textcolor{ForestGreen}{\textbf{Size Test:}} A task should seldom be a single step, and should not be several pages long or too complicated. Ideally should be a few steps to test a case.\\\\
+
+\newpage 
+\section*{Lecture 2 - Domain Models and System Sequence Diagrams}
+\textcolor{Emerald}{\textbf{Object-oriented Analysis:}} A process of creating an description of the domain from the perspective of objects.\\\\
+\textcolor{Emerald}{\textbf{Analysis:}} Investigation of the problem and requirements.\\\\
+\textcolor{Emerald}{\textbf{Domain Models:}} Identifies the concepts, attributes and associations that are considered notheworthy in the problem domain. More formally, it is a representation of real-situation conceptual classes.\\
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+  \item It is different to a software object (may not be tangible)
+  \item Only outlines the \emph{noteworthy} concepts or objects. 
+  \item It is one of OO artifacts (something that we create)
+  \item It is also visually represented using UML 
+\end{itemize}
+\textcolor{Emerald}{\textbf{Unified Process Domain Model:}}Also the same as the UP Business Object Model, it focuses on explaining things and objects important to a business domain.\\\\
+\textcolor{Emerald}{\textbf{Domain Class Diagram:}} Provides a conceptual perspective to show conceptual classes, their attributes as well as their associations or relationships with other classes\\\\
+\textcolor{Emerald}{\textbf{Conceptual Class:}} Can be consider in terms of its symbol, intension and extension. (Can be a thing idea or an object).\\ \\
+\indent \textcolor{Emerald}{Symbol:} Words or images representing a conceptual class.\\
+\indent \textcolor{Emerald}{Intension:} Definition of a conceptual class (eg. description of the class/object) \\
+\indent \textcolor{Emerald}{Extension:} The set of examples to which the conceptual class applies. \\ \\
+\textcolor{Emerald}{\textbf{Identifying Conceptual Classes:}}\\\\
+\indent \textcolor{Emerald}{Use Existing Models:} Can use existing models for common domain problems. Eg. finance\\
+\indent \textcolor{Emerald}{Use Category Lists:} Provides examples of catergories, found in references and textbooks. \\
+\indent \textcolor{Emerald}{Identify noun phrases:} Identify the nouns in a passage, although it is not as commonly used as the \indent other two options since language can be ambiguous.\\ \\
+\textcolor{Emerald}{\textbf{Association:}} A relationship between classes that indicate a meaningful or interesting connection. We tend to add multiplicity and an association name to a relationship.\\\\
+\textcolor{Emerald}{\textbf{Attribute:}} A logical data value of an object. Should be included into a conceptual class when the requirements imply a need to remember a piece of information. Eg. `Enters item number' or `Presents item price'\\\\
+\textcolor{Emerald}{\textbf{Domain Model:}} The domain model ends up being a \emph{visual dictionary} of the noteworthy abstractions, domain vocabulary and information content of the domain.\\\\
+\textcolor{Emerald}{\textbf{System Sequence Diagrams (SSD):}} A visualisation of the system events that external actors generate, models the order of the events and possible inter-system events.\\\\
+\indent \textcolor{Emerald}{Actor:} Person engaging with the system \\ 
+\indent \textcolor{Emerald}{System:} Presented as a black box, we can send and recieve events without acknowledging how the \indent system would implement said event.  \\
+\indent \textcolor{Emerald}{Event:} A brief message outlining what is happening. Can contain parameters if necessary. Should \indent be worded generally rather than mentioning specific implementations. Eg. `Tap card' and \\
+\indent`Enter card', here `Enter' would be a better event as it is more general. \\
+\indent \textcolor{Emerald}{Response:} A return value associated with the previous message. From the system. \\
+\indent \textcolor{Emerald}{Loop:} Can repeat events, represented by a box over relevant events. \\ \\
+\textcolor{Emerald}{\textbf{Dynamic Context:}} Captured using SSD. Shows how an actor and system can interact with each pther, as opposed to a Use Case Diagram, which limits the interaction to user-goal level cases.\\\\
+\textcolor{Emerald}{\textbf{Inter-system Events:}} SSD can also illustrate interactions between systems, for example a POS and an external credit card verifier. \\\\
+\textcolor{Emerald}{\textbf{Summary:}} Both \textcolor{Emerald}{Domain models} and \textcolor{Emerald}{Sequence System Diagrams} are expressed at the abstract level of intention (no need for code yet). \textcolor{Emerald}{Domain models} provide a static context of the system, becoming similar to a visual dictionary. \textcolor{Emerald}{Sequence System Diagrams} provides a dynamic context of a system, by outlining \emph{noteworthy} interactions between an actor and a system.\\\\
+
+\section*{Lecture 3 - Design Class Diagrams \& Design Sequence Diagrams}
+\textcolor{SeaGreen}{\textbf{Static Design Model:}} A representation of software objects which define class names, attributes and method signatures (but not method bodies). Attributes also have a type (int, string etc). 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Uses UML notation (like domain models)
+\item \textcolor{Emerald}{Domain Models} focuses on the conceptual perspective of the problem domain (eg. high level ideas and noteworthy concepts)
+\item \textcolor{SeaGreen}{Design Models} focuses on an implementation perspective of software (eg. how software classes interact and their main role/purpose)
+\item Domain models inspire the design of software objects, and similar notation is used to reduce the representational gap between the domain as a concept and its representation in software
+\end{itemize}
+
+\noindent \textcolor{SeaGreen}{\textbf{Responsiblity-Driven Design (RDD):}} Focuses on assigning responsibility to software objects, i.e what each object should achieve.\\\\
+\textcolor{SeaGreen}{\textbf{Responsiblity:}} The obligations or behaviours of an object in terms of its role.\\\\
+\indent \textcolor{SeaGreen}{Knowing:} An object contains information about private, encapsulated data, or knows about \\
+\indent related objects, or things it can derive/calculate. \\
+\indent \textcolor{SeaGreen}{Doing:} An object has a method that `does' something, like creating an object, doing a calculation, \indent controlling other objects or initiating actions in other objects \\ \\
+\textcolor{SeaGreen}{\textbf{Dynamic Design Models:}} A dynamic design model is a representation of how software objects interact via messages. Also illustrates a sequence based of time ordering of messages sent between software objects.
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{Emerald}{System Sequence Diagram} treats the system as a black box, and focuses on the interaction between actors and the system.
+\item \textcolor{SeaGreen}{Design Sequence Diagram} illustrates the behaviours within the system, focusing on the interaction between software objects. One entry in the SSD could equate to multiple in the DSD depending on the objects required. 
+\item Design Sequence Diagrams focuse more in realizing the responsiblities of software objects, and again has similar notation to SSDs. 
+\end{itemize}
+
+\newpage 
+\section*{Lecture 4 - GRASP Principles I}
+\textcolor{CornflowerBlue}{\textbf{Responsibility Driven Design (RDD):}} Focuses on assigning responsibility to software objects.
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{CornflowerBlue}{Knowing Responsibilities:}
+	\begin{itemize}
+	\item knowing about private encapsulated data 
+	\item knowing about related objects 
+	\item knowing about things it can derive or calculate
+	\end{itemize} 
+\item \textcolor{CornflowerBlue}{Doing Responsibilities:}
+	\begin{itemize}
+	\item doing something itself, like creating an object or doing a calculation 
+	\item initiating action in other objects 
+	\item controlling or coordinating activities in other objects 
+	\end{itemize}
+\end{itemize}
+\textcolor{CornflowerBlue}{\textbf{GRASP:}} A set of patterns or principles of assigning responsibilities into an objects. Given a specific category of a problem, we can use GRASP to guide the assignment of responsibilities to objects.\\\\
+\indent \textcolor{CornflowerBlue}{Pattern:} A \emph{named} and \emph{well-known} problem/solution pair that can be applied in new contexts. \\
+\indent Alternatively, could be a recurring successful application of expertise in a particular domain\\\\
+\\
+\textcolor{CornflowerBlue}{\textbf{Creator:}} Deals with object creation. \\\\
+\indent \textcolor{CornflowerBlue}{Problem:} Who should be responsible for creating a new instance of class A? \\\\
+\indent \textcolor{CornflowerBlue}{Solution:} Assign class B responsibility to create instances of class A if one of these is true. 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item If more than one of these classes are applicable, then the `contains' takes precedence. Otherwise the class that has the most would be assigned.
+	\begin{itemize}
+	\item B `contains' or compositely aggregates A 
+	\item B records A 
+	\item B closely uses A 
+	\item B has the initializing data for A
+	\end{itemize}
+\end{itemize}
+\indent \indent \textcolor{CornflowerBlue}{Contradictions:} If creation of objects has significant complexity, then it would be advisable to \\
+\indent delegate creation to a factory class. \\\\
+\\
+\textcolor{CornflowerBlue}{\textbf{Expert:}} Also known as Information Expert. Useful for understandibility, maintainability, and extendibility.\\\\
+\indent \textcolor{CornflowerBlue}{Problem:}What is a general principle of assigning responsibilities to objects? \\\\
+\indent \textcolor{CornflowerBlue}{Solution:} Assign the responsibility to object X if X has the information to fulfill that \\
+\indent responsibility. \\\\
+\indent \textcolor{CornflowerBlue}{Contradictions:} In some situations, the solution suggested by Expert is undesirable, usually \\
+\indent because of problems in high dependencies. \\\\
+\newpage
+\noindent \textcolor{CornflowerBlue}{\textbf{Low Coupling:}} An \emph{evaluative principle} that should be kept in mind during all design decisions. Useful to maintain a system and keep it efficient and reusable.\\\\
+\indent \textcolor{CornflowerBlue}{Problem:} How to support low dependency, low change impact and increased reuse?
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{CornflowerBlue}{Coupling:} how strongly one element is connected to (has knowledge of, or relies on) other elements. 
+\item \textcolor{CornflowerBlue}{Low Coupling:} An element is not dependent on too many other elements.
+\item \textcolor{CornflowerBlue}{High Coupling:} Depends on too many other elements, hard to understand in isolation, hard to reuse, one change impacts many classes (high impact change).
+\end{itemize}
+\indent \indent \textcolor{CornflowerBlue}{Solution:} Assign the responsibility to object X that is the least coupled. \\\\
+\indent \textcolor{CornflowerBlue}{Contradictions:} Being highly coupled with stable elements (eg. Standard Java Libraries) \\
+\indent should not be a problem, since they are unlikely to be changed often. \\\\
+\\
+\textcolor{CornflowerBlue}{\textbf{High Cohesion:}} Also an evaluative principle that should be kept in mind during all design decisions. Used to keep a class focused, easing the comprehension of a design, simplify maintainability and enhancement.\\\\
+\indent \textcolor{CornflowerBlue}{Problem:} How to keep objects focused, understandable, and manageable, and as a side effect, \\
+\indent support low coupling? 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{CornflowerBlue}{Functional Cohesion:} How strongly related and focused the responsibilities of an element are
+\item \textcolor{CornflowerBlue}{Low Cohesion:} A class has many unrelated things or does too much work, resulting in code being hard to comprehend, maintain and reuse. 
+\end{itemize}
+\indent \indent \textcolor{CornflowerBlue}{Solution:} Assign the responsibility to object X, so that cohesion remains high. \\\\
+\indent \textcolor{CornflowerBlue}{Contradictions:} Low cohesion may be preferable in cases where we want the design to meet\\ \indent non-functional requirements. Eg. Calculations in one class can make operations faster. \\\\
+\textcolor{CornflowerBlue}{\textbf{Controller:}} \\\\
+\indent \textcolor{CornflowerBlue}{Problem:} What first object beyond the UI layer receives and coordinates a system operation?\\\\
+\indent \textcolor{CornflowerBlue}{Solution:} Assign the responsibility to a class representing one of:
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{CornflowerBlue}{Facade Controller:}The overall system, a root object, a device the software is running within, or a major subsystem.
+\item \textcolor{CornflowerBlue}{Use Case or Session Controller:} A use case scenario that deals with the event.
+\end{itemize}
+\indent \indent \textcolor{CornflowerBlue}{Contradictions:} If the controller is too bloated, low cohesion. \\
+\indent We would have to add in more controllers, or delegate information so that the controller only focuses \\
+\indent on user input.
+
+\newpage
+\section*{Lecture 5 - GRASP Principles II}
+\textcolor{CornflowerBlue}{\textbf{Class Hierarchy:}} Also known as Generalization - Specialization, or Inheritance. Used when concepts are similar, and it is valuable to organize them. \\\\
+\indent \textbf{Generalization:} The activity of identifying commonality among concepts: 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Define the superclass (general concept)
+\item Define relationships with subclasses (specialized concepts)
+\item Conceptual subclasses and superclasses are related in terms of set membership. Generally subclasses are a subset of superclasses.
+\end{itemize}
+\indent \indent \textbf{Creating subclasses}: 
+\begin{enumerate}
+\item Subclass has additional attributes of interest 
+\item Subclass has additional associations of interest 
+\item Subclass is operated on, reacted to, or manipulated differently to the other classes in noteworthy ways 
+\end{enumerate}
+\indent \indent \textbf{Modelling Guidelines}: 
+\begin{enumerate}
+\item Declare superclasses abstract 
+\item Append the superclass name to the subclass
+\end{enumerate}
+\textcolor{CornflowerBlue}{\textbf{Polymorphism:}} Goes with generalization, assigning responsibility to subclasses for implementing different behaviours. \\\\
+\indent \textcolor{CornflowerBlue}{Problem:} How to handle alternative behaviour based on types? \\
+\indent \textcolor{CornflowerBlue}{Problem:} How to create pulggable software components? \\\\
+\indent \textcolor{CornflowerBlue}{Solution:} When related alternatives or behaviours vary by type (class), assign responsibility for \\
+\indent the behaviour - using polymorphic operations - to the types for which the behaviour varies. \\\\
+\indent \textcolor{CornflowerBlue}{Contradictions:} If the system is unlikely to have a variation in the future, then using \\
+\indent polymorphism would be exerting extra effort.\\ \\
+\textcolor{CornflowerBlue}{\textbf{Pure Fabriaction:}} Adding a extra class to improve cohesion that doesn't actually exist. \\\\
+\indent \textcolor{CornflowerBlue}{Problem:} What object should have responsibility when you do not want to violate high cohesion \\
+\indent and low coupling, but solutions offered by other patterns are no appropriate.\\ \\
+\indent \textcolor{CornflowerBlue}{Solution:} Assign a highly cohesive set of responsibilities to an artificial or convenience class that \\
+\indent does not represent a problem domain concept. \\ \\
+\indent \textcolor{CornflowerBlue}{Contradictions:} Pure fabrication can end up being overused, having too many objects where the\\
+\indent objects has one responsibility is not a good a design. \\
+\indent Can also lead to high dependencies if too seperated. \\ \\
+\textcolor{CornflowerBlue}{\textbf{Indirection:}} Goes with Pure Fabrication. \\\\
+\indent \textcolor{CornflowerBlue}{Problem:} Where to assign a responsibility, to avoid direct coupling between two or more things?\\ \\
+\indent \textcolor{CornflowerBlue}{Solution:} Assign the responsibility to an intermediate object to mediate between other components \\
+\indent or services so that they are not directly coupled. This creates an indirection. \\
+\indent Eg. A $\rightarrow$ B, if something changes in class A, you have to change class B as well.		 \\ 
+\indent A $\rightarrow$ C $\rightarrow$ B, if something changes in class A, then you would just change class C, and leave B alone. \\
+\indent This allows us to reuse class A and B. \\\\
+\textcolor{CornflowerBlue}{\textbf{Protected Variations:}} \\\\
+\indent \textcolor{CornflowerBlue}{Problem:} How to design objects. subsystems, and systems so that the variations or the \\ \indent instability in these elements do not have an undiesirable impact on other elements? 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Points of change: 
+\item Variation point: variations in existing system or requirements 
+\item Evolution point: speculative variations that may arise in the future
+\end{itemize}
+\indent \indent  \textcolor{CornflowerBlue}{Solution:} Identify points of known or predicted variation/instability. Assign responsiblities to create \\
+\indent a stable interface (point of access) around them. \\
+\indent Eg. a getTax() method may change depending on the system. As long as the adapter has a getTax() \\
+\indent method, it can be reused. \\\\
+\indent \textcolor{CornflowerBlue}{Contradiction:} Similar to polymorphism, may not be required depending on the scope. \\\\
+\newpage
+\section*{Lecture 6 - State Machine Diagrams}
+\textcolor{Cerulean}{\textbf{State Machine:}} A behaviour model that captures the dynamic behaviour of an object in terms of states, events and state transitions.\\
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{Cerulean}{State:} the condition of an object at a moment in time (circle or box)
+\item \textcolor{Cerulean}{Event:} a significant or noteworthy occurence that affects the object to change a state (label on arrow)
+\item \textcolor{Cerulean}{Transition:} a directed relationship between two states such that an event can cause the object to change from a prior state to the subsequent state (arrow)
+\end{itemize}
+\textcolor{Cerulean}{\textbf{State-dependent object:}} Reacts differently to events depending on the object's current state. \\\\
+\textcolor{Cerulean}{\textbf{State-independent object:}} Reacts to events (of interest) the same way, regardless of the object's state.\\\\
+\textcolor{Cerulean}{\textbf{State-independent wrt an event:}} Reacts to a specific event the same way. \\\\
+\textcolor{Cerulean}{\textbf{Application of State Machine Diagrams:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{Cerulean}{Guideline 1:} Consider state machines for state-dependent objects with complex behaviour. \\
+I.e if an object changes according to a state, and if it's complex enough to be modelled. 
+\item \textcolor{Cerulean}{Guideline 2:} Complex state-dependent classes are less common for business information systems, and more common in communcations and control applications.\\
+E.g. Better for UI, or systems with actions, rather than storing information. 
+\end{itemize}
+\textcolor{Cerulean}{\textbf{Transiton Action:}} An actions that happens when a transition happens, but before a state change. Eg. if a button is clicked, then the action that could happen after is a loading screen, before it arrives at the next page.\\\\
+\textcolor{Cerulean}{\textbf{Trigger:}} The event/action that happens in order to change states. Eg. Clicking a button.\\\\
+\textcolor{Cerulean}{\textbf{Guard:}} A pre-condition to a transition, if the condition is not true when the trigger happens, then there will be no transition or change of state.\\\\
+\textcolor{Cerulean}{\textbf{Nested state:}} A state allows nesting to contain substates. A substate inherits transitions of its superstate. At any point of a substate, it can call any transition of the superstate. Eg. If a superstate has action hang up, then the substate talking, dialing etc. can all hang up.\\\\
+\textcolor{Cerulean}{\textbf{Choice Pseudostate:}} Evaluates the different paths of a guard. For example if a guard is true, moves to state A, otherwise if it is false it can move to state B. \\\\
+\newpage 
+\section*{Lecture 7 - GoF Part 1}
+\textcolor{Periwinkle}{\textbf{Adapter:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item\textcolor{Periwinkle}{Problem:} We have a system with incompatible interfaces, or want to provide a stable interface to similar components with different interfaces. 
+\item\textcolor{Periwinkle}{Solution:} Convert the interface of a component into another interface, through an adapter object. \\ 
+i.e for every interface, create an adapter interface that is compatiable with the class we want to use it with. Rather than changing the main class, we can change each adapter if the original classes change. 
+\item\textcolor{Periwinkle}{Issues:} Assigning creation of classes, which can be solved using Pure Fabrication. 
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Factory:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item\textcolor{Periwinkle}{Problem:} Who should be responsible for object creation, when there are special considerations or complex creation logic, and we want to seperate the responsibilities to improve cohesion? 
+\item\textcolor{Periwinkle}{Solution:} Use Pure Fabrication to create a Factory object that handles creation.
+\item\textcolor{Periwinkle}{Advantages:} Hides complicated logic, allows memory management, and improves cohesion.
+\item\textcolor{Periwinkle}{Issues:} Who creates the factory, and how do we access it from multiple places? We can use the singleton pattern if global visibility is required. 
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Singleton:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item\textcolor{Periwinkle}{Problem:} How to create an object with only one instance, and a global, single point of access. 
+\item\textcolor{Periwinkle}{Solution:} Define a static method of the class that returns the singleton. (getInstance)
+\item\textcolor{Periwinkle}{Considerations:} Not all methods should be static, eg. if we want subclasses, of it the class we're using may not support the method. 
+\end{itemize}
+\section*{Lecture 8 - GoF Part 2}
+\textcolor{Periwinkle}{\textbf{Strategy:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item\textcolor{Periwinkle}{Problem:} How to design for varying, but related algorithms and policies? How to design for the ability to change these algorithms or policies?  
+\item\textcolor{Periwinkle}{Solution:} Define each algorithm/policy/strategy in a seperate class with a common interface. (Same method name but different implementations)
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Composite:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item\textcolor{Periwinkle}{Problem:} How to treate a group or composition structure of objects the same way (polymorphically) as a non-composite (atomic) object? (ie. a tree and a leaf should both die, a tree consists of multiple leaves)
+\item\textcolor{Periwinkle}{Solution:} Define classes for composite and atomic objects so they implement the same interface. Eg. Both the atomic and composite class inherit from the interface, but composite class also uses the interface (extra association). 
+\item\textcolor{Periwinkle}{Issues:} Combining components may result in having multiple methods but we need to specify the method we want to use.  
+\end{itemize}
+\section*{Lecture 9 - GoF Part 3}
+\textcolor{Periwinkle}{\textbf{Facade:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item\textcolor{Periwinkle}{Problem:} Require a common interface to a disparate set of implementations within a subsystem. Eg. having slightly different implementation of the same subsytem.
+\item\textcolor{Periwinkle}{Solution:} Define a single point of contact to the subsystem - a facade object that wraps the subsystem. The facade object presents a single, unified interface and is responsible for collaborating with the subsystem components. (Rather than attaching different classes to different classes within a subsystem - many to many, we can instead have a facade - many to one to many - which reduces the overall coupling. Changing a class within a subsystem also requires the class to be changed once in the facade as opposed to many times in the different classes)
+\item\textcolor{Periwinkle}{Considerations:} \\
+A facade is different to a controller, as it provides a simpler interface of a complex subsystem for a client class. A controller handles user input. \\ 
+A facade is different to an adapter, as it wraps an entire system to a single object \\ 
+(subsystem $\rightarrow$ facade $\rightarrow$ clients). \\
+An adaptor wraps each API with a varying interface to produce a single interface \\
+(specific class $\rightarrow$ specific adapter class $\rightarrow$ generalised adapter class). 
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Decorator:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item\textcolor{Periwinkle}{Problem:} How to dynamically add behaviour or state to individual objects at run-time without changing the interface presented to the client? (Optional embellishment of an existing class, not replace it) 
+\item\textcolor{Periwinkle}{Solution:} Encapsulating the original concrete object inside an abstract wrapper interface. Then let the decorators that contain the dynamic behaviours also inherit from this abstract interface. The decorators that contain dynamic behaviours also inherits from this abstract interface. The interface then uses recursive composition to allow an unlimited number of decorator `layers' to be added to each core objects. 
+\item\textcolor{Periwinkle}{Considerations:} The decorator can only decorate one object, and it must exist to be able to be decorated. (Can't make a triangle red if no triangles exist). Also different to Strategy - decorator changes a skin of an object, strategy changes the implementation (guts)
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Observer:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item\textcolor{Periwinkle}{Problem:} How to have different `subscriber' objects react to the changes or events of a `publisher' object with low coupling? 
+\item\textcolor{Periwinkle}{Solution:} Define a `subscriber' or `listener' interface. Subscribers implement this interface and the publisher can dynamically register subscribers (add them to a list) and notify them when an event occurs (go through list and call a generic `action' method that has the same name but different implementation across subscribers)
+\item\textcolor{Periwinkle}{Considerations:} An interfaces allows different types of listeners to subscribe. 
+\end{itemize}
+\newpage 
+\section*{Lecture 10 - Architectural Analysis}
+\textcolor{Purple}{\textbf{Software Architecture:}} The large-scale organization of elements in a software system. \\\\
+\textcolor{Purple}{\textbf{Architectureal Analysis:}} An activity to identify factors that will influence the architecture, understand their variability and priority and resolve them. Identify and resolve the system's non-functional requirements in the context of its functional requirements.\\\\
+\textcolor{Purple}{\textbf{Architecturally signficant requirement:}} The requirement that can have a large impact on the design (especially when not considered at the beginning). Can also consider variation points and potential evolution points.\\\\
+\textcolor{Purple}{\textbf{Architectural Analysis Steps:}}
+\begin{enumerate}
+\item Identify/analyse architectural factors: requirements with impact on the architecture (especially non-functional requirements)
+\item For the architectureal factors, analyse alternatives and create solutions: architectural decisions (eg. remove requirement, customised solutions, hire an expect etc.)
+\end{enumerate}
+\textcolor{Purple}{\textbf{Priorities:}} 
+\begin{enumerate}
+\item Inflexible constraints \\ 
+eg. safety, security, legal compliance
+\item Business goals \\
+eg. demo for clients, deadlines
+\item Other goals \\
+eg. being extendible, like having a new release every 6 months 
+\end{enumerate}
+\textcolor{Purple}{\textbf{Architectural Factor Table:}} A documentation that records the influence of the factors, their priorities and their variability (immediate need for flexibility and future evolution)
+\begin{enumerate}
+\item Factor: What should be considered 
+\item Measures and quality scenarios: Ideal solutions to a situation 
+\item Variability (current flexibility and future evolution): How the system will be used in the future 
+\item Impact of factor(and its variability) on stakeholders, architecture and other factors: How important is this?
+\item Priority for success 
+\item Difficulty or risk 
+\end{enumerate}
+\textcolor{Purple}{\textbf{Technical Memo:}} A documentation that records alternative solutions, decisions and influential factors, and motivations for the noteworthy issues and decisions
+\begin{enumerate}
+\item Issue 
+\item Solution summary 
+\item Factors 
+\item Solution 
+\item Motivation 
+\item Unresolved Issues 
+\item Alternatives considered 
+\end{enumerate}
+\newpage
+\noindent \textcolor{Purple}{\textbf{Architecural Analysis Summary:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Concerns are related to non-functional requirements with awareness of business context, but also addresses functional requirements and their vairability 
+\item Concerns involve system-level, large-scale, broad problems, with resolution involving large-scale, or functional design decisions
+\item Must address interdependencies and trade-offs (eg. security vs performance, or anything vs cost)
+\item Involves the generation and evaluation of alternatives 
+\end{itemize}
+\textcolor{Purple}{\textbf{Logical Architecture:}} The large scale organisation of the software classes into packages, subsystems and layers\\\\
+\textcolor{Purple}{\textbf{Layered Architecture:}} Coarse-grained grouping of classes, packages or subsystems that has a cohesive responsibility for a major aspect of the system. Eg. User interface or domain objects (sale class). UI may consist of many subsystems/logic classes however the main goal is to act as an access point for a user. \\\\
+\textcolor{Purple}{\textbf{Strict layered Architecture:}} A layer that only calls upon the services of the layer directly below it (eg. a network protocol stack), which is uncommon in information systems\\\\
+\textcolor{Purple}{\textbf{Relaxed layered Architecture:}} A higher layer can call upon several lower layers. Common in information systems.\\\\
+\textcolor{Purple}{\textbf{Guidelines:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Organise large-scale logical structure of system into distinct cohesive layers from high application specifics to low general services\\
+Maintain a seperation of concerns, eg. don't put application logic in the same layer as UI objects, each layer should have a cohesive purpose
+\item Collaboration and coupling should be from higher layer to lower layers. Avoid coupling from lower to higher layers. 
+\item Don't use external resources as a bottom layer (can be ignored)
+\end{itemize}
+\textcolor{Purple}{\textbf{Implementation View Architecture:}} Utilises components and focuses on how to access each component and their relationships.\\\\
+\textcolor{Purple}{\textbf{Component:}} A modular part of a system that encapsulates its contents is replaceable within its environment.\\\\
+\textcolor{Purple}{\textbf{Component Diagram:}} Is concerned with how to implement the software system in a high level, defines behaviour in terms of provided and required interfaces, provides the initial architecture landscape for a system. A component can be a class, or external resource (eg. database)
+\newpage 
+\section*{Lecture 11 - Case Study and Software Process}
+\textcolor{Rhodamine}{\textbf{Lessons:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Client's perspective: Critical, but also need analysis to get the full picture 
+\item Understanding of business requirements is also critical, missing elements can make the system unusable. At minimum should fufill the main business requirements 
+\item Knowing the final prodict is the easy part, planning and executing an acceptable path is the real challenge. Designing helps to provide options. 
+\end{itemize}
+\textcolor{Rhodamine}{\textbf{Unified Process:}} An iterative and incremental software development process\\\\
+\textcolor{Rhodamine}{\textbf{Schedule Oriented Terms in Unified Processes:}} The development cycle consists of four main blocks: Inception, Elaboration/Iteration, Construction, Transition\\\\
+\textcolor{Rhodamine}{\textbf{Inception:}} Inception is the initial short step to establish a common vision and basic scope for the project. \\
+Outcomes:
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Common vision and basic scope for the project 
+\item Creation of a business case (addressing costs)
+\item Analysis of around 10\% of use cases 
+\item Analysis of critical non-functional requirements 
+\item Preparation of the development environment
+\item Prototypes(maybe): to clarify requirements or technology questions 	
+\item Go or no go decision 
+\end{itemize}
+\textcolor{Rhodamine}{\textbf{Elaboration:}} The initial series of iterations for building the core architecture, resolving high-risk elements, defining more requirements and estimating the overall schedule and resources.
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Produce an executable architecture 
+\item The majority of requirements are discovered and stabilized 
+\item The major risks are mitigated or retired 
+\item May create a domain model, design model, software architecture document, data model, use-case story board or UI prototypes 
+\item Around 80\% of the requirements should be reliably defined 
+\end{itemize}
+Depending on the use case, it may require several \emph{iterations} for the features to be planned. We can split this up into mini blocks in the elaboration process. Eg. Block 1, start with 20\% of the use case, then Block 2 50\% etc.  \\\\
+\textcolor{Rhodamine}{\textbf{Iteration:}}\\
+\indent Requirements: Do the right thing (validation) \\ 
+\indent Design: Do the thing right (verification)\\\\
+\textcolor{Rhodamine}{\textbf{Designing Objects:}}
+\begin{enumerate}
+\item \textbf{Code:} From mental model to code. Designing while coding with an IDE which supports refactoring and other high-level operations. 
+\item \textbf{Draw then Code:} Drawing UML on a whiteboard or a UML CASE tool then switching to 1 (Coding). 
+\item \textbf{Only Draw:} Use a tool that generates code from diagrams. 
+\end{enumerate}
+\textcolor{Rhodamine}{\textbf{Agile Modelling and Lightweight UML Drawing:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Modelling with other developers 
+\item Static and dynamic models (Class and interaction diagrams, can create several models in parallel)
+\item Hand draw or use whiteboards
+\item UML tools, use IDE integrations 
+\end{itemize}
+\textcolor{Rhodamine}{\textbf{Object Design Skills:}} The design of an object us more important than just knowing UML Notation. Eg. Principles of responsibility and design patterns\\\\
+\textcolor{Rhodamine}{\textbf{Summary:}} Inception establishes a common vision and basic scope for the project. Elaboration is where software modelling and design is performed. Translation requirements to design can be done iteratively.\\\\
+\end{document} 

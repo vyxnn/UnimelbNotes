@@ -1,0 +1,427 @@
+
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\section*{Week 2 - Logic}
+\textcolor{Purple}{\textbf{Well Formed Formulas (wff):}} A complete expression, i.e singular propositional letter, or enough variables in an expression. \\ \\
+\textcolor{Purple}{\textbf{Notation:}} Appearing in order of their bind tightness. (Allows us to drop parentheses)\\ \\
+\indent \textcolor{Purple}{Not ($\neg$) :} Negative that precedes a propositional letter, opposite of letter value\\ \\
+\indent \textcolor{Purple}{And ($\land$) :} Conjunction, \textbf{t} if both elements are \textbf{t}\\ \\
+\indent \textcolor{Purple}{Or ($\lor$) :} Disjunction, \textbf{t} if at least one element is \textbf{t} \\ \\
+\indent \textcolor{Purple}{XOR ($\oplus$) :} Exclusive Or, \textbf{t} if both elements are different\\ \\
+\indent \textcolor{Purple}{If Then ($\Rightarrow$) :} Implication, \emph{if} A is \textbf{t} \emph{then} return B, else \textbf{t} \\ \\
+\indent \textcolor{Purple}{Iff ($\Leftrightarrow$) :} If and only if, \textbf{t} if both elements are the same\\ \\
+\indent \textcolor{Purple}{Truth Table:}
+\begin{center}
+\begin{tabular}{|c | c || c | c | c | c | c | c| } 
+\hline
+A & B & $\neg$A & A $\land$ B & A $\lor$ B & A $\Rightarrow$ B & A $\Leftrightarrow$ B & A $\oplus$ B \\ 
+\hline 
+\hline
+ f & f & t & f & f & t & t & f \\
+ \hline 
+ f & t & t & f & t & t & f & t \\
+ \hline
+ t & f & f & f & t & f & f & t \\ 
+ \hline 
+ t & t & f & t & t & t & t & f \\
+ \hline 
+
+\end{tabular}
+\end{center}
+
+\indent \textcolor{Purple}{Nor ($\downarrow$):} Not or, opposite of or \\ \\
+\indent \textcolor{Purple}{Nand ($\uparrow$):} Not and, opposite of and \\
+
+\noindent \textcolor{Purple}{\textbf{Tenary Connectives:}} Connectives with 3 elements \\ \\
+\indent \textcolor{Purple}{If Then Else:} If A then B else C, if A is \textbf{t}, then return B, else return C\\ \\
+\indent \textcolor{Purple}{Median:} Median(A,B,C), chooses the majority of the 3 elements \\ \\
+
+\noindent \textcolor{Purple}{\textbf{Validity:}} A formula is \emph{valid} if no truth assignment makes it false (always \textbf{t}). Else \emph{non-valid}. \\ \\
+\textcolor{Purple}{\textbf{Truth Assignment:}} A combination of values we can assign to a formula. For example $\theta$ = \{A: \textbf{t} , B: \textbf{f}\} \\\\
+\textcolor{Purple}{\textbf{Satisfiability:}} A formula is \emph{unsatisfiable} if no truth assignment makes it true (always \textbf{f}). Otherwise it is \emph{satisfiable}.\\ \\
+\textcolor{Purple}{\textbf{Tautology:}} A valid propositional formula. Means that it is never false.\\ \\
+\textcolor{Purple}{\textbf{Contradiction:}} An unsatisfiable propositional formula. Means that it is never true\\ \\
+\textcolor{Purple}{\textbf{Vacuous:}} A valid statement can mean a void of information. For example A$\Rightarrow$A is always valid, and a vacuous statement as it provides no extra information other than if A is true, it is true. \\ \\
+\textcolor{Purple}{\textbf{Substitution:}} We can preserve validity by \emph{substitution} of propositional letters with formulas or expressions. All occurrences of the letter should be replaced by the same formula. Substitution also preserves unsatisfiability.\\ \\
+\textcolor{Purple}{\textbf{Model:}} If A makes F true, then A is a model of F. \\ \\
+\newpage
+\noindent \textcolor{Purple}{\textbf{Logical Consequence ($\models$):}} G is a \emph{logical consquence} of F iff every model of F is a model of G. In other words, everything that makes F true must also make G true.  \\ 
+
+\indent F and G have the same truth cases \\
+\indent \{Models of F\} $\subseteq$ \{Models of G\} \\
+\indent Notation: F $\models$ G \\
+
+\noindent \textcolor{Purple}{\textbf{Logical Equivalence ($\equiv$):}} If F $\models$ G, and G $\models$ F then F and G are logically \emph{equivalent}\\
+
+\indent F and G have the same logic table values \\
+\indent \{Models of F\} = \{Models of G\} \\
+\indent Notation: F $\equiv$ G \\ 
+
+\noindent \textcolor{Purple}{\textbf{Equivalence:}} Preserves logical equivalence, logical consequence, validity \\ \\
+\indent \textcolor{Purple}{Absorption:}  Anything with itself is still itself\\ \\
+\indent P and P equals P, P or P equals P \\
+\indent \indent P $\land$ P $\equiv$ P \\
+\indent \indent P $\lor$ P $\equiv$ P \\
+
+\indent \textcolor{Purple}{Communtativity:} Order doesn't matter\\ \\
+\indent \indent P $\land$ Q $\equiv$ Q $\land$ P \\
+\indent \indent P $\land$ Q $\equiv$ Q $\lor$ P \\
+
+\indent \textcolor{Purple}{Associativity:} Brackets don't matter \\ \\
+\indent \indent P $\land$ (Q $\land$ R) $\equiv$ (P $\land$ Q) $\land$ R \\
+\indent \indent P $\lor$ (Q $\lor$ R) $\equiv$ (P $\lor$ Q) $\lor$ R \\
+
+\indent \textcolor{Purple}{Distributivity:} Can expand the brackets \\ \\
+\indent \indent P $\land$ (Q $\lor$ R) $\equiv$ (P $\land$ Q) $\lor$ (P $\land$ R) \\
+\indent \indent P $\lor$ (Q $\land$ R) $\equiv$ (P $\lor$ Q) $\land$ (P $\lor$ R) \\
+
+\indent \textcolor{Purple}{Double Negation:} Two negatives makes a positive \\ \\
+\indent \indent P $\equiv$ $\neg \neg$ P \\
+
+\indent \textcolor{Purple}{De Morgan:} Not(A something B) = Not A (opposite something) Not B\\ \\
+\indent \indent $\neg$(P $\land$ Q) $\equiv$ $\neg$ P $\lor$ $\neg$ Q \\
+\indent \indent $\neg$(P $\lor$ Q) $\equiv$ $\neg$ P $\land$ $\neg$ Q \\
+
+\indent \textcolor{Purple}{Implication:} If P is \textbf{f}, then result is \textbf{t} or $\neg$P. Otherwise $\neg$P is \textbf{f} and the result is determined by Q \\ \\
+\indent \indent P $\Rightarrow$ Q $\equiv$ $\neg$P $\lor$ Q \\
+
+\indent \textcolor{Purple}{Contraposition:} Reverse equation and swap signs on If Then expressions\\ \\
+\indent \indent $\neg$P $\Rightarrow$ $\neg$Q $\equiv$ Q $\Rightarrow$ P \\
+\indent \indent P $\Rightarrow$ $\neg$Q $\equiv$ Q $\Rightarrow$ $\neg$P \\
+\indent \indent $\neg$P $\Rightarrow$ Q $\equiv$ $\neg$Q $\Rightarrow$ P \\
+
+\indent \textcolor{Purple}{Biimplication:} \textbf{t} if both P and Q are true, or both false\\ \\
+\indent \indent P $\Leftrightarrow$ Q $\equiv$ (P $\land$ Q) $\lor$ ($\neg$P  $\land$ $\neg$Q)
+
+\newpage
+\noindent \textcolor{Purple}{\textbf{Last Equivalences:}} \\ \\
+\indent \textcolor{Purple}{($\bot$):} Any unsatisfiable formula\\ \\
+\indent \textcolor{Purple}{($\top$):} Any valid formula\\ \\
+\indent \textcolor{Purple}{Duality:} Not unsatisfiable/valid equals opposite\\ \\
+\indent \indent $\neg \top \equiv \bot$ \\
+\indent \indent $\neg \bot \equiv \top$ \\
+
+\indent \textcolor{Purple}{Negation from Absurdity:} If P then it's unsatisfiable is the same as not P\\ \\
+\indent \indent P $\Rightarrow \bot \equiv \neg$ P \\
+
+\indent \textcolor{Purple}{Identity:} \\ \\
+\indent \indent P $\lor$ $\bot \equiv$ P \\
+\indent \indent P $\land$ $\top \equiv$ P \\
+
+\indent \textcolor{Purple}{Dominance:}\\ \\
+\indent \indent P $\land$ $\bot \equiv \bot$  \\
+\indent \indent P $\lor$ $\top \equiv \top$  \\
+
+\indent \textcolor{Purple}{Contradiction:} P and Not P is always unsatisfiable (\textbf{f})\\ \\
+\indent \indent P $\land$ $\neg$P $\equiv \bot$ \\ 
+
+\indent \textcolor{Purple}{Excluded Middle:} P or Not P is always valid (\textbf{t})\\ \\
+\indent \indent P $\lor$ $\neg$P $\equiv \top$ \\ 
+
+\begin{tabular}{|c | c || c | c |}
+\hline
+ P & $\neg$P & P $\land$ $\neg$P & P $\lor$ $\neg$P\\
+\hline 
+0 & 1 & 0 & 1\\
+\hline 
+1 & 0 & 0 & 1\\
+\hline
+\end{tabular} \\ \\
+
+\newpage 
+\section*{Week 3 - Symbolic Deduction and  Predicate Logic}
+\noindent \textcolor{RoyalPurple}{\textbf{Literal:}} Describes a propoisitonal letter or its negation.\\ \\ 
+\noindent \textcolor{RoyalPurple}{\textbf{Conjunctive Normal Form (CNF):}} It is a conjunction of clauses, where the clauses are disjunctions of literals. \\ \\
+\indent Eg. (A$\lor$ $\neg$B) $\land$ (B $\lor$ C $\lor$ D) $\land$ A \\
+\indent Note: The brackets or a single literal is considered a clause \\\\
+\noindent \textcolor{RoyalPurple}{\textbf{Disjunctive Normal Form (DNF):}} A disjunction of clauses, where the clauses are conjunction of literals \\ \\
+\indent Eg. ($\neg$A $\land$ $\neg$ B) $\lor$ ($\neg$B $\land$ C) $\lor$ (A $\land$ $\neg$ D) \\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Conversion:}} Every propositional formula can be expressed in both CNF or DNF. The steps to do so are as follows.
+\begin{enumerate}
+	\item \textcolor{RoyalPurple}{Eliminate all occurences of $\oplus$, using} \\
+	A $\oplus$ B $\equiv$ (A $\land$ B) $\lor$ ($\neg$A $\lor$ $\neg$B) 
+	\item \textcolor{RoyalPurple}{Eliminate all occurences of $\Leftrightarrow$, using} \\
+	A $\Leftrightarrow$ B $\equiv$ (A $\Rightarrow$ B) $\land$ (B $\Rightarrow$ B)
+	\item \textcolor{RoyalPurple}{Eliminate all occurences of $\Rightarrow$, using} \\
+	A $\Rightarrow$ B $\equiv$ $\neg$A $\lor$ B
+	\item \textcolor{RoyalPurple}{Use DeMorgan's Laws to push $\neg$ inward over $\land$ and $\lor$} \\
+	$\neg$(A $\land$ B) $\equiv$ $\neg$ A $\lor$ $\neg$ B \\
+	$\neg$(A $\lor$ B) $\equiv$ $\neg$ A $\land$ $\neg$ B
+	\item \textcolor{RoyalPurple}{Eliminate double negations using}
+	$\neg \neg$ A $\equiv$ A
+	\item \textcolor{RoyalPurple}{Use the distributive laws to get the final required form (CNF or DNF)}
+\end{enumerate}
+
+\noindent \textcolor{RoyalPurple}{\textbf{Reduced CNF:}} A CNF formula is in reduced CNF (RCNF) if, for each of its clauses, no propositional letter occurs twice. \\ \\
+\indent Eg. (A $\lor$ $\neg$B $\lor$ $\neg$A) $\land$ ($\neg$ C $\lor$ $\neg$B) $\land$ (C $\lor$ $\neg$A $\lor$ C $\lor$ B) \\
+\indent \indent $\equiv$ ($\neg$ C $\lor$ $\neg$B) $\land$ (C $\lor$ $\neg$A $\lor$ B) \\\\
+\noindent \textcolor{RoyalPurple}{\textbf{Canonical Form:}} If a normal form leads to a unique representation for every Boolean function. (CNF and DNF are not always unique)\\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{XOR Normal Form:}} A canonical form that presents the function in a `sum of products' form, using `exclusive or' and conjunction. \\\\
+Eg. (A $\Rightarrow$ B) $\land$ (B $\oplus$ C) $\equiv$ ABC $\oplus$ AC $\oplus$ B $\oplus$ C
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize} 
+\item P $\land$ Q abbreviates to PQ 
+\item For a formula $A_{1} \oplus A_{2} ... \oplus A_{n}$, it will be true if an odd number of \{$A_{1}, A_{2}, A{n}$\} is true.
+\item (P $\land$ Q) $\oplus$ Q $\equiv$ (P $\land$ Q) $\oplus$ (Q $\land$ Q) $\equiv$ PQ $\oplus$ Q \\
+\end{itemize} 
+\noindent \textcolor{RoyalPurple}{\textbf{Binary Decision Diagrams (BDD):}} Provides another canonical form through graph representation. Each literal is represented as a node, that results in either a \textbf{t} or \textbf{f} outcome. If there is only one outcome, we can easily determine if it is valid or unsatisfiable.\\ \\
+\newpage
+\noindent \textcolor{RoyalPurple}{\textbf{Clause:}} A set (disjunction) of literals \\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Clausal Form:}} Writing a formula in CNF using sets\\ \\
+\indent Eg. (P $\lor$ $\neg$Q $\lor$ S) $\land$ (P $\lor$ $\neg$R $\lor$ S) $\land$ ($\neg$S $\lor$ $\neg$P) $\land$ ($\neg$S $\lor$ Q $\lor$ R) \\ \\
+\indent Can be expressed as: \\ 
+\indent \{\{P, S, $\neg$Q\}, \{P, S, $\neg$R\}, \{$\neg$P, $\neg$S\}, \{Q, R, $\neg$S\}\} \\\\ 
+\noindent \textcolor{RoyalPurple}{\textbf{Empty Clauses ($\O$):}} The natural reading is dependent on the conjunction or disjunction. \\ \\
+\indent If it is a disjunction, the natural reading is \textbf{f}, as \textbf{f} is a neutral element for $\lor$, as \textbf{f} $\lor$ A $\equiv$ A. \\
+\indent Therefore $\O$ would be represented as $\bot$\\ \\
+\indent If it is a conjunction, the natural reading is \textbf{t}, \textbf{t} is a neutral element for $\land$. \\
+\indent Therefore $\O$ is represented as $\top$\\ \\
+\indent For CNF: \\
+\indent The set of $\O$ of clauses is valid. (Don't need to do anything to satisfy)\\
+\indent Any set \{$\O$, ...\} of clauses is unsatisfiable. (Can never satisfy an empty clause in a set)\\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Resolvent:}} A clause that is a logical consequence of two original clauses. \\ \\
+\indent Eg. Consider the two clauses $\neg$P $\lor$ A and P $\lor$ B \\ 
+\indent If P = \textbf{t}, it reduces to A and \textbf{t} \\
+\indent If P = \textbf{f}, it reduces to \textbf{t} and B \\
+\indent We get the clause A $\lor$ B as a logical consequence of the two clauses. \\\\
+\noindent \textcolor{RoyalPurple}{\textbf{Resolution Refutation:}} Through resolving clauses, we obtain a deduction of $\bot$ from S. Hence we can conclude that the formula is unsatisfiable. \\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Resolution Deduction:}} If we have clause \emph{C} from a set \emph{S} of clauses, there is a finite sequence $C_{1}, C_{2} ... C_{n}$ of clauses such that $C_{n}$ = C and for each member i, $C_{i}$ is either a member of S or a resolvent of $C_{members}$\\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Using Refutations:}} \\ \\
+\indent \textcolor{RoyalPurple}{Proving Validity:} Prove F is valid.
+\begin{enumerate}
+	\item Put $\neg$F in RCNF, yielding a set S of clauses. 
+	\item Refute S, or deduce $\bot$ from S. 
+\end{enumerate}
+\indent \indent From this, if the negation of F is unsatisfiable, then F is a tautology and valid. \\ \\
+
+\indent \textcolor{RoyalPurple}{Proving that it satisfies a condition:} Show F $\models$ G, ie, F satisfies some property G. \\ \\
+\indent We know that F $\models$ G iff F $\land$ $\neg$ G is unsatisfiable
+\begin{enumerate}
+	\item Negate G and bring into RCNF 
+	\item Add those clauses to the set F
+	\item Find a refutation of the resulting set of clauses. 
+	\item If we derive an empty clause or $\bot$, then F $\models$ G
+\end{enumerate}
+\newpage 
+\noindent \textcolor{RoyalPurple}{\textbf{Predicate Logic:}} Allows use to finitely express statements that deal with infinite collections of objects, and express relations, transitive verbs and relative pronouns. \\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Predicate:}} A function that maps individuals to \textbf{t} or \textbf{f}, similar to a propositional letter in propositional logic. Denoted with uppercase symbols.\\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Variables:}} Ranges over collections. Denoted with lowercase letters, and tend to be at the end of the alphabet. Constants are at the start. \\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Functions:}} Can take variables as inputs. Unlike predicates, does not return any value and we have the underlying assumption that it is true. Also denoted with lowecase letters.\\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Quantifiers:}} Specifies how many of a variable.\\ \\
+\indent \textcolor{RoyalPurple}{Existential Quantification ($\exists$):} There exists, a generalised or infinite $\lor$. \\
+\indent (If at least one is true, then it is true)\\ \\
+\indent \textcolor{RoyalPurple}{Universal Quantification ($\forall$):} For all, a generalised or infinite $\land$. \\
+\indent (All must be true to be true)\\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Arity:}} A number that says how many arguments the function takes. Each predicate symbol comes with an arity.\\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Term:}} Either a variable, a constant or a construction f($t_{1}...t_{n}$), where f is a function symbol of arity n, and each t is a term. Considered individual and an object.\\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Atomic Formula (Atom):}} A construction P($t_{1}...t{n}$) where P is a predicate symbol of arity n, and each t is a term. Is an assertion, and can be either true or false.\\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Literal:}} An atomic formula or its negation.\\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Bound:}} A variable which is in the scope of a quantifier, and binds that variable.\\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Free:}} If a variable is not bound, then it is free.\\ \\
+\noindent \textcolor{RoyalPurple}{\textbf{Closed:}} A formular with no free variable occurences.\\ \\
+\newpage 
+\section*{Week 4 - Predicate Logic, Semantics and Clausal}
+\noindent \textcolor{Violet}{\textbf{Interpretation:}} Also known as a structure. Consists of several parts:
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item A non-empty set \emph{D} (the domain or universe)
+\item An assignment, to each \textit{n}-ary predicate symbol \emph{P} of an \textit{n}-place function \textbf{p} : $D^{n} \rightarrow$ \{\textbf{f, t}\}
+\item An assignment, to each \textit{n}-ary function symbol \textit{g}, of an \textit{n}-place function \textbf{g}: $D^{n} \rightarrow D$ 
+\item An assignment to each constant \textit{a} of some fixed element of D
+\end{itemize}
+\noindent \textcolor{Violet}{\textbf{Formulas with free variables:}} To give meaning to formulas with free variables, we need a valuation and an interpretation. \\ \\
+\indent \textcolor{Violet}{Valuation:} $\sigma : var \rightarrow D$ for free variables \\
+\indent \textcolor{Violet}{Interpretation:} a way of interpreting atomic formulas and mathematical symbols (eg. $>$) \\
+\indent Note: connectives are given their usual meaning/interpretation \\ \\
+\indent Given an intepretation $I$, we can get a valuation function from terms automatically: 
+\begin{align*}
+\sigma(a) &= d \\
+\sigma(g(t_{1},...,t_{n})) &= \textbf{g}(\sigma(t_{1}),..., \sigma(t_{n})) 
+\end{align*}
+\indent where d is the element of D that \textit{I} assigns to \emph{a}, and \textbf{g} : $D^{n} \rightarrow D$ is the function that \textit{I} assigns to \textit{g} \\\\
+\noindent \textcolor{Violet}{\textbf{Truth of a Formula:}} \\ \\
+\indent If a formula is closed, then the truth of that formula depends only on the given interpretation. 
+\indent If the formula has free variables, then we want to define the truth of a formula compositionally. \\\\
+\noindent \textcolor{Violet}{\textbf{Making a Formula True:}} Given an interpretation \emph{I} with domain \emph{D} and a valuation {$\sigma$}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item $\sigma$ makes $P(t_{1},...,t_{n})$ true iff \textbf{p}$(\sigma(t_{1},...,\sigma(t_{n})))$ = \textbf{t}, where \textbf{p} is the meaning that \emph{I} gives \emph{P} \\ 
+i.e If $\sigma$ makes every instance of p true, then the equation is true. 
+\item $\sigma$ makes $\neg$F true iff $\sigma$ does not make F true \\ 
+i.e If $\sigma$ makes F false, then it must also make its negation true. 
+\item $\sigma$ makes $F_{1} \land F_{2}$ true iff $\sigma$ makes both of $F_{1}$ and $F_{2}$ true \\
+i.e Both statements must be made true by $\sigma$, similarily, if it was $\lor$, then at least one of $F_{1}, F_{2}$ needs to be true
+\item $\sigma$ makes $\forall$x F true iff $\sigma_{x \rightarrow d}$ makes F true for every d $\in$ D \\ 
+i.e For every value of x, where x is bound by D, sigma is true.\\
+\end{itemize} 
+
+ We can also define: \\
+\begin{equation*}
+\exists \textrm{x} \   F \equiv \neg \forall \textrm{x} \  \neg F
+\end{equation*}
+\\
+\indent Which the meaning of every other formula follows from. 
+\newpage 
+
+\noindent \textcolor{Violet}{\textbf{True in Interpretation:}} A wff F is \textcolor{Violet}{true in interpretation} iff every valuation makes F true (for \emph{I}). If it is not true, then it is \textcolor{Violet}{false in interpretation}.  \\ \\
+\noindent \textcolor{Violet}{\textbf{Model:}} A model for F is in interpretation \emph{I} such that F is true in \emph{I}. \\
+We write this as \emph{I} $\models$ F\\ \\
+\noindent \textcolor{Violet}{\textbf{Logically Valid:}} A wff F is logically valid iff every interpretation is a model for F. \\
+We write this as $\models$ F\\ \\
+\noindent \textcolor{Violet}{\textbf{Logical Consequence:}} $F_{2}$ is a logical consequence of $F_{1}$ iff \emph{I} $\models$  $F_{2}$ whenever \emph{I} $\models F_{1}$\\ 
+We write this as $F_{1} \models F_{2}$ \\\\
+\noindent \textcolor{Violet}{\textbf{Logical Equivalence:}} $F_{1}$ and $F_{2}$ are logically equivalent iff $F_{1} \models F_{2}$ and $F_{2} \models F_{1}$.\\
+We write this as $F_{1} \equiv F_{2}$ \\\\
+\noindent \textcolor{Violet}{\textbf{Closed Formula:}} A close wff F is
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{Violet}{satisfiable} iff \emph{I} $\models$ F for some interpretation \emph{I} \\
+- find one example where it is true
+\item \textcolor{Violet}{valid} iff \emph{I} $\models$ F for every interpretation \emph{I} 
+\item \textcolor{Violet}{unsastisfiable} iff \emph{I} $\nvDash$ F for every intepretation \emph{I}
+\item \textcolor{Violet}{non-valid} iff \emph{I} $\nvDash$ F for some interpretation \emph{I} \\
+- find one example where it is false
+\item F is valid iff $\neg$F is unsatisfiable
+\item F is non-valid iff $\neg$ F is satisfiable
+\end{itemize}
+\noindent \textcolor{Violet}{\textbf{Order of Quantifiers:}} The order of different quantifiers changes the meaning. If the quantifiers are the same, then the meaning stays the same.\\ \\
+\indent $\forall$x $\exists$y means for each x, there exists a y that satisfies something \\
+\indent $\exists$y $\forall$x means that there exists some y that satisfies something for every x \\\\
+\noindent \textcolor{Violet}{\textbf{Quantifier Rules:}} \\ \\
+\indent We cannot `push quantifiers in', however we can rearrange some formulas. 
+\begin{align*}
+\exists \textrm{x} \ (\neg F_{1}) &\equiv \ \neg \forall \textrm{x} \  F_{1} \\
+\forall \textrm{x} \ (\neg F_{1}) &\equiv \ \neg \exists \textrm{x} \ F_{1} \\
+\exists \textrm{x} \ (F_{1} \lor F_{2}) &\equiv \ (\exists \textrm{x} \ F_{1}) \lor (\exists \textrm{x} \ F_{2})\\
+\forall \textrm{x} \ (F_{1} \land F_{2}) &\equiv \ (\forall \textrm{x} \ F_{1}) \land (\forall \textrm{x} \ F_{2})\\
+\exists \textrm{x} \ (F_{1} \Rightarrow F_{2}) &\equiv (\forall \textrm{x} \ F_{1}) \Rightarrow (\exists \ \textrm{x} F_{2})
+\end{align*}
+\indent If G is a formula with no free occurences of x, then we get the following formulas, regardless of F. \\ 
+\indent F may have free occurences of x. 
+\begin{align*}
+\exists \textrm{x} \ \textrm{G} &\equiv \ \textrm{G}\\
+\forall \textrm{x} \ \textrm{G} &\equiv \ \textrm{G} \\ 
+\exists \textrm{x} (\textrm{F} \land \textrm{G}) &\equiv \ (\exists \textrm{x} \ \textrm{F}) \ \land \textrm{G} \\
+\forall \textrm{x} (\textrm{F} \lor \textrm{G}) &\equiv \ (\forall \textrm{x} \ \textrm{F}) \ \lor \textrm{G} \\
+\forall \textrm{x} (\textrm{F} \Rightarrow \textrm{G}) &\equiv \ (\exists \textrm{x} \ \textrm{F}) \ \Rightarrow \textrm{G} \\
+\forall \textrm{x} (\textrm{G} \Rightarrow \textrm{F}) &\equiv \ \textrm{G} \Rightarrow (\forall \textrm{x} \ \textrm{F}) \\
+\end{align*}
+\newpage
+\noindent \textcolor{Orchid}{\textbf{Skolemization:}} A process that eliminates existential quantifiers so we can resolve them.\\ \\
+\noindent \textcolor{Orchid}{\textbf{Skolem Constant:}}\\ \\
+\indent \textcolor{Orchid}{Consider F $= \exists \textrm{x} \ \forall \textrm{y} \ \textrm{P}(\textrm{x,y})$ under some interpretation \textit{I} }\\ \\
+\indent F is satisfiable iff some valuation $\sigma$ makes $\forall$ y P(x,y) true. \\
+\indent Say that $\sigma$, with $\sigma$(x) = $d_{0}$ makes $\forall$ y P(x,y) true. \\\\
+\indent We can replace this x with a fresh constant \textcolor{Orchid}{a}, giving: $\forall$y P(\textcolor{Orchid}{a}, y) \\
+\indent This formula is satisfiable iff F is.\\
+\indent  If \emph{I} satisfies F, then a can be mapped to $d_{0}$, hence the formula with constant a is also satisfiable.\\
+\indent If the formula is unsatisfiable, then there is no valuation of x that will make the formula true. \\
+\indent Therefore the formula with the constant a is also unsatisfiable. \\ \\
+\indent We can then conclude that replacing x with a makes it equisatisfiable, but are not equivalent.\\\\
+\noindent \textcolor{Orchid}{\textbf{Skolem Function:}}\\ \\
+\indent \textcolor{Orchid}{Consider G $= \ \forall$y $\exists$x P(x,y)} \\
+\indent We cannot replacex with a constant, as x is a function of the value of y. \\ \\
+\indent Instead, we replace x with \textcolor{Orchid}{f(y)}, giving: $\forall$ y P(\textcolor{Orchid}{f(y)}, y)\\ \\
+\indent Using similar theory, we can conclude that these formulas are equisatisfiable. \\\\
+\noindent \textcolor{Orchid}{\textbf{Converting to Clausal Form}}
+\begin{enumerate}
+\item Replace occurences of $\oplus$, $\Leftrightarrow$, $\Rightarrow$
+\item Drive negation in 
+\item Standardise bound variables apart 
+\item Eliminate existential quantifiers (Skolemize)
+\item Eliminate universal quantifiers (just remove/ignore them)
+\item Bring to CNF (using distributive laws)
+\end{enumerate}
+\newpage 
+\section*{Week 5 - Unification, Resolution and Induction}
+\noindent \textcolor{Thistle}{\textbf{Substitution:}} A finite set of replacements of variables by terms. \\ 
+eg. $\theta = \{x_{1} \mapsto t_{1}, x_{2} \mapsto t_{2}, ... , x_{n} \mapsto t_{n}\}$, where $x_{i}$ are variables and $t_{i}$ are terms. \\
+All these variables are replaced by terms simultaneously. \\\\
+\noindent \textcolor{Thistle}{\textbf{Unifier:}} A \emph{unifier} of two terms s and t is a substituion $\theta$ such that $\theta(s) = \theta(t)$\\ \\
+\noindent \textcolor{Thistle}{\textbf{Unifiable:}} Two terms are unifiable iff there exists a unifier for s and t\\ \\
+\noindent \textcolor{Thistle}{\textbf{Most General Unifier (mgu):}} The mgu for s and t is a substituion such that
+\begin{enumerate}
+\item $\theta$ is a unifier for s and t 
+\item Every other unifier $\sigma$ of s and t can be expressed as $\tau \circ \theta$ for some substituion $\tau$ \\
+Mgu is the unifier with the least steps, and every other unifier can be expressed as some form of the mgu. 
+\end{enumerate}
+If s and t are unifiable, then they have a most general unifier. \\\\
+\noindent \textcolor{Thistle}{\textbf{Unifier Rules:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item A variable \emph{x} can be mapped to anything 
+\item A constant \emph{a} cannot be mapped 
+\item A function \emph{f(x)} cannot be mapped to a constant. 
+\item A function \emph{f(x)} cannot be mapped to \emph{x}, the terms must be finite. 
+\end{itemize}
+\noindent \textcolor{Thistle}{\textbf{Unification Algorithm:}} \\ \\
+\textbf{Input:} Two terms s and t \\
+\textbf{Output:} If they are unifiable, then we will get the mgu. Otherwise it will return failure. \\
+\textbf{Algorithm:} Start with the set of equations {s = t}. This is the \emph{singleton} set, with one element. \\ \\
+In the following cases, one of the equations in the set has this form, then perform an action on it. \\
+\begin{enumerate}
+\item $F(s_{1}, ... ,s_{n}) = F(t_{1}, ... ,t_{n})$: 
+\renewcommand{\labelitemi}{\textperiodcentered}
+	\begin{itemize}
+	\item Replace the equation by the n equations $s_{1} = t_{1}, ... , s_{n} = t_{n}$
+	\end{itemize}
+\item  $F(s_{1}, ... ,s_{n}) = G(t_{1}, ... ,t_{m})$ where $F \neq G$ or $n \neq m$:
+\renewcommand{\labelitemi}{\textperiodcentered}
+	\begin{itemize}
+	\item Halt and return failure. 
+	\end{itemize}
+\item $x = x$:
+\renewcommand{\labelitemi}{\textperiodcentered}
+	\begin{itemize}
+	\item Delete equation, is valid but gives us no information. 
+	\end{itemize}
+\item $t = x$ where t is not a variable:
+\renewcommand{\labelitemi}{\textperiodcentered}
+	\begin{itemize}
+	\item Rearrange the equation to $x = t$, as we prefer variables on the LHS.
+	\end{itemize}
+\item $x = t$ where $t \neq x$, but x occurs in t: 
+\renewcommand{\labelitemi}{\textperiodcentered}
+	\begin{itemize}
+	\item Halt and return failure. Cannot map \emph{f(x)} to \emph{x}
+	\end{itemize}
+\item $x = t$ where t contains no x, but x occurs in other equations: 
+\renewcommand{\labelitemi}{\textperiodcentered}
+	\begin{itemize}
+	\item Replace x by t in those other equations. 
+	\end{itemize}
+\end{enumerate}
+\newpage
+\noindent \textcolor{Thistle}{\textbf{Normal Form:}} If the algorithm halts without returning failure, then the term equation system is left in a normal form. 
+\renewcommand{\labelitemi}{\textperiodcentered}
+	\begin{itemize}
+	\item All variables on the LHS are different 
+	\item No variables are on the RHS if they appear on the LHS. Should either be non-variables, or fresh ones.  
+	\end{itemize}
+\noindent \textcolor{Thistle}{\textbf{Resolvents:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+	\begin{itemize}
+	\item Two literals $L$ and $\neg L'$ are complementary if \emph{\{L, L'\}} is unifiable.
+	\item Let $C_{1}$ and $C_{2}$ be clasues, renamed apart. \\
+	Let $\theta$ be an mgu of complementary literals $\{L, \neg L'\}$ with \emph{L} a literal in $C_{1}$ and $\neg L'$ a literal in $C_{2}$. \\
+	Then the resolvent of $C_{1}$ and $C_{2}$ is the union $\theta(C_{1} \ \{L\}) \cup (C_{2} \ \{\neg L'\})$
+	\end{itemize}
+\noindent \textcolor{Thistle}{\textbf{Refutation':}} To resolve something, we follow a similar process to predicate logic, but through mapping. We negate the final statement that is supposed to be the result of the other arguments. If we recieve an empty clause, the input is unsatisfiable, hence the final statement follows from the others. \\ \\
+\noindent \textcolor{Thistle}{\textbf{Factoring:}} Rewriting clauses if two terms in a claus can be mapped to each other. \\ \\
+\noindent \textcolor{Thistle}{\textbf{Induction:}}Given a statement, prove it using induction
+\begin{enumerate}
+\item Basis Step: Show S(0), i.e the base case is valid.
+\item Inductive Step: Take S(n) as the induction hypothesis and use it to establish S(n+1)
+\end{enumerate}
+\noindent \textcolor{Thistle}{\textbf{Course of Values Induction:}} Generalising induction. \\ 
+To prove a claim P(n), we can take the conjunction of terms P(0) $\land$ P(1) $\land$ ... P(n-1) as the induction hypothesis. \\\\
+\noindent \textcolor{Thistle}{\textbf{Structural Induction:}} Using the structure of a recursively defined object to prove a statement. Useful for Trees. \\ \\
+
+\end{document} 
