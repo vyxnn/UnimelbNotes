@@ -1,0 +1,209 @@
+
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\title{Quiz 4}
+\author {Victoria Deng} 
+\date{\small September 2020}
+
+\begin{document}
+\maketitle 
+\section*{Input Mechanisms}
+\textcolor{Cerulean}{\textbf{Keyboards:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item The original typewriters had jamming issues from keys being too close to each other. 
+\item The QWERTY keyboard was developed to prevent these jams. Although there are other alternatives as new devices develop, it became the standard as everyone was already used to the layout. 
+\end{itemize}
+\textcolor{Cerulean}{\textbf{QWERTY:}} Used as it is considered the industry standard. There are however, faster alternatives, and QWERTY has issues with keeping the placement of non-alphanumeric characters consistent. Eg. Pound isn't needed in aus, but both pound and dollar would be needed in the UK. QWERTY also favours your left hand, whereas most people are right handed.\\\\
+\textcolor{Cerulean}{\textbf{Dvorak:}} Places the most used letters in the alphabet in the home row (middle or easiest to reach row). The least common letters are placed on the bottom row (hardest to reach). Dvorak also favours your right hand. \\\\
+\textcolor{Cerulean}{\textbf{Colemak:}} Similar to QWERTY but with only 17 differences. It's also designed so that the more frequently used keys are positioned in the home row and reduces finger movement. \\\\
+\textcolor{Cerulean}{\textbf{Limited Space Keyboards:}} Includes things like nokia phones, where 3 letters are attached to a numeric button, or split keyboards.  \\\\
+\textcolor{Cerulean}{\textbf{Game Design (Keyboards):}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Consider the mental models already in place when defining a control scheme. 
+\item Eg. using arrows or WASD for moving, M for map, space for jumping.
+\item Avoid using the right hand side of the keyboard if the player requires a mouse. 
+\end{itemize}
+\textcolor{Cerulean}{\textbf{Mouse:}} Evolution from a ball in a box to using a laser pointer to control movement. 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Typically comes with a left and right button. 
+\item Don't expect players to have more than two mice buttons.
+\item Can make considerations for player to rebind keys to a mouse button if they exist (but they might not)
+\end{itemize}
+\textcolor{Cerulean}{\textbf{Controllers:}} Also evolved to a more sleek design. Typically has two movement/camera joysticks, as well as basic button functions. For the purposes of generic game design, we can assume a player won't have this (unless we're designing for a specific console) \\\\
+\newpage
+\textcolor{Cerulean}{\textbf{Eye-tracking:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Control the interface by eye gaze direction eg.looking at an item menu to select it 
+\item Uses a laser beam reflected off retina 
+\item Potential for hands free control 
+\item Cheaper and lower accuracy devices sit under the screen like a small webcam
+\end{itemize}
+\textcolor{Cerulean}{\textbf{Touch}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Speed: Faster in many operations when comapred to a traditional keyboard or mouse 
+\item Easy to use: Intuitive, and requires less coordination 
+\item Accessibility: Helps users with physical limitations when they interact with devices 
+\item Device size: Saves space and allows more area to interact (eg. iphone compared to nokia phone) 
+\item Touch interfaces are increasing becoming the norm for mobile devices. Normally touch interaction should be the primary expected input methods (for phones), and we can provide visual feedback, optimize touch target size etc.
+\item Unity also features an Input.GetTouch method, which returns a position, change in position, tap count, phase and fingerID. 
+\item Through touch and the inputs given, we can calculate gestures such as pinch and zoom, or tapping, holding, dragging etc.
+\end{itemize}
+\textcolor{Cerulean}{\textbf{Fitt's Law:}} Tests the effectiveness of different input mechanisms in target acquisition tasks (eg. selecting a button) as well compare different types of users.\\
+\begin{equation*}
+ID = log_{2}(\frac{2D}{W})
+\end{equation*}
+Where: \\ 
+ID = index of difficulty (bits)\\ 
+D = distance to the centre of the target \\
+W = width of the target \\ 
+\begin{equation*}
+MT = a + b * ID
+\end{equation*}
+Where: \\
+MT = Movement time (seconds)\\ 
+a, b = empirically determined constances, which are device dependent \\ 
+\begin{equation*}
+TP = \frac{ID}{MT}
+\end{equation*}
+Where: \\
+TP = Throughput (bits per second) \\\\
+\textcolor{Cerulean}{\textbf{Infinite Edges}} The easiest positions to reach are the corners of a screen, as they have infinite bounds, and so don't require deceleration to reach it. \\\\
+\textcolor{Cerulean}{\textbf{Sensors:}} May also exist in mobile games, like GPS or compass. Helpful for games like pokemon go. \\\\
+\textcolor{Cerulean}{\textbf{Accelerometer:}} Measures acceleration along the three principle axis. Unity handles changes in orientation, but other game developing frameworks may not. \\\\
+\textcolor{Cerulean}{\textbf{Gyroscope:}} Senses angular velocity produced by the sensor's own movement. Eg. shaking the phone. \\\\
+\newpage
+\section*{Human Cognition}
+\textcolor{RoyalBlue}{\textbf{Design:}} Should prevent ambiguity and human error. \\\\
+\textcolor{RoyalBlue}{\textbf{Attention:}} Interfaces should exploit the use of effective principles of design, such as sound, colour, font etc. \\\\
+\textcolor{RoyalBlue}{\textbf{Cues:}} Should always let a player know what their next goal should be, or where they should go. \\\\
+\textcolor{RoyalBlue}{\textbf{Progressive disclosure:}} Should avoid overwhelming a player with too much infomation at once, so we can hide parts that aren't immediately necessary. \\\\
+\textcolor{RoyalBlue}{\textbf{Colour:}} Typically has some preconceptions/emotions associated with it
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Blue: Used in large areas and not thin lines, also a calming colour for the brain.
+\item Red, Green: Can be used in the centre of the field of view, as the edges of the retina are not sensitive to these colours. 
+\item Black, White, Yellow: Used in peripheral vision 
+\item In general avoid using too much colours simultaneously (unless you know what you're doing like fall guys) 
+\item Keep a consistent colour scheme/aesthetic during the game.
+\item Avoid eye fatigue colours, eg. complimentary colours, or colours that don't naturally go together
+\item Also make considerations for colour blindness, the most common of which is red-green colour blind. 
+\end{itemize}
+\textcolor{RoyalBlue}{\textbf{Perceptions:}} Different ways of presenting information, each which may be the same thing but emphasize different information. \\\\
+\textcolor{RoyalBlue}{\textbf{Mental Models:}} Ensuring that it is consistent and easily understandble, for example the floppy disk icon is associated with saving data. \\\\
+\textcolor{RoyalBlue}{\textbf{Sensory Memory:}} Lasts about 1-2 seconds, and is the immediate perception of stimuli in the environment. Can be dismissed or stored in short/long term memory.\\\\
+\textcolor{RoyalBlue}{\textbf{Short Term Memory:}} Reduces or eliminates the need to memorize and recall things. Should not expect users to memorise commands or concepts are showing them something once. \\\\
+\textcolor{RoyalBlue}{\textbf{Long Term Memory:}} Design to move important and frequently used commands and concepts to long term memory. If there is a command that is not frequently used, then we can consider refreshing a user's memory. We should also allow users to hid memory aids as they please.\\\\
+\textcolor{RoyalBlue}{\textbf{Mnemonics:}} Used to improve a person's long term memory. \\\\
+\textcolor{RoyalBlue}{\textbf{Learning:}} A good interface or game usuall allows a user to learn by doing. Avoid apps that require a manual beforehand. \\\\
+\newpage
+\section*{Evaluation Techniques}
+\textcolor{BlueViolet}{\textbf{Evaluation:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Tests usability and functionality of a system
+\item Occurs in a laboratory, field or in collaboration with users 
+\item Evaluates both design and implementation 
+\item Should be considered at all stages in the design life cycle 
+\end{itemize}
+\textcolor{BlueViolet}{\textbf{Laboratory Studies:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Advantages: Specialist equipment available, uninterrupted environment 
+\item Disadvantages: Lack of context, difficult to observe several users cooperating 
+\item Appropriate: If a system location is dangerous or impractical for constrained single user systems to allow controlled manipluation of use. I.e if the equipment is super new and requires a complicated set up.
+\end{itemize}
+\textcolor{BlueViolet}{\textbf{Field Studies:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Advantages: Natural environment, retains context, longitudinal studies possible 
+\item Disadvantages: Distractions 
+\item Appropriate: When we want to maintain context, and do studies over a long period of time. 
+\end{itemize}
+\textcolor{BlueViolet}{\textbf{Cognitive Walkthrough:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Evaluates a design on how well it supports a user in learning tasks 
+\item Usually performed by an expert in cognitive psychology 
+\item Walk an expert through the design and they point out potential problems
+\end{itemize}
+\textcolor{BlueViolet}{\textbf{Heuristic Evaluation:}}
+\begin{enumerate}
+\item Visibility of system status: should always keep users informed about what is going on 
+\item Match between system and real world: The system should use language familiar to the user, and follow real world conventions. 
+\item User control and freedom: Supporting undo and redo states, as users can often make mistakes in selection. Should allow them to go back to their previous state easily. 
+\item Consistency and standards: Users should not have to wonder whether different words, situations or actions mean the same thing. 
+\item Error Prevention: Prevent an error from occuring in the first place, instead of error messages. Include a warning or confirmation option to prevent users from committing to errors. 
+\item Recognition: Instead of making a user memorize things, keep instructions, actions, options visible and easily retrievable. 
+\item Flexibility: Allow users to control their own speed that they play the game, eg. skip cutscene, or tailoring frequent actions.
+\item Aesthetic: Dialogue should not contain irrelevant information. Too much info obscures the important ones.
+\item Error support: Error messages should be easy to read (no code), indicate a problem and suggest a solution.
+\item Help and documentation: Ideally should be able to be used without, but if necessary should be easy to search and have instructions to solve a problem.   
+\end{enumerate}
+\newpage 
+\noindent \textcolor{BlueViolet}{\textbf{Review Based Evaluation:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Results are used to support or refute parts of design 
+\item Should be able to ensure that the results are transferable to the new design 
+\item Model-based evaluation
+\end{itemize}
+\textcolor{BlueViolet}{\textbf{Think Aloud:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item User observed performing task 
+\item User commentates as they are doing a task, and their thoughts and opinions about said task
+\item Advantages: Simple, requires no expertise, can provide useful insight and show how a system is used 
+\item Disadvantages: Subjective, selective and describing while doing a task may affect the task performance
+\end{itemize}
+\textcolor{BlueViolet}{\textbf{Cooperative Evaluation:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item User and evaluator can ask each other questions as they proceed through the game 
+\item Similar to think aloud 
+\item Additional Advantages: less contraints and easier to use, user is encourages to criticize a system, clarification is possible. 
+\end{itemize}
+\textcolor{BlueViolet}{\textbf{Post Task Walkthrough}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item User reacts on action after the event, used to fill in intention 
+\item Advantages: Analyst has time to focus on relevant incidents 
+\item Disadvantages: Lack of freshness, may be an after interpretation of events 
+\end{itemize}
+\textcolor{BlueViolet}{\textbf{Eye tracking:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Head or desk mounted equipment tracks the position of the eye 
+\item Captures eye movement and reflects the amount of cognitive processing a display requires 
+\item Measures eye movements, and targets 
+\end{itemize}
+\textcolor{BlueViolet}{\textbf{Physiological measurements: }} 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Measures emotional responses linked to physical changes 
+\item Measurements include heart activity, blood pressure, sweat, muscle and brain activity 
+\end{itemize}
+\textcolor{BlueViolet}{\textbf{Interviews:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Analyst asks a user pre-prepared questions on a one-to-one basis. 
+\item Advantages: Can be varied to suit context, issues can be explored in depth, can elicit user views and identify unanticipated problems. 
+\item Disadvantages: Very subjective and can be time consuming. 
+\item Has two types of questions: closed questions (yes, no) and open questions. Generally avoid long questions, and questions that make assumptions (about game, gender, knowledge etc)
+\end{itemize}
+\textcolor{BlueViolet}{\textbf{Questionares:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Set of fixed questions given to users 
+\item Advantages: Quick and reaches a large user group, can be analyzed more rigorously  
+\item Disadvantages: Less flexible and probing 
+\end{itemize}
+
+\end{document} 

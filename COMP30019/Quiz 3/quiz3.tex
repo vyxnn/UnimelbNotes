@@ -1,0 +1,166 @@
+
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\title{Quiz 3}
+\author {Victoria Deng} 
+\date{\small August 2020}
+
+\begin{document}
+\maketitle
+\section*{Lecture 7 - Collision Detection}
+\textcolor{Melon}{\textbf{Collision Detection:}} Detection of an intersection between different objects in a virtual environment
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Need to prevent objects from going through each other as if they aren't there.  
+\item Need to produce a realistic virtual environments by having objects react accordingly when a collision happens. \\
+\end{itemize}
+\textcolor{Melon}{\textbf{Continuous Approach (a priori):}} Using the trajectories of the objects to predict if a collision is going to occur
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item This approach is robust, however has drawbacks 
+\item When dealing with objects that have a lot of polygons, need to calculate all possible intersections for each polygon. 
+\item Also requires a lot of calculations in an environment with a high number of objects moving. 
+\item Computationally complex, which can affect performance/framerate. \\
+\end{itemize}
+\textcolor{Melon}{\textbf{Discrete Approach (a posteriori):}} Allows objects to collide, and reverses it back to where the collision happened initially in the engine. 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item More efficient that continuous, but also has problems 
+\item \textcolor{Melon}{Tunnelling:} occurs when a very fast object passes through another object, but the engine does not detect the collision. \\
+\end{itemize}
+\textcolor{Melon}{\textbf{Bounding Volumes:}} A simplified shape encloses the entire object, though it should be as small as possible. \\\\
+\textcolor{Melon}{\textbf{Axis Aligned Bounding Box (AABB):}} The bounding box remains orientated with respect to the main axes. I.e if the object turns, the box turns with it.
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Pro: Translation invariant, it will not change if you move every point of the object by the same amount in a given direction. (i.e move object in it's entirety) 
+\item Con: With any other movement, the box will no longer remain axis-aligned. (i.e moving one arm up but the rest of the body stays)
+\item Con: Simple to compute, but needs to be recomputed every frame due to input changes. \\
+\end{itemize}
+\newpage
+\noindent \textcolor{Melon}{\textbf{Oriented Bounding Box:}} Box is oriented with respect to the object.
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Pro: Transformation invariant for translation, reflection and rotation. If the object moves, the box moves with it. 
+\item Pro: The volume is more compact than AABB, and has less empty space (false positives)
+\item Con: The computation of intersections is much more complex as box orientation is dynamic. \\
+\end{itemize}
+\textcolor{Melon}{\textbf{Bounding Spheres:}} Uses a sphere as a bounding box. 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Pro: Transformation invariation for every movement
+\item Con: More empty space in the volume 
+\item Pro: Simple collision detection
+\item If D $\leqslant$ R1 + R2, then the spheres are intersecting  \\ 
+where D is the distance between circle 1 and circle 2, and R is the radius of each circle \\
+\end{itemize}
+\textcolor{Melon}{\textbf{Hierarchical Bounding Volumes:}} Has two phases, consists of multiple spheres bounding an object. 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{Melon}{Broad Phase:} Is simple and has a low cost. The first pass on the bounding volumes, used to identify potential collisions, and mark objects as definitely not colliding. 
+\item \textcolor{Melon}{Narrow Phase:} Is complex and has a high cost. Based on the identified potential collisions from the broad phase, exact collision tests are conducted to determine if the object will collide or not. 
+\item For example, if the point is outside the broad phase, then it is not intersecting with the object. If the point is inside the broad phase, then it will advance to the narrow phase and check how many spheres it intersects (and deal appropriate damage etc.)
+\end{itemize}
+\textcolor{Melon}{\textbf{Hitboxes:}} Used in video games for real-time collisions. Are simplified bounding volumes that detect one-way collisions, like bullets hitting a character. Can be adjusted to be a tight or large bound to balance difficulty. \\\\
+
+\newpage 
+\section*{Lecture 8 - Illumination}
+\textcolor{Peach}{\textbf{Surface Types:}} Shading of a surface depends on the surface type. \\\\
+\textcolor{Peach}{\textbf{Self-luminous:}} Object that has in itself the property of emitting light. Eg. Jellyfish \\\\
+\textcolor{Peach}{\textbf{Refractive:}} Surface that changes the direction of light, caused by a change in transmission medium. Eg. Water or Glass \\\\
+\textcolor{Peach}{\textbf{Translucent:}} Light interacts in a more complex way. Eg. Diamonds make light scatter. \\\\
+\textcolor{Peach}{\textbf{Reflective (diffuse):}} Light is reflected from a surface in many different angles. Eg. Rugged surfaces like mountains. \\\\
+\textcolor{Peach}{\textbf{Reflective (specular)':}} Light is reflected from a surface in the same angle as the incident array. Eg. smooth or glossy surfaces. \\\\
+\textcolor{Peach}{\textbf{Isotropic:}} Relationship between the incoming direction of light is the same as the outgoing direction of light for the whole surface \\\\
+\textcolor{Peach}{\textbf{Anisotropic:}} Relationship between incoming and outgoing direction differs over the surface. \\\\
+\textcolor{Peach}{\textbf{Simple Illumination Models:}} Do not consider shadows, reflections or photon-based effects.  \\\\
+\textcolor{Peach}{\textbf{Full Ray Tracing:}} Considers all rays of lights and their recursive interaction between each object (computationally complex). \\\\
+\textcolor{Peach}{\textbf{Decide Model Limitations:}} Decides how many times we will recurse (or allow for re-reflection) \\\\
+\textcolor{Peach}{\textbf{Components of light:}} Three components of light. \\\\
+\textcolor{Peach}{\textbf{Ambient Component:}} Simpliest kind of shading is from ambient illumination. Light comes uniformly from all directions. \\\\
+\indent The radiated light intensity (I) is given by: 
+\begin{equation*}
+I = I_{a} k_{a}
+\end{equation*}
+\indent $I_{a} =$ the intensity of the ambient light \\
+\indent $k_{a} =$ the percentage of light reflected by the object \\\\ 
+\textcolor{Peach}{\textbf{Diffuse (Lamebertian) Component:}} Brightness depends on the angle between the direction of the light source and the surface normal. Assumes that light is re-radiated uniformly. \\\\
+\newpage
+\noindent \textcolor{Peach}{\textbf{Surface Orientation:}} The amount of light radiated towards the viewer is greatest when the surface normal is pointing straight at the viewer, and falls off according to the cosine rule as the surface slants away from the viewer. At the same time, more of the surface is seen within an angle as the surface slants away from the viewer, which also operates according to cosine rule. These effects compensate, so the intensity of Lambertian reflection is independent of surface orientation with respect to the viewer. \\\\
+\indent The Diffuse Illumination equation is given by: 
+\begin{equation*}
+I = I_{p} k_{d} cos(\theta)
+\end{equation*}
+\indent $I_{p} = $ intensity of light \\
+\indent $k_{d} = $ coefficient of diffuse reflection (reflectivity) \\
+\indent We can also express it as a scalar product: 
+\begin{equation*}
+I = I_{p}k_{d}(\bar{N} \cdot \bar{L})
+\end{equation*} 
+\indent $\bar{N} =$ unit vector in the direction of the surface normal \\
+\indent $\bar{L} =$ unit vector in the direction of the light source \\\\
+\textcolor{Peach}{\textbf{Distance:}} Also affects the intensity of the incoming light \\\\
+\textcolor{Peach}{\textbf{Specular Component:}} Light reflected immediately on the outer boundary of a surface (highlight). Influenced by orientation, and distance of viewer and light source. \\\\
+\indent The spread of reflection is modelled by: 
+\begin{equation*}
+(cos \alpha)^{n}
+\end{equation*}
+\indent If this equals to 1, then the viewer is at the direction of perfect reflection \\ \\
+\indent $\alpha =$ angle of viewing direction \\
+\indent $n =$ specular reflection exponent, controls the degree of spread \\
+\indent (high 100 = sharp highlight, low 1 = spread-out highlight)\\ \\
+\textcolor{Peach}{\textbf{Phong Reflection Model:}} Combines all three components \\\\
+\section*{Lecture 9 - Particle Systems}
+\textcolor{Orange}{\textbf{Geometry Shader:}} Very useful in creating particle systems. \\\\
+\textcolor{Orange}{\textbf{Particle System:}} A collection of many small particles that together represent a fuzzy object. Over a period of time, the particles are generated into a system, move and change within the system, then die from the system. \\\\
+\textcolor{Orange}{\textbf{Collection of particles:}} A partcile system is composed of one or more individual particles. Each of these particles has attributes that directly or indirectly effect the behaviour of the particle or ultimately how and where the particle is rendered. \\\\
+\textcolor{Orange}{\textbf{Stochastically defined attributes:}} All particles have the introduction of some type of random element via stochastic limits (bounds, variance, distribution). This can be used to control the particle attributes. \\\\
+\newpage
+\textcolor{Orange}{\textbf{Attributes:}} Properties of particles.
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Emission (speed, spread, rate)
+\item Age (time that a particle has been alive)
+\item Lifespan (infinite, constant, variable)
+\item Opacity (static, dynamic)
+\item Colour (static, dynamic)
+\item Size 
+\item Shape
+\end{itemize}
+\textcolor{Orange}{\textbf{Life Cycle:}} Phases of a particle in a particle system
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{Orange}{Generation} 
+\item \textcolor{Orange}{Dynamics} 
+\item \textcolor{Orange}{Extinction} 
+\end{itemize}
+\textcolor{Orange}{\textbf{Generation:}} 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item Particles in the system are generated randomly within a predetermined location of the fuzzy object 
+\item This space is termed the generated shape, and it can change over time 
+\item Each attribute is given an initial value. They can be fixed or determined by the stochastic process
+\end{itemize}
+\textcolor{Orange}{\textbf{Dynamics:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item The attributes of each particle can vary over time. 
+\item In general, each of the attributes can be specified by an equation with time as a parameter. 
+\item Particle attributes can be functions of both time and other particle attributes. 
+\end{itemize}
+\textcolor{Orange}{\textbf{Extinction:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item A particle will be destroyed once the age matches it's lifetime
+\item Can also be destroyed prematurely, from going out of bounds, colliding with an object, or if an attribute reaches a threshold. Eg. if a particle gets darker over time, once it hits black it's not going to get any darker and can be removed. 
+\end{itemize}
+\textcolor{Orange}{\textbf{Rendering:}} Can use a 2D or 3D system. If we render the entire life cycle of a particle simultaneously, we would have static particles. \\\\
+\textcolor{Orange}{\textbf{Sprites:}} 2D images, can be overlayed on top of a particle to simulate a texture. \\\\
+\textcolor{Orange}{\textbf{Voxel':}} 3D pixels, also overlayed on top of a particle but results in being more realistic. Similar to a 3D gif on top of a particle. Will move with time.  \\\\
+\textcolor{Orange}{\textbf{}} \\\\
+
+\end{document} 

@@ -1,0 +1,72 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\title{Quiz 2}
+\author {Victoria Deng} 
+\date{\small August 2020}
+\begin{document}
+\maketitle
+
+\section*{Lecture 5 - Fractal Geometry and Landscapes}
+\textcolor{Salmon}{\textbf{Fractal:}} A geometric shape generated using a series of recursive rules. They have a property called self similarity.\\ \\
+\textcolor{Salmon}{\textbf{Self similarity:}} A pattern that repeats at different scales. A fern is a good example of this.
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{Salmon}{Exact self-similarity:} The strongest type of self-similarity. The fractal appears identical at different scales. Fractals defined by iterated function systems often display exact self-similarity. 
+\item \textcolor{Salmon}{Quasi self-similarity:} The fractal appears approximately (but not exactly) identical at different scales. Quasi-self-similar fractals contain small copies of the entire fractal in distorted and degenerate forms.
+\item \textcolor{Salmon}{Statistical self-similarity} The weakest type of self-similarity. The fractal has numerical or statistical measures which are preserved across scales. Random fractals (eg. fractal landscapes) are examples of fractals which are statistically self-similar but neither exactly nor quazi-self similar.
+\end{itemize} 
+\textcolor{Salmon}{\textbf{Brownian Motion:}} Describes the random movement of small particles of matter in a fluid (liquid or gas). In the context of computer graphics, Fractional Brownian surfaces get smoother the larger the \emph{Hurst Parameter} is. \\ \\
+\textcolor{Salmon}{\textbf{Diamond Square Algorithm:}} Used to generate heightmaps from a 2D grid.
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{Salmon}{Initializing:} Start by setting the inital values for the corner points of the grid. Perform the diamond and square steps alternately until complete.
+\item \textcolor{Salmon}{Diamond Step:} For each square in the array, set the midpoint of that square to be the average of the intersecting points plus a random value.
+\item \textcolor{Salmon}{Square Step:} For each diamond in the array, set the midpoint of that diamond to be the average of the intersection points plus a random value. 
+\end{itemize}
+
+\section*{Lecture 6 - Surface Rendering and Shading}
+\textcolor{WildStrawberry}{\textbf{Illumination:}} Determines how the light sources interacts with object surfaces (eg. intensity of the light that is being reflected) \\ \\
+\textcolor{WildStrawberry}{\textbf{Shading:}} Determines how to render the faces of polygons in a scene, given the illumination. \\ \\
+\textcolor{WildStrawberry}{\textbf{Light Source Models:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{WildStrawberry}{Point Source:} All light rays originate at a point, and radially diverge. 
+\item \textcolor{WildStrawberry}{Parallel Source:} Light rays are all parallel, and can be modelled as a point source at an infinite distance (like the sun). 
+\item \textcolor{WildStrawberry}{Distributed Source:} All light rays originate at a finite area in space. It models a nearby source, such as a flourescent light. Radial, but spread out (unlike a point source).
+\end{itemize}
+\newpage
+\noindent \textcolor{WildStrawberry}{\textbf{Shading Techniques:}}
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{WildStrawberry}{Flat Shading:} No interpolation
+\item \textcolor{WildStrawberry}{Smooth Shading:} Linear change (interpolation) 
+\end{itemize}
+\textcolor{WildStrawberry}{\textbf{Flat Shading:}} Same values are used to render an entire polygon. The result can be very `block like' as an entire square would be white for highlight. Drawbacks are that it doesn't look smooth or realistic. Benefits is that it has a low computation cost, and can be realistic if polygons are small or the object is far. \\ \\
+\textcolor{WildStrawberry}{\textbf{Mach Band Effect:}} Exaggerates the contrasts between edges of the differing shades of colours as the human eye draws a boundary when they contact each other. I.e Two greys touching each other would look more stark than if they were seperated. \\ \\
+\textcolor{WildStrawberry}{\textbf{Smooth Shading:}} Light is computed at multiple points on each polygon, hence it has no Mach Band Effect. The two most popular methods of implementing smooth shading is Gouraud Shading and Phong Shading. \\ \\
+\textcolor{WildStrawberry}{\textbf{Gouraud Shading:}} Lighting is calculated for each polygon vertex, and colour is interpolated for the pixels in between. The result is that there is a linear change from vertices. The main issue is if the polygon shading is not linear(like a point source), or the surface is curved.
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{WildStrawberry}{Algorithm} 
+\item Determine the normal at each polygon vertex (the average of the normal of adjacent faces)
+\item Apply an illumination model to each vertex to calculate the vertex intensity
+\item Linearly interpolate the vertex intensities over the surface polygon
+\end{itemize}
+\textcolor{WildStrawberry}{\textbf{Phong Shading:}} Similar to Gouraud, but rather than being linear, does the shading calculating at every pixel. Slower and has a higher computational cost, but generally more realistic in handling highlights. 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{WildStrawberry}{Algorithm} 
+\item Determine the normal at each polygon vertex (average of the normal of adjacent faces)
+\item Linearly interpolate the vertex normals over the surface polygon
+\item Apply the illumination model along each scan line to calculate the intensity of each surface point
+\end{itemize}
+\noindent \textcolor{WildStrawberry}{\textbf{Texture Mapping:}} Maps a planar image (typically 2D) onto a 3D object. Has some issues, such as flat image going on a curved object, distortion or repetition if image is too small etc. \\ \\
+\textcolor{WildStrawberry}{\textbf{Texture Synthesis:}} Generate synthetic textures of arbitrary size on the characteristics of a sample input image (generally only works on random looking textures) \\ \\
+\textcolor{WildStrawberry}{\textbf{Displacement Mapping:}} Displaces each point on the surface, texture values gives the amound to move in direction normal to the surface. Eg. making a sphere spiky\\ \\
+\textcolor{WildStrawberry}{\textbf{Bump Mapping:}} Used to generate rough surfaces, without increasing the number of polygons. The surface itself does not change, but the shading makes it look like it did. Convincing at a distance, but not up close. Eg. Adding bumps to an orange, we can physically change the shape, or wrap a sphere in an orange texture. \\ \\
+\end{document} 
