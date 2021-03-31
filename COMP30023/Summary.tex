@@ -1,0 +1,440 @@
+
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=1in]{geometry}
+
+\begin{document}
+
+\section{Operating Systems}
+\textcolor{WildStrawberry}{\textbf{Operating System (OS):}} Manages the allocation of hardware resources and provides an abstraction so that programs can access these resources. \\\\
+\textbf{Operating system concepts} 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{WildStrawberry}{Processes:} Running programs 
+\item \textcolor{WildStrawberry}{Address spaces:} Memory and storage
+\item \textcolor{WildStrawberry}{Files and file system:} Accessing files
+\item \textcolor{WildStrawberry}{Input and Output:} Read and write operations
+\item \textcolor{WildStrawberry}{Protection:} Security 
+\end{itemize}
+\textcolor{WildStrawberry}{\textbf{Processes:}} A program in execution. A process is associated with an address space and given a set of resources. It can also be considered as container that holds all the information needed to run a program. It is also dynamic as running a process can depend on other factors such as the computer (runtime), environment (windows or mac) and may act differently on different devices. \\\\
+\textcolor{WildStrawberry}{\textbf{Program:}} A set of instructions, considered static as it won't change (by itself). For example, a recipe is static, it'll guide the cook on what to do. Cooking is a dynamic process, it can change depending on the person. \\\\
+\textcolor{WildStrawberry}{\textbf{Memory:}} Where variables and data is stored.  \\\\
+\textbf{Computer Memory Hierarchy} 
+
+\begin{enumerate}
+\item \textcolor{WildStrawberry}{Registers:}\\
+Capacity of less than 1KB, stores things that are accessed very frequently for quick access (1nsec)
+\item \textcolor{WildStrawberry}{Cache:}\\
+Capacity of 4MB, access time of 10nsec
+\item \textcolor{WildStrawberry}{Main memory:} \\
+Capacity of 1-8GB, where most data is stored and accessed, 10nsec 
+\item \textcolor{WildStrawberry}{Magnetic disk:}\\
+Capacity of 1-4TB, could be seperate to the computer, 10msec 
+\end{enumerate}
+\subsection{Process Management}
+\textcolor{WildStrawberry}{\textbf{Processor/CPU:}} The central processing unit (CPU) fetches instructions from registers (memory) and executes them. \\\\
+There are two modes of execution: 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+\item \textcolor{WildStrawberry}{Kernel:} All instructions can be executed (including passwords so must have security to enter the Kernel execution process)
+\item \textcolor{WildStrawberry}{User:} A subset of instructions can be executed, for most normal operations
+\end{itemize}
+\textcolor{WildStrawberry}{\textbf{Registers:}} The memory, they keep some process state information. 
+\textcolor{WildStrawberry}{\textbf{Process Memory:}} Each process has its own address space. \\\\
+The process memory has three segments (current states): 
+\begin{itemize}
+\item \textcolor{WildStrawberry}{Text:} Program code, usually read only so it cannot be modified 
+\item \textcolor{WildStrawberry}{Data:} Constant data strings, global variables 
+\item \textcolor{WildStrawberry}{Stack:} Local variables, information about the variables and their states \\
+\end{itemize}
+\textcolor{WildStrawberry}{\textbf{Multiple Processes:}} Gives each process its own virtual CPU, while scheduling processes for execution. If a process wants to read something, then it doesn't actually need the CPU at that moment, so we can assign the CPU to another process. \\
+Multiprogramming increases system efficiency and it is useful as the number of processes will most likely exceed the number of CPUs. \\\\
+\textcolor{WildStrawberry}{\textbf{Kernel:}} ensures that several processes don't get in each others way, it can also provide services such as reading which will be used by application programs and non-priviledges (protected) parts of the operating system. As the kernel cannot be terminated, it is not a process. \\\\
+\textcolor{WildStrawberry}{\textbf{User - Kernel distinction:}} Most CPUs have two modes, the Program Status Word (PSW) register returns the current mode.\\
+Code running in user mode cannot access protected instructions, it can only access the parts of the memory allowed by the kernel mode code. \\
+Code running in kernel mode can issue all instructions and access all memory. Instructions that can interfere with other processes are protected. \\\\
+\textcolor{WildStrawberry}{\textbf{System calls:}} Packages instructions for the kernel mode to execute protected instructions. Eg. Read is a system call in Unix, and the user mode will call the kernel through `Read', while the kernel executes the necessary operations. Similar to providing an interface or abstraction for users to access. \\
+Eg. printf is a library in C, the library will organize how the printf instruction is executed. The write portion will be delegated to the kernel, whereas other operations such as rounding or formatting will be assigned to the user mode to minimize execution costs and as it is not necessary to access the kernel for those operations.
+\subsection{Process Lifetime and Threads}
+\textcolor{Magenta}{\textbf{Process Creation:}} Four principal events can cause processes to be created. 
+\begin{itemize}
+\item System initialization (eg. turning on a computer)
+\item Execution of a process creation system call by a running process 
+\item A user request to create a new process (eg. double click or instruction in cmd shell)
+\item Initiation of a batch job (eg. scheduled tasks)
+\end{itemize}
+\textcolor{Magenta}{\texttt{fork():}} Creates a new process that is a clone of the parent process, and returns the \texttt{pid} value. \\\\
+\textcolor{Magenta}{\texttt{execve():}} Used after a \texttt{fork} to replace the child process (clone) with a new program. Creating a clone is useless as it's running the same process twice, \texttt{exec} makes \texttt{fork} useful as it can replace the child with a different program code. \\\\
+\textcolor{Magenta}{\textbf{Process Termination:}} Typical conditions that terminate a process are: 
+\begin{itemize}
+\item Normal exit (voluntary) - eg. end of program
+\item Error exit (voluntary) - eg. try catch exceptions
+\item Fatar error (involuntary) - eg. exceptions that aren't caught, seg fault, dividing by 0
+\item Killed by another process (involuntary) - eg. \texttt{kill processid} 
+\end{itemize}
+\textcolor{Magenta}{\texttt{exit():}} Terminates a process. Used if a parent needs a child process to terminate.  \\\\
+\textcolor{Magenta}{\texttt{wait():}} Can specify which process we're waiting for to terminate. Provides the process id of a terminated child so the parent process can check if it is the right one. \\\\
+\newpage
+\noindent \textcolor{Magenta}{\textbf{Process states:}} There are three states a process may be in: 
+\begin{itemize}
+\item \textcolor{Magenta}{Running:} actually using the CPU at that instant, an active process.
+\item \textcolor{Magenta}{Ready:} ready to run, temporarily stopped while another process is running. 
+\item \textcolor{Magenta}{Blocked:} unable to run until some external event happens (CPU not needed), eg. waiting for input. After the blocked process has it's info, then it is unblocked and goes into a ready state.
+\end{itemize}
+If a process goes from the \textcolor{Magenta}{running} state to the \textcolor{Magenta}{ready} state, then it means the OS terminated the current process to another one. Instead of running one process at once, it shares the CPU's resources across all the processes. \\\\
+\textcolor{Magenta}{\textbf{Interrupts:}} When hardware devices (outside the CPU) needs immediate attention from the CPU, it will generate a signal to interrupt the CPU. An interrupt is asynchronous with the currently executing process. The CPU will remember the current state of the program, save it then load the interrupt handler. Once the interrupt is dealt with, they will return to the previous process. \\\\
+\textcolor{Magenta}{\textbf{Interrupt Vector:}} The address of the interrupt handler. \\\\
+\textcolor{Magenta}{\textbf{Interrupt Handler:}} Required to save the status of the current process, service the interrupt, restore the saved information and execute a return from the interrupt to the prior process. \\\\
+\textcolor{Magenta}{\textbf{Pseudo-interrupts:}} When the CPU itself generates an interrupt. Usually a program can generate a pseudo-interrupt, such as divide by zero. Users can also generate one intentionally by using a system call, such as ctrl-c. We can catch interrupts with a trap command. \\\\
+\textcolor{Magenta}{\textbf{Process Table:}} One entry in table per process, contains state information to resume a process, such as memory and file management. \\\\
+\textcolor{Magenta}{\textbf{Thread:}} A sequential execution stream within the process. Threads are like multiple processes run in parallel that have access to the same memory, data and variables (treated as global variables). Threads can also communicate with each other without invoking the kernel. \\\\
+\textcolor{Magenta}{\textbf{Thread vs Processes:}} A process has one container by may have more than one thread, and eahc thread can perform computations relatively independently of other threads in the process. Multiple processes are beneficial in that less time is required to create a new thread, terminate, switch and communicate between threads.\\\\
+\textcolor{Magenta}{\textbf{Single Thread Process:}}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.9}% for the vertical padding
+\begin{tabular}{ |c c c| } 
+ \hline
+ \fbox{code} &\fbox{data} &\fbox{files} \\
+ \hline
+ \fbox{registers} &  &\fbox{stack} \\
+ \hline 
+   &\fbox{single thread} & \\
+ \hline
+\end{tabular}
+\end{center}
+
+\noindent \textcolor{Magenta}{\textbf{Multi-Threaded Process:}} Address space and memory are shared by threads, eg.same code, global variables, files etc. Threads own their own copy of registers, stacks (local variables) and state (running, waiting etc).
+\begin{center}
+\renewcommand{\arraystretch}{1.9}% for the vertical padding
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ \multicolumn{3}{|c|}{ \fbox{code} \fbox{data} \fbox{files}}\\
+ \hline
+ \fbox{registers} &\fbox{registers}  &\fbox{registers} \\
+  \hline
+ \fbox{stack} &\fbox{stack}  &\fbox{stack} \\
+ \hline 
+ \hline
+ \fbox{thread 1} &\fbox{thread 2}  &\fbox{thread 3} \\
+ \hline
+
+\end{tabular}
+\end{center}
+\newpage
+\noindent \textcolor{Magenta}{\texttt{pthread():}} A POSIX standard API for thread creation and synchronisation. All functions start with \texttt{pthread}, need to include \texttt{pthread.h}, all threads have an id of type \texttt{pthread t}. \\\\
+\textcolor{Magenta}{\textbf{Thread calls:}}
+\begin{center}
+\begin{tabular}{ |c|c| } 
+\hline 
+\textbf{Thread Call} &\textbf{Description} \\
+\hline
+\texttt{Pthread\_create} &Create a new thread \\
+\hline
+\texttt{Pthread\_exit} &Terminate the calling thread \\
+\hline
+\texttt{Pthread\_join} &Wait for a specific thread to exit, wait command on multi-processes \\
+\hline
+\texttt{Pthread\_yield} &Release the CPU to let another thread run\\
+\hline
+\texttt{Pthread\_attr\_init} &Create and intialize a thread's attribute structure\\
+\hline
+\texttt{Pthread\_attr\_destroy} &Remove a threads's attribute structure \\
+\hline
+\end{tabular}
+\end{center}
+\textcolor{Magenta}{\textbf{Thread issues:}} Global variables are shared across threads, and thread switches can occur at any point. A thread can modify shared data while thread that is blocked is also modifying it. Therefore it is the programmer's responsibility to synchronise threads and ensure that threads don't override each other's data. \\\\
+\textcolor{Magenta}{\textbf{Concurrency:}} Also another issue with multiple threads. There can be different outputs depending on which order threads are run on. Programmers cannot create a problem where the output is dependent on thread order and consider how threads may interact (eg. race conditions, deadlocks)
+\subsection{Process Communcation}
+\textcolor{CarnationPink}{\textbf{Race Conditions:}} When multiple processes have access to the shared object and can read and write it. The race condition arises when the output depends on the order of operations. \\\\
+\textcolor{CarnationPink}{\textbf{Critical Regions:}} Used to prohibit access to the shared object at the same time. For example, if A is accessing the shared object, then we lock the object so B cannot access it. \\\\
+\textcolor{CarnationPink}{\textbf{Avoiding Race Conditions:}} Basically putting atomic code into the critical region. Any code that is required to be run to completion, but we want to minimize the amount of code we put there. 
+\begin{enumerate}
+\item No two processes may be simultaneously inside their critical regions (can't lock an object twice).
+\item No assumptions can be made about speeds or the number of CPUs. 
+\item No process running outside its critical region may block other processes. 
+\item No process should have to wait forever to enter its critical region (cannot always block the process from ending, whatever process is using the critical region has to end). 
+\end{enumerate}
+\textcolor{CarnationPink}{\textbf{Strict Alternation:}} A technique for avoiding race conditions, it gives each process a turn (eg.ABAB instead of AAAB). It may however get stuck if a process is stuck, such as B blocking A while it is in a non-critical region like waiting for input. \\\\
+\textcolor{CarnationPink}{\textbf{Test and Set Lock (TSL):}} Another technique for avoiding race conditions. Most CPUs come with a test and set lock instruction. 
+\begin{itemize}
+\item \textcolor{CarnationPink}{RX:} Register to read the lock value
+\item \textcolor{CarnationPink}{TSL:} Tests the lock value, if LOCK = 0, then we can set it to 1 and continue with the code. If it is 1 then we cannot proceed and have to test again. 
+\item \textcolor{CarnationPink}{LOCK:} Value to check if it is locked or not
+\end{itemize}
+\textcolor{CarnationPink}{\textbf{Busy Waiting:}} Technique for avoiding race conditions, when a process wants to enter a critical section it checks if the entry is allowed. If the entry isn't allowed then the process executes a loop which constantly checks if it is allowed to enter. The con of this is that it is a waste of CPU, and that high priority processes can interrupt low priority processes causing them to starve (and never be executed). \\\\
+\newpage
+\noindent \textcolor{CarnationPink}{\textbf{Blocking:}} Uses events to check if a process can enter a critical section, similar to sleeping in a queue. It attempts to enter a critical section, if it is available it will enter. If not, it registers interest in the critical section and blocks the process. When the critical section becomes available, the OS will unblock a process waiting for the critical section if it exists. Eg. Sleep() and Wakeup(). Blocking improves CPU utilization. \\\\
+\textcolor{CarnationPink}{\textbf{Deadlocks:}} A set of processes is deadlocked if each process in the set is waiting for an event that only another process in the set can cause. Eg. if process A locks 1, and process B locks 2. However process A needs 2 to continue and process B needs 1. As neither can unlock objects 1 and 2 without the other, they are in a deadlock. \\\\
+\textcolor{CarnationPink}{\textbf{Avoiding Deadlocks:}}
+\begin{itemize}
+\item Ignore the problem 
+\item Detection (eg. graph algorithms) and recovery
+\item Avoid by careful resource allocation (requires you to know the resources beforehand)
+\item Prevention (All code in the critical region, may be inefficient)
+\end{itemize}
+\subsection{Process Scheduling}
+\textcolor{Lavender}{\textbf{Process Scheduler:}} The scheduler picks which process to run and for how long based on a scheduling algorithm. \\\\
+It runs on: 
+\begin{itemize}
+\item Process creation (Asks if it should run the new process or not)
+\item Process exit (Selectes the process to run next)
+\item Process blocks (When the current process is blocked, the CPU is not doing anything so the scheduler decides what to do next)
+\item Interrupt (Run process from before or the interrupt process)
+\end{itemize}
+\textcolor{Lavender}{\textbf{Scheduler Input:}} Contains the processes in ready state (kept in the run queue) \\\\
+\textcolor{Lavender}{\textbf{CPU Bound:}} A type of process behaviour. The process uses a lot of CPU at a block of time, not on a constant basis (Long CPU burst, timewise). \\\\
+\textcolor{Lavender}{\textbf{I/O Bound:}} A type of process behaviour. The processes uses a bit of CPU at a time and then waits for I/O (eg. video games that require user input). Short time blocks of CPU. \\\\
+\textcolor{Lavender}{\textbf{Enviroments:}}
+\begin{enumerate}
+\item \textcolor{Lavender}{Batch:} Schedules processes at once, eg. periodic analytic tasks
+\item \textcolor{Lavender}{Interactive:} Schedules processes as a user requests them eg. user facing 
+\item \textcolor{Lavender}{Real Time:} Schedules processes as they are received eg. needing to meet a deadline \\
+\end{enumerate}
+\textcolor{Lavender}{\textbf{Scheduler Objectives:}} Note that some of these can conflict 
+\begin{itemize}
+\item \textcolor{Lavender}{Fairness:} All processes get a fair share of the CPU
+\item \textcolor{Lavender}{Throughput:} Number of processes that complete per unit time, higher processes per time 
+\item \textcolor{Lavender}{Turnaround Time:} Time from process start to its completion, low completion time for processes
+\item \textcolor{Lavender}{Response Time:} Time from when a request was first submitted until the first response is produced \\
+\end{itemize}
+\newpage
+\noindent \textcolor{Lavender}{\textbf{Non-preemptive Algorithms:}} Process will run until it is finished or blocked. The CPU is given to the process and not taken away unless the proccess blocks itself. \\\\
+\textcolor{Lavender}{\textbf{Preemptive Algorithms:}} Process can be suspended after some time interval (indicated by a clock interrupt). \\\\
+\textcolor{Lavender}{\textbf{Process/Context Switch:}} Switching between processes, involves saving and reloading process states (variables, data, files etc). Only useful if the time that the process is running can be amortized, ie. if running the process continously is longer than context switching between other processes. \\\\
+\textcolor{Lavender}{\textbf{First-come First-served Algorithm:}} Queues processes, if a process is blocked it goes to the end of the queue. It is simple and fair to all processes, however if a process was blocked and only need a short amount of time to finish then adding it to the end of the queue would make the turnaround time longer. \\\\
+\textcolor{Lavender}{\textbf{Shortest Job First Algorithm:}} Runs the processes in the order of the shortest job first. It has a short turnaround time however makes the assumption that the jobs arrive at the same time and that we know the length of each process. If jobs did not arrive at the same time, we could have a situation where the new ones are shorter than some processes in the queue. and the final process could be starved. \\\\
+\textcolor{Lavender}{\textbf{Shortest Remaining Time Next:}} Preemptive version of shortest job first. Similar to a queue sorted by shortest time, however if a process is unblocked and shorter than the rest of the queue, it will move to the front. \\\\
+\textcolor{Lavender}{\textbf{Round-Robin Scheduling:}} Has a list of runnable processes, and gives a bit of CPU time to each process, then switches to the next one. If the process hasn't finished then it is added to the end of the queue. We have to set the \textit{quantum} which is the amount of time after it switches. This may be system dependent and has to be longer than the time context switching is going to take. \\\\ 
+\textcolor{Lavender}{\textbf{Priority Scheduling:}} Important jobs always runs before less important jobs. It also has a \textit{quantum} and if the process is not finished, then it is downgraded to a lower priority level. It will clear all the processes in the highest priority before moving down into the next priority level. An issue that could arise is if we always have more important jobs arriving, then lower priority jobs will not execute.
+\subsection*{Memory Management}
+\textcolor{Thistle}{\textbf{Memory Manager:}} Abstraction of memory management, the size of a file should not be a concern to a programmer. \\\\
+\textbf{Responsibilities}: 
+\begin{itemize}
+\item Allocating memory to processes when they require it 
+\item Deallocates memory when finished 
+\item Protects memory against unauthorized access 
+\item Simulates the appearance of a bigger main memory by automatically moving data between the main memory and disk 
+\item Keeps track of which parts of memory are free and which parts are allocated to a process 
+\end{itemize}
+\textcolor{Thistle}{\textbf{Base Register:}} The beginning of a process's address space. \\\\
+\textcolor{Thistle}{\textbf{Limit Register:}} The upper limit of a process's address space. Address spaces should be within the base and limit registers. $Limit = Base + Memory \ Space$ \\\\
+\textcolor{Thistle}{\textbf{Swapping:}} If a new process requires memory and the OS has no space for it, it will replace a process's memory space that is not currently required. Swaps those processes in and out.  We should also note that splitting the memory is also not possible as we use base and limit registers. \\\\
+\textcolor{Thistle}{\textbf{Bitmap Memory Management:}} A data structure for checking if an address space is already occupied. For every address we can use \texttt{1} or \texttt{0} to denote if it is occupied or not. However search for an empty block of memory using a bitmap is very expensive and can be better optimised. \\\\
+\textcolor{Thistle}{\textbf{Linked List Memory Management: }} Another data structure used for storing the state of an address space. Instead of a bit map which stores every address, instead we can store blocks of memory in a linked list as addresses are consecutive.  \\\\
+Eg.
+\begin{tabular}{ |c|c|c|c| } 
+\hline
+P &0 &5 &next node \\
+\hline
+\end{tabular}
+\\\\
+where type = P (process), start address = 0, size = 5 \\\\
+Eg. 
+\begin{tabular}{ |c|c|c|c| } 
+\hline
+H &5 &3 &next node \\
+\hline
+\end{tabular}
+\\\\
+where type = H (hole), start address = 5, size = 3 \\\\
+ \textcolor{Thistle}{Search:} We can jump around the linked list looking for holes with a specific size when we have a new process that requires memory. \\\\
+\textcolor{Thistle}{Replacing a terminating process:} Given a terminating process X, we can combine empty blocks 
+\begin{enumerate}
+\item \begin{tabular}{ |c|c|c| } 
+\hline
+A &X &B \\
+\hline
+\end{tabular} 
+becomes 
+\begin{tabular}{ |c|c|c| } 
+\hline
+A &Empty &B \\
+\hline
+\end{tabular}
+\item \begin{tabular}{ |c|c|c| } 
+\hline
+A &X &Empty \\
+\hline
+\end{tabular}
+becomes 
+\begin{tabular}{ |c|c|c| } 
+\hline
+A &Empty \\
+\hline
+\end{tabular}
+\item \begin{tabular}{ |c|c|c| } 
+\hline
+Empty &X &B \\
+\hline
+\end{tabular} 
+becomes 
+\begin{tabular}{ |c|c|c| } 
+\hline
+Empty &B \\
+\hline
+\end{tabular}
+\item \begin{tabular}{ |c|c|c| } 
+\hline
+Empty &X &Empty \\
+\hline
+\end{tabular}
+becomes 
+\begin{tabular}{ |c|c|c| } 
+\hline
+Empty \\
+\hline
+\end{tabular}
+\\
+\end{enumerate}
+\textcolor{Thistle}{\textbf{Memory Management Algorithms:}} An algorithm to determine which block of memory to choose. 
+\begin{itemize}
+\item First fit: Finds the first hole that fits and allocates it. Pros: Easy to implement and search, Cons: May assign it to a hole much bigger than necessary. 
+\item Best fit: Finds the closest sized hole that fits and allocates it. Cons: May end up with tiny memory fragments that are useless for other processes. 
+\item Worst fit: Finds the biggest hole and allocates it. Pro/Con: Empty blocks of memory. 
+\end{itemize}
+\textcolor{Thistle}{\textbf{Fragmentation: }} An issue that arises when assigning memory is that memory fragements will appear due to memory blocks being split up. There may be enough empty space for a new process, however as it is split across fragments we cannot use it. \\\\
+\textcolor{Thistle}{\textbf{Virtual Memory:}} Allows programs to continue with the assumption that code and data does not have to be in the main memory when the program is running, and they do not have to be stored in contiguous locations. We assign each program its own address space, and break it up into chunks (same size) that are called pages. \\\\
+\textcolor{Thistle}{\textbf{Virtual Address Spaces:}} The set of addresses that programs on a machine may generate. Each process has its own virtual address space, and virtual address spaces may be bigger than the physical (CPU) address space. \\\\
+\textcolor{Thistle}{\textbf{Paging:}} A paged system divides both virtual and physical address spaces into fixed size pages. A virtual page can then be mapped to a physical page. \\\\
+\textcolor{Thistle}{\textbf{Page frame:}} Another name for a physical page, the job of a physical page is to hold a virtual page. Physical pages can be remapped to different virtual pages as required.\\\\
+\textcolor{Thistle}{\textbf{Memory Management Unit: }} Translates a virtual address to a physical one. CPU sends virtual addresses to the MMU and the MMU sends physical addresses to the memory. \\\\
+\textcolor{Thistle}{\textbf{Page Mapping:}} The mapping is generated by the MMU, and any actual memory access is done with the physical address value. \\\\
+For example, the CPU requests the virtual address \texttt{8196} \\ 
+The page memory is \texttt{4096} bits \\ 
+To find the area of the page: $8196 \ \% \ 4096 = 4$ \\
+To find the physical memory location: $6 * 4096 = 24576$ \\
+Finding the physical address: $24576 + 4 = 24580$ \\\\ 
+\textcolor{Thistle}{\textbf{Page Table Map:}} Maps a virtual address to a physical address. Dynamically updated, so we don't always know which pages are mapped to the physical space. \\\\
+\textcolor{Thistle}{\textbf{Paging Operations:}} The MMU must always check that the page table entry is present and permissions are allowed to access the memory. If it is, then it will construct the physical address otherwise returns a page fault. \\\\
+\textcolor{Thistle}{\textbf{Translation Lookaside Buffer:}} Stores frequently accessed pages into a data structure (if it is not in the buffer then we have to use the page table). The TLB directly stores the virtual page and the corresponding physical page. It is much quicker to access as we don't have to calculate the physical address. \\\\ 
+\textcolor{Thistle}{\textbf{Page Fault Handling:}} If the page is not supposed to be access then the handler will terminate the process. If a page fault arises because it doesn't have the memory to store a new page, then the OS needs to decide which page to evict from the physical memory and replace. \\\\
+\textcolor{Thistle}{\textbf{Local Page Replacement:}} Replaces a page that is already assigned to this process \\\\
+\textcolor{Thistle}{\textbf{Global Page Replacement:}} Replaces a page from other processes\\\\
+\textcolor{Thistle}{\textbf{Page Replacement Algorithms:}} Decide on the type (global or local), discards a page if not modified or writes to disk if the page was modified.\\\\
+\textcolor{Thistle}{\textbf{Not Recently Used Algorithm:}} Categorises pages based on the current values of their \texttt{R} and \texttt{M} bits. First to be removed is Class 0 and works it's way down.
+\begin{itemize}
+\item Class 0: Not referenced, not modified 
+\item Class 1: Not referenced, modified
+\item Class 2: Referenced, not modified 
+\item Class 3: Referenced, modified 
+\end{itemize}
+\textcolor{Thistle}{\textbf{Second Chance Algorithm:}} Pages are sorted in FIFO order. If the top page has been referenced in the past, then it is added to the end of the queue but it's \texttt{R} bit is set to \texttt{0}. If it arrives at the top of the queue again and isn't referenced, then it is removed. \\\\
+\textcolor{Thistle}{\textbf{Working Set:}} Pages currently being used by a process, and being read sequentially. If we constantly evict the next pages, then it can create frequent page faults. \\\\
+\textcolor{Thistle}{\textbf{Locality:}} Data access is not uniform throughout memory. \\\\
+\textcolor{Thistle}{\textbf{Temporal Locality:}} If it has been accessed in the past, and is likely to be accessed again. \\\\
+\textcolor{Thistle}{\textbf{Spatial Locality:}} Pages next to each other are likely to be accessed soon (eg. for loop) \\\\
+\section{Cryptography}
+\textcolor{Purple}{\textbf{Encryption:}} Hiding data from everyone except thoughs who hold the decryption key. Output is a cipher text. \\\\
+\textcolor{Purple}{\textbf{Decryption:}} Recovering the orginal data from a cipher text using the key. Output is plaintext. \\\\
+\textcolor{Purple}{\textbf{Symmetric Cryptography:}} Same key is used for encryption and decryption. \\
+\texttt{CipherText := Encrypt(SecretKey, Message)} \\
+\texttt{Message := Decrypt(SecretKey, CipherText)}\\\\
+\textcolor{Purple}{\textbf{Asymmetric Cryptography:}} A private key is used for decryption, a public key is used for encryption. Slower than symmetic, and also cannot encrypt large amounts of data.  \\
+\texttt{CipherText := Encrypt(PublicKey, Message)} \\
+\texttt{Message := Decrypt(PrivateKey, CipherText)}\\\\
+\textcolor{Purple}{\textbf{Advanced Encryption Standard:}} Breaks data into blocks and encrypts each block. \\\\
+\textcolor{Purple}{\textbf{Electronic Codebook:}} Simple, parallelisable process. Takes plaintext as inputs, uses block cipher encryption to output the cipher text. However, it shouldn't be used as it produces the same output for the same words, and can be understood through pattern comparisons. \\\\
+\textcolor{Purple}{\textbf{Probabilistic Encryption:}} A more secure notion of encryption as we get a different output when running the encryption on the same message multiple times. \\\\
+\textcolor{Purple}{\textbf{Cipher Block Chaining:}} Starts with a random Initialization Vector. Encryption is done sequentially, the first block takes the IV $\oplus $ plaintext as inputs and encrypts it using the block cipher encryption. It outputs a ciphertext, which is then used as an input to the second block and so on. Decryption can be done in parallel, and if a ciphertext block is lost, it only affects the current block and the next block. \\\\
+\textcolor{Purple}{\textbf{Public Key Signature:}} 
+\texttt{SignKey := Generate()} is private \\
+\texttt{VerifKey := Generate()} is public\\
+\texttt{s := Sign(SignKey,m)} the message is signed with the private SignKey \\
+\texttt{Verify(VerifyKey, s, message)} is used to validate the message sender\\\\
+\textcolor{Purple}{\textbf{Cryptographic Hashing:}} Should look random, and have collision resistance. \\\\ 
+\textcolor{Purple}{\textbf{Key Sizes:}} RSA requires a minimum key size of 2048 bits while AES requires only 128 bits. Asymmetric is generally longer than Symmetric. Calculated based on mathematical probability of brute forcing a key.\\\\
+\textcolor{Purple}{\textbf{Randomness:}} Cryptography is dependent on randomness, eg. IV for ciphers. We should use pseudoranom generators and they shouldn't be reused or discoverable. Generally, just use libraries as they are much better than human error. \\\\
+\section{Secure Communication}
+\textcolor{Violet}{\textbf{Adversary:}} An abstraction of issues that can happen in connections. \\\\
+\textcolor{Violet}{\textbf{Confidentiality:}} A pillar of secure communication. We want to ensure that no one other than the intended recipient has read the message. \\\\
+\textcolor{Violet}{\textbf{Authentication:}} Ensures that the right person has sent the message. Establishes the identities of one or both of theend points.\\\\
+\textcolor{Violet}{\textbf{Integrity:}} Ensures that the data that was sent from one end point was not changed in transit. Eg. the message was not intercepted by an adversary and modified. \\\\
+\textcolor{Violet}{\textbf{Cipher Block Chaining Tampering:}} If the attacker reorders ciphertext or flips bits then we cannot decrypt the next block. \\\\
+\textcolor{Violet}{\textbf{Message Authentication Code (MAC):}} Detects if a message has been tampered with. Verifies the integrity of a message using a secret key. The adversary cannot create a new tag without the secret key, and therefore cannot change the message.
+\begin{itemize}
+\item s: MAC's secret key
+\item m: message
+\item t: tag, \texttt{t:=Mac(s,m);}
+\item b: verification (returns \texttt{0/1}), \texttt{b:=Verify(s,m,t);}
+\end{itemize} 
+\textcolor{Violet}{\textbf{CBC-MAC:}} Based on encryption, secure for fixed variable messages. For variable length messages, we $\oplus$ the messages, so if it's too long/variable it won't work.\\\\
+\textcolor{Violet}{\textbf{HMAC:}} Industry standard and widely used in practice. It generates a MAC tag t using a hash function and a combination of padded secret keys concatenated with the message. \\ \\
+\indent \texttt{t := Hash( (s$\oplus$opad) || Hash((s$\oplus$ipad) || m ))} \\\\
+\indent where ipad and opad are fixed constants used for padding \\
+\indent \texttt{||} means concatenation \\\\
+\textcolor{Violet}{\textbf{Authenticated Encryption:}} Generally, we encrypt then MAC. It's the only secure combination of these encryption processes. \\\\ 
+\indent \texttt{c:=Encrypt(SK,m)}\\
+\indent \texttt{t:=Mac(s,c)} \\\\
+\indent where s is a different secret key from SK\\\\ 
+\textcolor{Violet}{\textbf{Diffie-Hellman Key Exchange:}} Allows both parties to agree on a shared key, then sends information in a way that both parties can calculate a shared key. Additionally, if a private key were to be exposed, previous sessions won't be as long as their secrets (s) have been discarded. 
+\begin{enumerate}
+\item Generate a large prime \textit{p} and a generator \textit{g}
+\item Alice picks a random value x and computes X = $g^x$ mod \textit{p}
+\item Alice sends X to Bob
+\item Bob picks a random value y and computes Y = $g^y$ mod \textit{p}
+\item Bob sends Y to Alice 
+\item Alice calculates the secret key s = $Y^x$ mod \textit{p} = $g^{yx}$ mod \textit{p}
+\item Bob calculates the secret key s = $X^y$ mod \textit{p} = $g^{xy}$ mod \textit{p}
+\item $g^{yx}$ mod \textit{p} = $g^{xy}$ mod \textit{p} so both Bob and Alice have the secret key
+\end{enumerate}
+\textcolor{Violet}{\textbf{Human in the middle Attack:}} Network traffic between two endpoints goes via an adversary who is able to intercept their communication. \\\\
+\textcolor{Violet}{\textbf{Impersonation:}} An adversary pretending to be an endpoint and sends and receives messages as said endpoint.\\\\
+\textcolor{Violet}{\textbf{Eavesdropping:}} An adversary observing the messages between two endpoints. They intercept the messages and have knowledge of the contents, then sends it on to its intended endpoint without either party knowing. \\\\ 
+\subsection{Certificates}
+\textcolor{RoyalPurple}{\textbf{Certificates:}} Securely associates identities with cryptographic public keys. The certificate itself is signed by a third party. The most common standard format of a certificate is the X.509 which contains serial number, algorithm ID, etc.\\\\
+\texttt{certificate = (Issuer, $PK_{alice}$, Alice, ... details)} \\
+\texttt{signature = Sign($SK_{issuer}$, certificate)} \\
+\texttt{verification = Verify($PK_{issuer}$, s, certificate)}\\\\
+\textcolor{RoyalPurple}{\textbf{Certificate Hierarchies:}} Certificates can be chainged, for example if A signs B's certificate, then B can sign C's certificate, implying that A trusts C. When signing certificates, they should also specify a limit for chains. \\\\
+Example: \\
+A signs B's certificate, B signs C's certificate: \\\\
+\indent A: $s_{B}$ = sign($SK_{A}, certificate_{B}$), $certificate_B$ contains $PK_{B}$ \\
+\indent B: $s_{C}$ = sign($SK_{B}, certificate_{C}$), $certificate_C$ contains Charlie's domain address www.website.com \\\\
+\indent Alice wants to verify www.website.com using Charlie's certificate \\ 
+
+\indent Verify($PK_{B}, s_{C}, certificate_{C}$)\\
+\indent Verify($PK_{A}, s_{B}, certificate_{B}$)\\\\
+\textcolor{RoyalPurple}{\textbf{Certificate Authorities (CA):}} Also known as root certificates, which are entities that are explicitly trusted. Generally they sign certificates for others, or have sub CA that signs on their behalf. Root certificates are also self signed, so we know when to stop chain verifications. \\\\ 
+\textcolor{RoyalPurple}{\textbf{Certificate Issuance:}} Generally has to validates that the PK and domain address belong to the same individual.
+\begin{itemize}
+\item \textcolor{RoyalPurple}{Domain Validation (DV):} Most common form of certificate issuance. The CA ties a certificate to a domain and checks that the requester has some control over the domain. Generally done by `challenging' the domain, such as sign a random string and put a random string on your website. 
+\item \textcolor{RoyalPurple}{Organisation Validation (OV):} Ties a certificate to a domain and legal entity (eg. a business)
+\item \textcolor{RoyalPurple}{Extended Validation (EV):} Establishes legal entity, jurisdiction and presence of an authorised officer (by address, phone etc). Involves and offline process and can be expensive. 	
+\end{itemize}
+\textcolor{RoyalPurple}{\textbf{Certification Revocation:}} Occurs when a certificate is mistakenly issued, a private key is compromised or certificates are expired. Uses a Cerification Revocation List and OCSP (Online Certificate Status Protocol). The list is a giant list that anyone can use to search (questionable performance), whereas the OCSP is similar to asking a CA if a certificate is revoked (not as private, and requires CA to provide a response).\\\\ 
+\textcolor{RoyalPurple}{\textbf{Certificate Transparency:}} An open framework used for monitoring and auditing certificates. Detects misissued certifcates, maliciously acquired certificates and rogue CAs. Uses a cryptographic append-only log to record the issuance of certificates. If it exists, then the server sends a \textbf{signed certificate timestamp}(SCT). 
+\newpage
+\subsection{SSL/TLS}
+\textcolor{BlueViolet}{\textbf{Transport Layer Security protocol:}} A protocol for secure communication over the internet. Previously known as SSL (Secure Socket Layer). \\\\
+\textcolor{BlueViolet}{\textbf{Handshake Protocol:}} Initial establishment of connection between the client and the server. Asks which cryptographic algorithms they support, their version of TLS (in case of downgrade), and creates a shared secret key (using Diffie - Hellman). Optionally, they can also authenticate each other's identities using digital certificates. \\\\
+\textcolor{BlueViolet}{\textbf{Record Protocol:}} Uses the secret keys created in the handshake protocol to protect confidentiality, integrity and authenticity of data exchange between the client and the server. \\\\
+\textcolor{BlueViolet}{\textbf{Downgrade attack:}} When the handshake protocol requires a downgrade to an older version of TLS for client network communication. They will then target known vulnerabilities in previous versions which makes it unsecure. \\\\
+\textcolor{BlueViolet}{\textbf{Client - Server Interaction:}} \\\\
+\textbf{Client} 
+\begin{itemize}
+\item Sends protocol version 
+\item Sends cryptographic algorithms
+\item Sends a random nonce (allows them to establish a new communication channel and avoids the reuse of old interactions)
+\end{itemize}
+\textbf{Server}
+\begin{itemize}
+\item Sends the highest protocol version supported by both parties 
+\item Chooses the strongest crytographic suite selected by those offered by the client 
+\item Server also sends its public key certificate, or its Diffie-Hellman public key (depending on the suite selected). The Client can then use this to validate the certificate. 
+\end{itemize} 
+\textbf{Key Exchange}
+\begin{itemize}
+\item The client can then generate a secret key and send it to the server encrypted with the public key (asymmetric/symmetric), or $g^{x}$ if using DF. 
+\item The key is useful for a session. 
+\end{itemize}
+\textcolor{BlueViolet}{\textbf{Local TLS Interception:}} Sometimes a local entity may need to intercept communication. An example is anti-virus software, which acts as a human in the middle (but non malicious). It can request to make changes to your computer, and install it's own certificate on your machine, appending itself as a root CA. It then has the ability to intercept all communication from a browser to the user, and make sure all messages are safe. An issue that can arise is if multiple machines have the same $P_k$ issued by the software, in which case other people can impersonate them. \\\\ 
+\textcolor{BlueViolet}{\textbf{Server-side issues:}} Proxies are used for privacy. The break the concept of end-to-end encryption. It'll analyse traffic, know which ips to block and filter, then forwards it to a server. An issue is that it has a lot of information from different sites, so if it exposes it, ther will be a lot of potential breaches. \\\\
+\textcolor{BlueViolet}{\textbf{}}
+\textcolor{BlueViolet}{\textbf{}}
+\textcolor{BlueViolet}{\textbf{}}
+\textcolor{BlueViolet}{\textbf{}}
+\textcolor{BlueViolet}{\textbf{}}
+\textcolor{BlueViolet}{\textbf{}}
+\end{document} 
