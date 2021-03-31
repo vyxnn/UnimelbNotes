@@ -144,7 +144,7 @@ If a process goes from the \textcolor{Magenta}{running} state to the \textcolor{
 \hline
 \end{tabular}
 \end{center}
-\textcolor{Magenta}{\textbf{Thread issues:}} Global variables are shared across threads, and thread switches can occur at any point. A thread can modify shared data while thread that is blocked is also modifying it. Therefore it is the programmer's responsibility to synchronise threads and ensure that threads don't override each other's data. \\\\
+\textcolor{Magenta}{\textbf{Thread issues:}} Global variables are shared across threads, and thread switches can occur at any point. A thread can modify shared data while the thread that is blocked is also modifying it. Therefore it is the programmer's responsibility to synchronise threads and ensure that threads don't override each other's data. \\\\
 \textcolor{Magenta}{\textbf{Concurrency:}} Also another issue with multiple threads. There can be different outputs depending on which order threads are run on. Programmers cannot create a problem where the output is dependent on thread order and consider how threads may interact (eg. race conditions, deadlocks)
 \subsection{Process Communcation}
 \textcolor{CarnationPink}{\textbf{Race Conditions:}} When multiple processes have access to the shared object and can read and write it. The race condition arises when the output depends on the order of operations. \\\\
@@ -186,7 +186,7 @@ It runs on:
 \textcolor{Lavender}{\textbf{Scheduler Input:}} Contains the processes in ready state (kept in the run queue) \\\\
 \textcolor{Lavender}{\textbf{CPU Bound:}} A type of process behaviour. The process uses a lot of CPU at a block of time, not on a constant basis (Long CPU burst, timewise). \\\\
 \textcolor{Lavender}{\textbf{I/O Bound:}} A type of process behaviour. The processes uses a bit of CPU at a time and then waits for I/O (eg. video games that require user input). Short time blocks of CPU. \\\\
-\textcolor{Lavender}{\textbf{Enviroments:}}
+\textcolor{Lavender}{\textbf{Environments:}}
 \begin{enumerate}
 \item \textcolor{Lavender}{Batch:} Schedules processes at once, eg. periodic analytic tasks
 \item \textcolor{Lavender}{Interactive:} Schedules processes as a user requests them eg. user facing 
@@ -202,7 +202,7 @@ It runs on:
 \newpage
 \noindent \textcolor{Lavender}{\textbf{Non-preemptive Algorithms:}} Process will run until it is finished or blocked. The CPU is given to the process and not taken away unless the proccess blocks itself. \\\\
 \textcolor{Lavender}{\textbf{Preemptive Algorithms:}} Process can be suspended after some time interval (indicated by a clock interrupt). \\\\
-\textcolor{Lavender}{\textbf{Process/Context Switch:}} Switching between processes, involves saving and reloading process states (variables, data, files etc). Only useful if the time that the process is running can be amortized, ie. if running the process continously is longer than context switching between other processes. \\\\
+\textcolor{Lavender}{\textbf{Process/Context Switch:}} Switching between processes, involves saving and reloading process states (variables, data, files etc). Only useful if the time that the process is running can be amortized, ie. if running the process continuously is longer than context switching between other processes. \\\\
 \textcolor{Lavender}{\textbf{First-come First-served Algorithm:}} Queues processes, if a process is blocked it goes to the end of the queue. It is simple and fair to all processes, however if a process was blocked and only need a short amount of time to finish then adding it to the end of the queue would make the turnaround time longer. \\\\
 \textcolor{Lavender}{\textbf{Shortest Job First Algorithm:}} Runs the processes in the order of the shortest job first. It has a short turnaround time however makes the assumption that the jobs arrive at the same time and that we know the length of each process. If jobs did not arrive at the same time, we could have a situation where the new ones are shorter than some processes in the queue. and the final process could be starved. \\\\
 \textcolor{Lavender}{\textbf{Shortest Remaining Time Next:}} Preemptive version of shortest job first. Similar to a queue sorted by shortest time, however if a process is unblocked and shorter than the rest of the queue, it will move to the front. \\\\
@@ -214,7 +214,7 @@ It runs on:
 \begin{itemize}
 \item Allocating memory to processes when they require it 
 \item Deallocates memory when finished 
-\item Protects memory against unauthorized access 
+\item Protects memory against unauthorised access 
 \item Simulates the appearance of a bigger main memory by automatically moving data between the main memory and disk 
 \item Keeps track of which parts of memory are free and which parts are allocated to a process 
 \end{itemize}
@@ -345,7 +345,7 @@ Finding the physical address: $24576 + 4 = 24580$ \\\\
 \texttt{Verify(VerifyKey, s, message)} is used to validate the message sender\\\\
 \textcolor{Purple}{\textbf{Cryptographic Hashing:}} Should look random, and have collision resistance. \\\\ 
 \textcolor{Purple}{\textbf{Key Sizes:}} RSA requires a minimum key size of 2048 bits while AES requires only 128 bits. Asymmetric is generally longer than Symmetric. Calculated based on mathematical probability of brute forcing a key.\\\\
-\textcolor{Purple}{\textbf{Randomness:}} Cryptography is dependent on randomness, eg. IV for ciphers. We should use pseudoranom generators and they shouldn't be reused or discoverable. Generally, just use libraries as they are much better than human error. \\\\
+\textcolor{Purple}{\textbf{Randomness:}} Cryptography is dependent on randomness, eg. IV for ciphers. We should use pseudorandom generators and they shouldn't be reused or discoverable. Generally, just use libraries as they are much better than human error. \\\\
 \section{Secure Communication}
 \textcolor{Violet}{\textbf{Adversary:}} An abstraction of issues that can happen in connections. \\\\
 \textcolor{Violet}{\textbf{Confidentiality:}} A pillar of secure communication. We want to ensure that no one other than the intended recipient has read the message. \\\\
@@ -396,14 +396,14 @@ A signs B's certificate, B signs C's certificate: \\\\
 
 \indent Verify($PK_{B}, s_{C}, certificate_{C}$)\\
 \indent Verify($PK_{A}, s_{B}, certificate_{B}$)\\\\
-\textcolor{RoyalPurple}{\textbf{Certificate Authorities (CA):}} Also known as root certificates, which are entities that are explicitly trusted. Generally they sign certificates for others, or have sub CA that signs on their behalf. Root certificates are also self signed, so we know when to stop chain verifications. \\\\ 
+\textcolor{RoyalPurple}{\textbf{Certificate Authorities (CA):}} Also known as root certificates, which are entities that are explicitly trusted. Generally they sign certificates for others, or have sub CA that signs on their behalf. Root certificates are also self signed, so we know when to stop chain verification. \\\\ 
 \textcolor{RoyalPurple}{\textbf{Certificate Issuance:}} Generally has to validates that the PK and domain address belong to the same individual.
 \begin{itemize}
 \item \textcolor{RoyalPurple}{Domain Validation (DV):} Most common form of certificate issuance. The CA ties a certificate to a domain and checks that the requester has some control over the domain. Generally done by `challenging' the domain, such as sign a random string and put a random string on your website. 
 \item \textcolor{RoyalPurple}{Organisation Validation (OV):} Ties a certificate to a domain and legal entity (eg. a business)
 \item \textcolor{RoyalPurple}{Extended Validation (EV):} Establishes legal entity, jurisdiction and presence of an authorised officer (by address, phone etc). Involves and offline process and can be expensive. 	
 \end{itemize}
-\textcolor{RoyalPurple}{\textbf{Certification Revocation:}} Occurs when a certificate is mistakenly issued, a private key is compromised or certificates are expired. Uses a Cerification Revocation List and OCSP (Online Certificate Status Protocol). The list is a giant list that anyone can use to search (questionable performance), whereas the OCSP is similar to asking a CA if a certificate is revoked (not as private, and requires CA to provide a response).\\\\ 
+\textcolor{RoyalPurple}{\textbf{Certification Revocation:}} Occurs when a certificate is mistakenly issued, a private key is compromised or certificates are expired. Uses a Certification Revocation List and OCSP (Online Certificate Status Protocol). The list is a giant list that anyone can use to search (questionable performance), whereas the OCSP is similar to asking a CA if a certificate is revoked (not as private, and requires CA to provide a response).\\\\ 
 \textcolor{RoyalPurple}{\textbf{Certificate Transparency:}} An open framework used for monitoring and auditing certificates. Detects misissued certifcates, maliciously acquired certificates and rogue CAs. Uses a cryptographic append-only log to record the issuance of certificates. If it exists, then the server sends a \textbf{signed certificate timestamp}(SCT). 
 \newpage
 \subsection{SSL/TLS}
@@ -430,7 +430,7 @@ A signs B's certificate, B signs C's certificate: \\\\
 \item The key is useful for a session. 
 \end{itemize}
 \textcolor{BlueViolet}{\textbf{Local TLS Interception:}} Sometimes a local entity may need to intercept communication. An example is anti-virus software, which acts as a human in the middle (but non malicious). It can request to make changes to your computer, and install it's own certificate on your machine, appending itself as a root CA. It then has the ability to intercept all communication from a browser to the user, and make sure all messages are safe. An issue that can arise is if multiple machines have the same $P_k$ issued by the software, in which case other people can impersonate them. \\\\ 
-\textcolor{BlueViolet}{\textbf{Server-side issues:}} Proxies are used for privacy. The break the concept of end-to-end encryption. It'll analyse traffic, know which ips to block and filter, then forwards it to a server. An issue is that it has a lot of information from different sites, so if it exposes it, ther will be a lot of potential breaches. \\\\
+\textcolor{BlueViolet}{\textbf{Server-side issues:}} Proxies are used for privacy. The break the concept of end-to-end encryption. It'll analyse traffic, know which ips to block and filter, then forwards it to a server. An issue is that it has a lot of information from different sites, so if it exposes it, there will be a lot of potential breaches. \\\\
 \textcolor{BlueViolet}{\textbf{}}
 \textcolor{BlueViolet}{\textbf{}}
 \textcolor{BlueViolet}{\textbf{}}
