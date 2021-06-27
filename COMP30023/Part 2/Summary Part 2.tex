@@ -1,0 +1,948 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\begin{document}
+
+\section{Networks and OSI Layers}
+\subsection{History}
+\textcolor{TealBlue}{\textbf{ARPANET:}} Created in 1969-1990, mainly had 4 sites for universities. Developed TCP/IP. \\\\
+\textcolor{TealBlue}{\textbf{International Network Working Group:}} 1972, proposed packet switching (ie. splitting data into packets and then sending them independently). Rejected for international standardisation. \\\\
+\textcolor{TealBlue}{\textbf{OSI Model:}} Competitor to ARPANET group, published as an international standard in 1984 however slow development stopped it from taking hold.\\\\ 
+\textcolor{TealBlue}{\textbf{NSFNet:}} Created in 1986 to provide researches access to sites in USA. \\\\
+\textcolor{TealBlue}{\textbf{CERN:}} Developed their own TCP/IP based network, which would lead to the creation of the world wide web. Standardised TCP/IP as the protocol stack of choice, and only used OSI as the name for protocols rather than the protocols themselves. \\\\
+\textcolor{TealBlue}{\textbf{Internet Standardization:}} Designed without consideration for an adversary on the network, however difficult to make changes on everything that uses TCP/IP so some protocols may still be insecure eg. DNS. Additionally, due to OSI and TCP rivalry, other parties may reject perfectly good solutions simply because the other party came up with it. \\\\
+\textcolor{TealBlue}{\textbf{TCP/IP:}} Main protocol stack used. It implements a protocol then standardizes it.\\\\ 
+\textcolor{TealBlue}{\textbf{OSI:}} Used as an abstraction or model for TCP/IP now. First decides the function then implements it. \\\\
+\textcolor{TealBlue}{\textbf{Models:}} Benefits of having a model. 
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{itemize}
+	\item Interoperability: Allows different stakeholders to communicate with each other. Eg. Google browser interacting with a web application. 
+	\item Developing: Allows a reference model to develop with, or expected interfaces so that we can abstract concepts. Eg. No matter what form of communication, we know that there should be a critical layer, even if we don't know how it is carried out. 
+	\item Reference model can simplify the design process (again by having an interface to abstract complications)
+	\item Also good engineering practice to have an abstract reference model, a reference model and corresponding implementations for validation purposes.
+\end{itemize}
+\subsection{Network Models}
+\textcolor{TealBlue}{\textbf{Network Model:}} Models the network as a stack of layers. \emph{It is just a model.} \\\\
+\textcolor{TealBlue}{\textbf{Layers:}} Each layer offers services to the layer above it. Layers can communicate between each other, eg. passing information up or down.\\\\
+\textcolor{TealBlue}{\textbf{Physical Layer:}} The very bottom of the network model. It tends to be a wire or something else physical that allows communication. \\\\
+\textcolor{TealBlue}{\textbf{Protocol:}} Allows inter-layer communication and exchanges. Communicates between objects on the same layer. They are also a set of rules which govern the format and meaning of packets that are exchanged by peers within a layer. Eg. send a packet, resend etc.\\\\
+\textcolor{TealBlue}{\textbf{Services:}} Interfaces between layers, it provides a service to the layer above it. \\\\
+\textcolor{TealBlue}{\textbf{TCP:}} Connection oriented service. It has functions connect, use and disconnect. Similar to a telephone service in that it has to call, receiver responds and once the phone call is over it disconnects. \\\\
+\textcolor{TealBlue}{\textbf{UDP:}} Connectionless oriented service. It passes a message by routing it through intermediate nodes. It is similar to sending mail or a text message in that it doesn't require a connection from the other end to send and doesn't have to disconnect after sending. Once a packet is sent, the protocol is complete. Both protocols has its own benefits and drawbacks.
+\subsection{OSI Model}
+\textcolor{TealBlue}{\textbf{OSI Model:}}
+\begin{itemize}
+	\item A layer should be created where a different abstraction is needed. 
+	\item Each layer should perform a well defined function. 
+	\item The function of each layer should be chosen with a view toward defining internationally standardized protocols. 
+	\item The layer boundaries should be chosen to minimise the information flow across interfaces (encapsulation, all necessary data and its functions should generally be in the same layer)
+	\item The number of layers should be large enough that the distinct functions can be separated, but small enough to not over complicate the architecture. 
+\end{itemize}
+\textcolor{TealBlue}{\textbf{Application Layer (7):}} Interprets packets, deals with things such as http, web and file downloads. Can access all the layers below it. \\\\
+\textcolor{TealBlue}{\textbf{Presentation Layer (6):}} Deals with the presentation, such as choosing whether to use ASCII or unicode for text. \\\\
+\textcolor{TealBlue}{\textbf{Session Layer (5):}} Not commonly used. \\\\
+\textcolor{TealBlue}{\textbf{Transport Layer (4):}} Ensures reliable transport for end to end protocols(travels between the first and last objects in a layer). \\\\
+\textcolor{TealBlue}{\textbf{Network Layer (3):}} Able to work point to point (objects next to each other in a layer) and end to end. It also names and identifies network entities. \\\\
+\textcolor{TealBlue}{\textbf{Datalink Layer (2):}} Send frames (packets for the datalink layer). It can turn a stream of bits into packets/frames, do bit verification (and ask again to validate bits). It functions through the point to point protocol, however packets goes down through the physical link and not across layers. \\\\
+\textcolor{TealBlue}{\textbf{Physical Layer (1):}} Anything physical that is able to communicate information from one location to another. \\\\
+\textcolor{TealBlue}{\textbf{TCP/IP Model:}} Has 4 layers. Application, Transport, Internet (similar to network) and Host-to-Network (combination of Data link and Physical layers). \\\\
+\textcolor{TealBlue}{\textbf{Using protocols:}} Encapsulates data at each stage, and adds headers depending on the layer. Passing messages between locations involves wrapping and unwrapping those layers. Similar to a birthday package being sent, where at each layer different information is added.
+\newpage
+\section{The Application Layer}
+\subsection{HTTP and HTML}
+\textcolor{JungleGreen}{\textbf{Hypertext:}} Creation and use of linked content. Eg. a page linking to another page. \\\\
+\textcolor{JungleGreen}{\textbf{Client:}} Provides browser based access to pages. \\\\
+\textcolor{JungleGreen}{\textbf{Server:}} Daemon based (continuously running) content delivery of pages. \\\\
+\textcolor{JungleGreen}{\textbf{URL:}} Uniform Resource Locator, has the protocol, DNS name and file name. Also can be known as URI/IRI but they have differences. Provides and address for a resource, and can be absolute or relative. Also can take arguments which are passed in through the URL, isch as path, query, fragment etc.\\\\
+\textcolor{JungleGreen}{\textbf{HTTP:}} HyperText Transfer Protocol. Defines everything needed for a web. \\\\
+\textcolor{JungleGreen}{\textbf{HTTP Protocol Overview:}} 
+\begin{itemize}
+	\item Client initiates TCP Connection to a server (a socket is created)
+	\item Server accepts TCP Connection from client 
+	\item HTTP messages are exchanged between the browser (HTTP client) and Web server (HTTP server). For example a file, or HTML document. 
+	\item TCP connection is closed. \\\\
+\end{itemize}
+\textcolor{JungleGreen}{\textbf{Non-Persistent Connection:}} Requires 2 'response times', one for TCP connection and one for a HTTP request for an object as well as the file transmission time. Has to open and close a connection for every object we want to download/access. \\\\
+\textcolor{JungleGreen}{\textbf{Persistent Connection:}} The server will leave the connection open after sending a response. This allows us to reuse the connection for subsequent messages and requests. It also has the added benefit of being able to send a request as soon as it need to, rather than waiting for the previous request to finish (pipelined). \\\\
+\textcolor{JungleGreen}{\textbf{HTTP Steps:}}
+\begin{enumerate}
+	\item Browser determines the URL 
+	\item Browser makes a TCP connection 
+	\item Send the HTTP request for the page 
+	\item Server sends back page as the HTTP response 
+	\item Browser fetches other URLS as required 
+	\item Browser displays the page progressively (as content arrives)
+	\item TCP connections are then released
+\end{enumerate}
+\newpage
+\textcolor{JungleGreen}{\textbf{HTTP Request methods:}}
+\begin{center}
+\begin{tabular}{ |c|c|c|c| }
+	\hline
+	HTTP Method &Safe &Idempotent &Cacheable \\
+	\hline
+	\hline
+	GET &Yes &Yes &Yes \\ 
+	\hline
+	HEAD &Yes &Yes &Yes \\
+	\hline
+	POST &No &No &Yes/No \\
+	\hline
+	PUT &No &Yes &No \\
+	\hline
+	DELETE &No &Yes &No \\
+	\hline
+	CONNECT &No &No &No \\
+	\hline
+	OPTIONS &Yes &Yes &No \\ 
+	\hline
+	TRACE &Yes &Yes &No \\
+	\hline
+	PATCH &No &No &No \\
+	\hline
+\end{tabular}
+\end{center}
+\textcolor{JungleGreen}{\textbf{Idempotent:}} Multiple identical requests have the same effect. \\\\
+\textcolor{JungleGreen}{\textbf{Safe:}} Only for information retrieval, calling this method should not alter the state. \\\\
+\textcolor{JungleGreen}{\textbf{HTTP Response Codes:}}
+\begin{center}
+	\begin{tabular}{ |c|c|c| }
+		\hline
+		Code &Meaning &Example \\
+		\hline
+		\hline
+		1xx &Information &100 - Server agrees to handle client's request \\
+		\hline
+		2xx &Success &200 - Request succeeded; 204 = no content present \\
+		\hline
+		3xx &Redirection &301 - Page moved; 304 = cached page still valid \\
+		\hline
+		4xx &Client Error &403 = Forbidden page; 404 = page not found \\
+		\hline
+		5xx &Server Error &500 = Internal server error; 503 = try again later \\
+		\hline
+	\end{tabular}
+\end{center}
+\textcolor{JungleGreen}{\textbf{HTTP Headers:}} Has a lot of examples, but they provide additional information to HTTP requests. Examples are cookies, expiration, and if the page has been modified since a date. \\\\
+\textcolor{JungleGreen}{\textbf{Client Side Processing:}} Has plugins and extensions which execute inside the browser, such as Adblock. It can also have helpers which is a separate program that is instantiated in the broswer, but access the local cache (your computer). An example is a word file redirecting to open on your machine. \\\\
+\textcolor{JungleGreen}{\textbf{Static Pages:}}
+\begin{itemize}
+	\item Accept TCP Connection from client (browser)
+	\item Identify the file requested 
+	\item Get the specified file from the local storage (disk, RAM)
+	\item Send file to client 
+	\item Release the TCP Connection
+\end{itemize}
+\textcolor{JungleGreen}{\textbf{Multithreaded Web Server:}} Serves dynamic pages. It has a front end which redirects requests to different modules or servers. \\\\
+\textcolor{JungleGreen}{\textbf{Dynamic Pages:}}
+\begin{itemize}
+	\item Resolving name of Web page requested 
+	\item Perform access control on the Web page 
+	\item Check the cache 
+	\item Fetch the requested page from disk or run program 
+	\item Determine the rest of the response 
+	\item Return the response to the client 
+	\item Make an entry in the server log 
+\end{itemize}
+\textcolor{JungleGreen}{\textbf{Web Cache:}} Can return data without making a request to server if it is in the cache. Also does basic validation such as making sure it hasn't been modified or the data is not too old. \\\\
+\textcolor{JungleGreen}{\textbf{Web Proxy:}} Used for caching, security and IP address sharing. Can limit request types, and uses the cache to return data instead of making lots of requests to commonly referenced servers (such as Google). \\\\
+\textcolor{JungleGreen}{\textbf{Cookies:}} Stores a small amount of information on the users computer, and passes that information back to the front end (as front end doesn't store information about sessions). \\\\
+\textcolor{JungleGreen}{\textbf{HTML:}} Hypertext Markup Language, responsible for formatting and contents of a page.\\\\
+\textcolor{JungleGreen}{\textbf{Dynamic Content:}} Can be done client side or server side by running scripts. Java, Javascript, PHP.\\\\
+\subsection{DNS, Mail and Streaming}
+\textcolor{SeaGreen}{\textbf{DNS:}} Domain Name System. DNS is behind the technology that maps a domain to an IP address. It comprises of 4 elements. 
+\begin{enumerate}
+	\item Domain Name Space: DNS uses a tree structured name space to identify resources on the internet 
+	\item DNS Database: Each node/leaf in the name space tree has a set of information that is contained in a resource record (RR). The collection of RRs is organized into a distributed database. 
+	\item Name Servers: Sever programs that hold information about a portion of the domain name tree structure and the associated RRs. 
+	\item Resolvers: Programs that extract information from name servers in response to client requests. 
+\end{enumerate}
+\textcolor{SeaGreen}{\textbf{IP Address:}} Unique numerical identifiers, similar to a phone number where the DNS can be considered as an address book. Conceptually, IP addresses should only map to one socket/jack on a computer, however it is often not the case. \\\\
+\textcolor{SeaGreen}{\textbf{Domain Names:}} Case insensitive, can have up to 63 chars per constituent (dot), and up to a total of 255 chars per path. It can also be internationalised, however using unicode can cause security problems for humans (such as an * in unicode and ASCII looks the same to humans, but is interpreted differently on a computer which makes issues such as spoofing arise). \\\\
+\textcolor{SeaGreen}{\textbf{Absolute Domain Names:}} Ends in a '.' which denotes the root of the tree. Eg. '.com.' shows that com is at the top of the tree. \\\\
+\textcolor{SeaGreen}{\textbf{Relative Domain Names:}} Ends in a constituent. Means that the address is relative to something (most often a database). Eg. '.com or .com.au' \\\\ 
+\textcolor{SeaGreen}{\textbf{Top Level Domains:}} Typically used for a purpose, however later expanded to be more commercialised. Eg. 'edu' for educational institution which is restricted, and 'net' for network providers which is not restricted so allows companies like ABC to have a .net domain. \\\\
+\newpage
+\noindent \textcolor{SeaGreen}{\textbf{Resource Records:}} What is stored in the database. 
+\begin{center}
+	\begin{tabular}{ |c|c|p{0.65\linewidth}| }
+		\hline
+		\textbf{Type} &\textbf{Meaning} &\textbf{Value} \\
+		\hline
+		\hline
+		SOA &Start of Authority &Parameters such as primary name server and the responsible party for this domain \\
+		\hline
+		A &IPv4 address of a host &32 bit integer that stores IP address associated with the domain \\ 
+		\hline
+		AAAA &IPv6 address of a host &128 bit integer for IP (better than IPv4 but not as widely used yet) \\
+		\hline
+		MX &Mail exchange &Priority (1 - access first, 2- access next), domain willing to accept email \\
+		\hline
+		NS &Name server &Name of a server for this domain \\ 
+		\hline
+		CNAME &Canonical name &Domain name, where the address should redirect to \\
+		\hline
+		PTR &Pointer &Alias for an IP Address, similar to CNAME but can have multiple eg. pointer pointing to other pointers \\ 
+		\hline
+		SPF &Sender policy framework &Text encoding of mail sending policy \\ 
+		\hline
+		SRV &Service &Host that provides the service, name of services required \\ 
+		\hline
+		TXT &Text &Descriptive ASCII Test, can be used for guide or documentation that is retrieved from database \\ 
+		\hline		
+	\end{tabular}
+\end{center}
+\textcolor{SeaGreen}{\textbf{DNS Registrar:}} Used to register a name or domain. Need to provide names, IP addresses of name server etc, and the registrar inserts two RR into the server. \\\\
+\textcolor{SeaGreen}{\textbf{Name Server Zones:}} DNS namespace is divided into overlapping zones. They are arranged in a hierarchical manner extending from a root server, and can be responsible from controlling domains in their zones, or passing it onto another zone. \\\\
+\noindent \textcolor{SeaGreen}{\textbf{Root Name Servers:}} Forms the authoritative cluster for enquiries. The root servers are contacted by a local name server that cannot resolve names. \\\\
+\textcolor{SeaGreen}{\textbf{Top Level Domain DNS Servers:}} Level down from the root server. Responsible for com, org, net, edu etc as well as country domains like uk, au,jp. \\\\
+\textcolor{SeaGreen}{\textbf{Authoritative DNS Servers:}} Organizations DNS servers, providing authoritative hostname to IP mappings for organizations servers (eg. Web, email). Can be maintained by the organization or a separate service provider. \\\\
+\textcolor{SeaGreen}{\textbf{Local DNS Server:}} Typically each ISP has a default name server which handles DNS queries. If a value exists in the cache, it will return it, otherwise moves up and down the query hierarchy to get an answer. \\\\
+\textcolor{SeaGreen}{\textbf{Resolving a Query:}} A recursive query mode is used. If an answer is unknown, it will query up the hierarchy to a root, which then queries down until it is resolved. Queries are also subject to times to avoid long response times. Eg. local $\rightarrow$ auth server $\rightarrow$ root server $\rightarrow$ response: edu $\rightarrow$ queries edu, response: unimelb $\rightarrow$ sends response back down to local. \\\\
+\textcolor{SeaGreen}{\textbf{HOSTS File:}} Has hard code mappings to IP addresses. Useful for localhost on a computer, or using a fake address for ad blocking. \\\\
+\textcolor{SeaGreen}{\textbf{DNS Spoofing:}} Impersonating other websites.\\\\
+\textcolor{SeaGreen}{\textbf{DNS Flooding:}} Making small requests to a website, which then sends back a large amount of info to someone else. \\\\
+\textcolor{SeaGreen}{\textbf{SMTP:}} Simple Mail Transfer Protocol. Uses TCP to reliable transfer email messages from a client to server. Has three phases, handshake, transferring messages then closing the connection. Also limited to 7-bit ASCII. \\\\
+\newpage
+\noindent \textcolor{SeaGreen}{\textbf{User Agent:}} Allows the basic functions of composing, reporting, displaying and deleting emails. It also encapsulates transport related information in the headers of an email. It has a body which is where the message is sent. User needs to provide message and destination. \\\\
+\textcolor{SeaGreen}{\textbf{MIME:}} Multipurpose Internet Mail Extensions. An addition to SMTP that adds additional message headers, extending the functionality. Has MIME version, content description, id, transfer encoding and content type. \\\\
+\textcolor{SeaGreen}{\textbf{MIME Content Types:}} The type and subtype of the content allows MIME to know how to interpret files. Eg. images have gif, jpeg, png formats. \\\\
+\textcolor{SeaGreen}{\textbf{Message Access:}} Where SMTP deals with the sending of mail to a server, we need another protocol to read the email. Examples are local mail, POP3, IMAP and HTTP. \\\\
+\textcolor{SeaGreen}{\textbf{Remote Mail:}} Where local mail can be sent easily as the connection will always be open, remote mail doesn't have that same guarantee. As it can have intermittent connection or may not be open at the time of sending, we need a different protocol to handling receiving and reading mail. \\\\
+\textcolor{SeaGreen}{\textbf{POP3}} Post Office Protocol, it has three states. The main issue with this protocol is that once a message is read, it can no longer be reread as it deletes once done. 
+\begin{itemize}
+	\item Authorization: \texttt{USER/PASS} which authorizes the user 
+	\item Transactions: \texttt{LIST} which shows mail
+	\item Update: \texttt{RETR/DELE} which retrieves, reads and then deletes mail. 
+	\item \texttt{QUIT} which is part of the update state, but ends the connection 
+\end{itemize}
+\textcolor{SeaGreen}{\textbf{IMAP:}} Internet Message Access Protocol. The main benefit of this is that it keeps user state across sessions, which retains mailbox contents. It however requires more computing power which limits its use. \\\\
+\textcolor{SeaGreen}{\textbf{Streaming:}} Uses websockets over HTTP over TCP for streams. It makes a request once, and receives data in a stream of data packets. \\\\
+\textcolor{SeaGreen}{\textbf{RTCP/RTSP:}} Real Time [Control/Streaming] Protocol. Packets are sent with the correct spacing times needed to render the playback correctly. RTCP can delay and adapt video coding rate to the capacity, whereas RTSP provides play/record/pause services.
+\section{Transmission Control Protocol (TCP)}
+\textcolor{Green}{\textbf{Transport Layer:}} Provides services to the Application (or Session) layer using services from the Network layer. \\\\
+\textcolor{Green}{\textbf{Transport Service Primitives:}} Basic functions used in the transport layer. 
+\begin{center}
+	\begin{tabular}{ |c|c|c| }
+		\hline 
+		\textbf{Primitive} &\textbf{Packet Sent} &\textbf{Meaning} \\
+		\hline 
+		\hline 
+		LISTEN &(None) &Block until something tries to connect \\ 
+		\hline
+		CONNECT &CONNECTION REQ &Actively attempts to establish a connection \\
+		\hline 
+		SEND &DATA &Send information \\ 
+		\hline 
+		RECEIVE &(None) &Block until DATA packet arrives \\ 
+		\hline 
+		DISCONNECT &DISCONNECTION REQ &This side wants to release the connection \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\newpage
+\noindent \textcolor{Green}{\textbf{TCP:}} TCP provides a protocol by which applications can transmit IP datagrams within a connection-oriented framework, thus increasing reliability. 
+\begin{itemize}
+	\item TCP transport entity manages TCP streams and interfaces to the IP layer 
+	\item TCP entity accepts user data streams, segments them into chunks and then sends them as a seperate datagram. Each datagram has an IP and a TCP header (containing information like order of bytes). 
+	\item The recipient TCP entities reconstruct the original byte streams from the encapsulation. From the datagrams it receives, it will remove duplicates and piece together back the bytes from the order (labelled in datagram). 
+\end{itemize}
+\textcolor{Green}{\textbf{TCP - Service Model:}} Both the sender and receiver creates sockets. For a TCP service to be activated, connections must explicitly be established between a socket at the sending host, and a socket at a receiving host.\\\\
+\textcolor{Green}{\textbf{Socket:}} A socket is a kernel data structure, which is named by the \emph{5-tuple} of the \textcolor{Green}{IP address} and \textcolor{Green}{port number} of both the sender and receiver, as well as the protocol.
+\begin{center}
+	\textit{(Sender IP, Sender Port, Receiver IP, Receiver Port, Protocol)}
+\end{center}
+\textcolor{Green}{\textbf{TCP- Connections:}}
+\begin{itemize}
+	\item Full duplex: Receives data in both directions simultaneously. \\ (Half duplex is when one side sends data while the other only receives)
+	\item End to end: Exact pairs of senders and receivers (i.e nothing in between)
+	\item Byte streams: Message boundaries are not preserved, unlike message streams which mark things like header etc. The user or recipient of the stream is responsible for interpreting the boundaries (eg. end of message or end of header). 
+	\item Buffer capable: TCP entity can choose to wait and buffer data before sending it. Eg. If we have 1 byte but require a 40 byte header, then we might want to wait for more data to come before sending it. 
+	\item \textbf{PUSH flag}: Indicates that a transmission not be delayed and should interrupt the receiver. 
+	\item \textbf{URGENT flag}: Indicates that a transmission should be sent immediately (given priority above data in progress) and that the receiver should send it to the application out-of-band (outside of the byte stream). This is usually used as an alarm. 
+\end{itemize}
+\textcolor{Green}{\textbf{TCP - Properties:}}
+\begin{itemize}
+	\item Data is exchanged between TCP entities in segments (packets for layer 4). Each segment has a 20-60 byte header, plus zero or more data bytes. Zero data bytes is used for an ACK segment, where we have only a header and an empty body. 
+	\item TCP decides on the size of the segment, given two constraints. The IP payload must be under 65,156 bytes, and the MTU (Maximum Transfer Unit) is generally 1500 bytes. 
+	\begin{center}
+		1500 bytes $<$ Payload $<$ 65,156 bytes
+	\end{center}
+	\item Sliding window protocol: A protocol used to ensure reliable data delivery without overloading the receiver. Controls how much data is being sent at a time as well as the order it is sent in. 
+\end{itemize}
+\newpage
+\noindent \textcolor{Green}{\textbf{TCP - Header:}}
+\begin{center}
+	\begin{tabular}{ |c|p{0.75\linewidth}| }
+		\hline 
+		\textbf{Name} &\textbf{Description} \\
+		\hline 
+		\hline 
+		Source port &Sending port \\
+		\hline
+		Destination port &Receiving port \\
+		\hline 
+		Sequence Number &If \textbf{SYN} = 1: Initial sequence number \\
+						&If \textbf{SYN} = 0: Accumulated sequence number of the first data byte of this segment (part of packet or stream)\\
+		\hline
+		Acknowledgement Number &If \textbf{ACK} = 1: The next sequence number that the sender of the \textbf{ACK} is expecting. \\
+		\hline 
+		Data Offset &Size of the TCP Header (20-60 bytes) \\
+		\hline 
+		Flags &Single bit flags (\textbf{SYN, ACK, RST, FIN} etc) \\
+		\hline
+		Window Size &Size of the receive window: How much data the sender of this segment is willing to receive. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\textcolor{Green}{\textbf{Reliable Connections:}} We want to ensure that only one connection is established, even if some set-up packets get lost. We also want to establish initial sequence numbers for sliding windows (negotiate a random starting point, so that old data streams don't interfere with new ones). \\\\
+\textcolor{Green}{\textbf{Three Way Handshake:}} A solution that aims to achieve the establishment of reliable connections. Both the sender and receiver exchange information about which sequencing strategy each will use, and agree on it before transmitting data.
+\begin{itemize}
+	\item \textbf{Normal Operation} 
+	\begin{enumerate}
+		\item Host 1 sends a connection request SYN(SEQ = x) to Host 2 
+		\item Host 2 receives the request and responds with SYN(SEQ = y, ACK = x + 1) which sends its own sequence number and acknowledges Host 1's sequence number 
+		\item Host 1 responds with (SEQ = x + 1, ACK = y + 1), incrementing its own sequence number after sending data and acknowledging Y's request. 
+	\end{enumerate}
+	\item \textbf{Simultaneous Connection Attempts} 
+	\begin{enumerate}
+		\item Host 1 sends SYN(SEQ = x)
+		\item Host 2 sends SYN(SEQ = y)
+		\item Host 2 receives Host 1's initial connection request and responds with \\
+		SYN(SEQ = y, ACK = x + 1)
+		\item Host 1 receives Host 2's initial connection request and responds with \\
+		SYN(SEQ = x, ACK = y + 1)
+		\item Host 1 and host 2 have now agreed on respective sequence numbers and can start sending data. 
+	\end{enumerate}
+\end{itemize}
+\textcolor{Green}{\textbf{Synchronisation:}} SYN is used for synchronization during connection establishment. Sending a SIN or FIN causes the sequence number to be incremented by 1. 
+\begin{itemize}
+	\item Connection request has SYN = 1, ACK = 0 
+	\item Connection reply has SYN = 1, ACK = 1
+	\item SYN is used in both the connection \emph{request} and the connection \emph{reply}. The ACK bit distinguishes between the two. 
+\end{itemize}
+\textcolor{Green}{\textbf{Sequence Number:}} The first byte of the segment's payload. \\\\
+\textcolor{Green}{\textbf{Acknowledgement Number:}} The next byte the sender expects to receive. If there is a missing segment, it will stop incrementing, even if the later segments have been received. \\\\
+\newpage
+\noindent \textcolor{Green}{\textbf{TCP - Retransmission:}} Each segment has an associated retransmission timer (RTO). If a packet is lost, it will retransmit until received or the connection ends. If the timer expires before an ACK is received, the segment is resent. \\\\
+\textcolor{Green}{\textbf{Fast Retransmission:}} When the receiver receives a segment with a sequence number higher than expected, it will send the ACK of the number it is expecting (will not increment even if it has received a higher numbered segment). This will be a duplicate of the previously sent acknowledgement (DupACK). After receiving 3 DupACKs, the sender resends the lost segment. \\\\
+\textcolor{Green}{\textbf{TCP - Closing:}} The FIN flag is used to signify a request to close a connection. Each FIN is directional, so once it is sent and acknowledged no further data can be sent from the sender to the receiver. The sender of the FIN can however, continue to receive data. 
+\begin{enumerate}
+	\item Host 1 sends a FIN request 
+	\item Host 2 sends an ACK of the FIN request, and sends its own FIN request 
+	\item Host 1 responds with an ACK of Host 2's FIN request 
+	\item Connection is closed. (Needs 1 FIN and 1 ACK for each direction)
+\end{enumerate} 
+\textcolor{Green}{\textbf{TCP - Hard Close:}} A RST flag can be used to signify a hard close of a connection. It basically states that the sender is closing the connection, and will not listen for any further messages. It can be used to close a connection, however FIN is preferred as it allows cleanup of other packets and has an order. RST is usually used as a respond to invalid data or some other error. 
+\subsection{Sockets}
+\textcolor{Green}{\textbf{Purpose:}} A process uses a socket to send and receive data. Sockets are used as the 'doorway' leading in/out of the application. \\\\
+\textcolor{Green}{\textbf{Format:}} The address of a socket is the 5-tuple consisting of the (Protocol, Source IP, Source Port Number, Destination IP, Destination Port Number). \\\\
+\textcolor{Green}{\textbf{Interface:}} Allows sockets to be ported from one OS to another. The format of a socket is similar to reading or writing to a file, and the name given to a socket is a file descriptor. The API is also implemented as system calls eg. \texttt{connect(), read(), write(), close()} \\\\
+\textcolor{Green}{\textbf{Socket Primitives:}}
+\begin{center}
+	\begin{tabular}{ |c|c| }
+		\hline
+		\textbf{State} &\textbf{Description} \\
+		\hline 
+		\hline
+		SOCKET &Creates a new communication endpoint \\
+		\hline 
+		BIND &Associate a local address with a socket \\
+		\hline 
+		LISTEN &Announce willingness to accept connections; give queue size \\
+		\hline 
+		ACCEPT &Passively establish an incoming connection (block until then) \\
+		\hline 
+		CONNECT &Actively attempt to establish a connection \\ 
+		\hline 
+		SEND &Send some data over a connection (\texttt{write()}) \\ 
+		\hline 
+		RECEIVE &Receive some data from the connection (\texttt{read()}) \\
+		 &May need to be called multiple times until all data is received \\
+		\hline 
+		CLOSE &Release the connection \\
+		\hline
+	\end{tabular}
+\end{center}
+\newpage
+\textcolor{Green}{\textbf{Socket States:}}
+\begin{center}
+	\begin{tabular}{ |c|c|c| }
+		\hline 
+		\textbf{State} &\textbf{Simplified Name} &\textbf{Description} \\
+		\hline
+		\hline
+		CLOSED &Idle &No connection is active or pending \\
+		\hline 
+		LISTEN &Pass. est. &The server is waiting for an incoming call \\ 
+		\hline 
+		SYN RCVD &Pass. est. &A connection request has arrived; wait for ACK \\
+		\hline 
+		SYN SENT &Act. est. &The application has started to open a connection \\ 
+		\hline 
+		ESTABLISHED &Established &The normal data transfer state \\ 
+		\hline 
+		FIN WAIT 1 &Act. disc. &The application has said it is finished \\ 
+		\hline 
+		FIN WAIT 2 &Act. disc. &The other side has agreed to release \\
+		\hline 
+		TIME WAIT &Act. disc. &Waiting for all packets to die off \\
+		\hline 
+		CLOSING &Act. disc. &Both sides have tried to close simultaneously \\
+		\hline 
+		CLOSE WAIT &Pass. disc. &The other side has initiated a release \\ 
+		\hline 
+		LAST ACK &Pass. disc. &Wait for all packets to die off \\
+		\hline  
+	\end{tabular}
+\end{center}
+\textcolor{Green}{\textbf{Using Sockets in C:}}
+\begin{itemize}
+	\item \texttt{bind():} Binds a socket to an address 
+	\item \texttt{listen():} Waits for a connection 
+	\item \texttt{accept():} Accepts a connection 
+	\item \texttt{read():} Reads in data 
+	\item \texttt{write():} Sends data 
+	\item \texttt{close():} Closes connection 
+	\item \texttt{select(), pselect(), poll():} Waits until one of several files is ready to read/write  
+\end{itemize}
+\subsection{TCP Sliding Window}
+\textcolor{ForestGreen}{\textbf{Sliding Window Size:}} Controlled by the receiver, and determines the amount of data the receiver is able to accept. Both the sender and receiver independently of the application. \\\\  
+\textcolor{ForestGreen}{\textbf{Process:}} See diagram in Week 8 L2, Slide 19. 
+\begin{enumerate}
+	\item Sender sends 2KB of data, SEQ = 0 
+	\item Receiver has 2KB of data in a buffer (4KB). Receiver sends back ACK = 2048 and WIN = 2048
+	\item Sender sends another 2KB packet, SEQ = 2048 
+	\item Receiver now has 4KB in buffer. Receiver sends back ACK = 4096, WIN = 0
+	\item Sender is blocked from sending as WIN = 0 (no space in buffer)
+	\item Receiver processes packet 1 and sends ACK = 4096, WIN = 2048
+	\item Sender is unblocked from sending and can now send more packets. 
+\end{enumerate}
+\textcolor{ForestGreen}{\textbf{Blocking:}} When the window is 0, the sender is blocked from sending data. They can however send URGENT data or a 'zero window probe'. \\\\
+\textcolor{ForestGreen}{\textbf{Zero Window Probe:}} A 0 byte segment that causes the receiver to re-announce the next expected byte and the window size. This was designed to prevent a deadlock (where buffer has since been empties, but sender cannot send anything to check). \\\\
+\textcolor{ForestGreen}{\textbf{Send Window:}} What data the sender is able to send, unacknowledged segments and unsent data that can fit into the receive window. \\\\
+\textcolor{ForestGreen}{\textbf{Receive Window:}} Amount of data the receiver is willing to receive, the window size in ACK. \\\\
+\newpage
+\noindent \textcolor{ForestGreen}{\textbf{Window Format:}} See diagram in Week 8 L2, Slide 33. 
+\begin{itemize}
+	\item Before Window: Bytes acknowledged. Consists of data that has already been sent and successfully acknowledged.
+	\item In Window: Bytes in flight or bytes the receiver is willing to receive. The sequence of bytes that are currently being sent to the receiver, or being prepared to be sent next.
+	\item After Window: Bytes that the receiver is not ready to receive. Falls outside the size of the window, so we have to wait for the window to slide up before we can start sending them.
+\end{itemize}
+\textcolor{ForestGreen}{\textbf{Segment Loss:}} In a sliding window, if a segment is lost, then we can use fast transmission (3 DupACKS) to resend. \\\\
+\textcolor{ForestGreen}{\textbf{Go-back-N:}} A type of flow control for missing packets. When a packet is lost, go back to the point it was transmitted, and restransmit everything from that point onwards. \\\\
+\indent \textbf{Issues:} Resends packets that have already been sent \\
+\indent \textbf{Advantages:} Receiver doesn't need to reorder packets, and store out of order packets. \\\\
+\textcolor{ForestGreen}{\textbf{Selective Repeat:}} Another type of flow control for missing packets. It only retransmits the lost packet. \\\\
+\indent \textbf{Issues:} Packets arrive out of order, and the receiver has to store and reorder them before \\ 
+\indent forwarding to the application. \\
+\indent \textbf{Advantages:} No unnecessary packets are retransmitted. Only helpful if loss is common.\\\\
+\textcolor{ForestGreen}{\textbf{Persist Timer:}} Prevents deadlocks from occurring. A timer is started when the window = 0, if by the time the timer = 0, and the window is still 0, it will send a ZeroWindowProbe. \\\\
+\textcolor{ForestGreen}{\textbf{ZeroWindowProbe:}} Sender asking the receiver to report back its buffer size. Returns ZeroWindowProbeACK, ACK = last packet sent, Window: current window size. \\\\
+\textcolor{ForestGreen}{\textbf{Congestion Control:}} When networks are overloaded, congestion occurs and can potentially affect all layers. TCP's methods reduces the rate that data is sent and receives, and helps to reduce congestion. \\\\
+\textcolor{ForestGreen}{\textbf{Congestion Control Window (CWND:}} Provides an additional window that is dynamically adjusted based on network performance  to aid efficient transfer. If the network traffic is high, the window is decreased, and if it is low, the window is increased. The congestion window size is maintained by the sender (the sliding window is controlled by receiver but used by sender). \\\\
+\textcolor{ForestGreen}{\textbf{Incremental Congestion Control:}} Has a slow start to packet sending rate, which later grows exponentially.  
+\begin{enumerate}
+	\item To start, CWND = 2 * max segment size
+	\item If segment is acknowledged, CWND++ (adds another window)
+	\item Each window full of acknowledgements doubles the congestion window 
+	\item Keeps incrementing until it has reached a timeout or a threshold. (Returns to Step 1 after) 
+	\item Eg. Start of with 1 request, which sends 1 packet. \\ 
+	          Returns 1 ACK, which now sends 2 packets. \\
+	          2 ACKS are returned, which now send 4 packets each. \\
+	          8 ACKS are returned, which continue to send 4 packets (reached max) \\
+\end{enumerate}
+\textcolor{ForestGreen}{\textbf{Congestion Control Optimization:}} Similar principle to incremental congestion control, however alters how it deals with reaching a threshold. Rather than reducing the rate back down to 1 after hitting the max rate, we can reduce it by half of the threshold instead. This allows us to skip the slow start phase. This also uses DupACKs for a fast recovery. \\\\
+\textcolor{ForestGreen}{\textbf{Selective Acknowledgements (SACK):}} Provides greater ability to track segments in flight, allowing up to 3 ranges of bytes received to be specified. Eg. ACK: 1, SACK: 6, 2-4. From the data given, we know we need to retransmit packets 2 and 5. \\\\ 
+\textcolor{ForestGreen}{\textbf{Explicit Congestion Notification (ECN):}} Allows IP layer to indicate that congestion is occurring without dropping the segment by setting the ECN flag. It will send a notification through the flag before dropping a packet, and lets the router know to slow down. Sender acknowledges this by setting the CWR flag (Congestion Window Reduced Flag) and reacts as if a segment has been lost, without actually losing a segment. \\\\
+\textcolor{ForestGreen}{\textbf{Equations for Windows:}}
+\begin{itemize}
+	\item W increases once per window \\
+	\begin{equation*}
+		W += \frac{1}{W}
+	\end{equation*}
+	\item When a loss occurs, W is halved \\ 
+	\begin{equation*}
+		W -= \frac{W}{2}
+	\end{equation*}
+	\item Average increase in window size, where p = probability of packet loss \\
+	\begin{equation*}
+		\frac{(1-p)}{W} - p \frac{W}{2}
+	\end{equation*}
+	\item Equilibrium (Equating average to 0)
+	\begin{equation*}
+		W \approx \sqrt{\frac{2}{p}}
+	\end{equation*}
+	\item Rate given Round Trip Time (RTT) = T 
+	\begin{equation*}
+		\frac{W}{T} \approx \frac{1}{T}\sqrt{\frac{2}{p}}
+	\end{equation*}
+\end{itemize}
+\textcolor{ForestGreen}{\textbf{Macroscopic Model:}} From the generalised equations above, we can make two insights. 
+\begin{enumerate}
+	\item RTT unfairness can arise. For a given packet loss rate, longer RTTs get less rate. I.e if p is constant, then if T is large, the overall rate for more trips is slower. 
+	\item If RTT is small, then TCP forces tha packet loss rate to be high. I.e if RTT is fixed and small, then to maintain the same rate of $\frac{W}{T}$, the probability loss $p$ will have to increase. 
+\end{enumerate}
+\section{Presentation, Session and Transport Layers}
+\subsection{Presentation Layer}
+\textcolor{PineGreen}{\textbf{Services:}}
+\begin{itemize}
+	\item Encryption 
+	\item Compression 
+	\item Data conversion (from CR/LF to LF, .doc to .docx)
+	\item Mapping between character sets (ASCII etc)
+\end{itemize}
+\textcolor{PineGreen}{\textbf{Presentation Layer:}} Not really widely used, a lot of its previous services have been offset to the application layer as it is simple to implement, are not common (required by all applications) and the application layer is not in the kernel.
+\subsection{Session Layer}
+\textcolor{PineGreen}{\textbf{Services:}} 
+\begin{itemize}
+	\item Authentication
+	\item Authorization 
+	\item Session restoration (between log off, websites etc)
+\end{itemize}
+\textcolor{PineGreen}{\textbf{Examples:}}
+\begin{itemize}
+	\item Remote procedure call (RPC)
+	\item Point to point tunnelling protocol (PPTP)
+	\item Password Authentication protocol (PAP/EAP)
+\end{itemize}
+\subsection{Transport Layer}
+\textcolor{PineGreen}{\textbf{Role:}} Provides services needed by applications, using the services made available by the network layer. Essentially creates an interface between the application layer and network/internet layer. Currently the network provides the ability to deliver packets from host to host, but has no guarantees on the reliability. \\\\
+\textcolor{PineGreen}{\textbf{Application Requirements:}} 
+\begin{itemize}
+	\item Data as a stream of bytes 
+	\item Data from one application is not mixed with that for another 
+	\item Data arrives reliably, or we know when a packet has been lost
+	\item Data arrives in order 
+	\item Data doesn't arrive faster than we can handle  
+\end{itemize}
+\textcolor{PineGreen}{\textbf{Connection Oriented Communication:}} Both sides establish a connection, can send data, then close the connection. Eg. TCP. Similar to a phone call, in that someone dials and other end picks up and they have to actively end the call. \\\\
+\textcolor{PineGreen}{\textbf{Connectionless Communication:}} Data is transferred from a sender to a receiver. Eg. UDP. Similar to a text message, where there is data sent to a destination, however the destination is not required to initiate anything to receive the data. \\\\
+\textcolor{PineGreen}{\textbf{Encapsulation:}} Abstract representation of messages sent to and from transport entities. Each layer adds a header and wraps the data. Eg. Can start off with data in transport layer, where the transport layer adds a header. Later it moves up to the network layer, which wraps the data given from the transport layer and adds a network header. \\\\
+\textcolor{PineGreen}{\textbf{Terminology:}} Not universal, but at least used for this subject. 
+\begin{itemize}
+	\item Segments: Sent at transport layer (TCP)
+	\item Datagrams: Sent at transport layer (UDP)
+	\item Packets: Sent at the internet/network layer
+	\item Frames: Sent at the link/data link layer 
+\end{itemize}
+\textcolor{PineGreen}{\textbf{Reliable connection orientated service:}} Want to provide a perfect connection between two nodes, that hides ACKS, congestion control and lost packets. For higher layers, they just receive the data in order. \\\\
+\textcolor{PineGreen}{\textbf{Unreliable connection-less orientated service:}} Provides multiplexing between different processes (has a different layer for addressing processes) \\\\
+\textcolor{PineGreen}{\textbf{Addressing:}} Specifies the location where it should connect to. The full address is the 5-tuple. \\\\
+\textcolor{PineGreen}{\textbf{Port Allocations:}} Ranges from 0 - 65525. Comprises of well-known ports (0-1023), registered ports (1024-49151) and dynamic ports (49152 - 65535). \\\\
+\textcolor{PineGreen}{\textbf{Multiplexing:}} Combining multiple distinct streams into a single shared stream. Can be shortened to 'MUXING'. Many inputs $\rightarrow$ 1 input\\\\
+\textcolor{PineGreen}{\textbf{Demultiplexing:}} Splitting distinct streams out from a single shared stream. Can be shorted to 'DEMUXING'. 1 input $\rightarrow$ many inputs. 
+\section{User Datagram Protocol (UDP)}
+\textcolor{PineGreen}{\textbf{User Datagram Protocol (UDP):}} Provides a protocol whereby applications can transmit encapsulated IP datagrams without establishing a connection. UDP transmits in segments consisting of a header followed by the payload. \\\\
+\textcolor{PineGreen}{\textbf{Advantages:}} Unlike raw IP, UDP allows us to specify ports for source and destination pairs. Requires both the source and destination ports, the source allows it to send replies, and the destination allows it to route to where it should end up. \\\\
+\textcolor{PineGreen}{\textbf{Strengths:}} Allows for multiplexing and demultiplexing, and has no delay in recovering lost packets. \\\\
+\textcolor{PineGreen}{\textbf{Weaknesses:}} No flow control, error control, or retransmission of bad segments. \\\\
+\textcolor{PineGreen}{\textbf{Uses:}} Used where applications require a precise level of control over packet flow/error/timing. Otherwise TCP takes care of a lot of these for you. \\\\
+\textcolor{PineGreen}{\textbf{UDP Header:}} Contains a source port, destination port, UDP length and UDP checksum. The checksum can tell us if a packet is corrupted, but not if it is lost (so it might not be needed if the link layer protocol is reliable). \\\\ 
+\textcolor{PineGreen}{\textbf{IP header:}} Contains the source header, Destination address, Protocol number and UDP length.
+\subsection{Remove Procedure Calls}
+\textcolor{PineGreen}{\textbf{Remote Procedure Calls:}} Allow calling procedures on a remove server as if they are local to the client. Eg. making database queries to a server (that is not local but can act like it is) \\\\
+\textcolor{PineGreen}{\textbf{Client stub:}} Operates in the client address space \\\\
+\textcolor{PineGreen}{\textbf{Server stub:}} Operates in the server address space \\\\
+\textcolor{PineGreen}{\textbf{Marshalling:}} Converts the in-memory data structure to a form that can be stored and transmitted. I.e. turns your programs variables into a portable format. \\\\
+\textcolor{PineGreen}{\textbf{Unmarshalling:}} Converts the stored or transmitted data into an in-memory data structure. I.e takes the structure given and converts it to be executed on the server. \\\\
+\textcolor{PineGreen}{\textbf{Issues:}} With languages like C, issues can arise with pointers (unable to pass addresses between different address spaces), and unknown array sizes(can't automatically detect the size of arrays unlike in python). It is also unable to deduce parameter types and cannot share global variables between a server and client. \\\\ 
+\textcolor{PineGreen}{\textbf{Protocols:}} Both UDP and TCP can be used for RPC. UDP is good if it is idempotent (running multiple times will not change the outcome, unlike a bank statement). TCP is good if non-idempotent operations are required. 
+\subsection{Real Time Transport Protocol (RTP)}
+\textcolor{PineGreen}{\textbf{RTP:}} Multiplexes several streams into a single stream of UDP segments. Used in the presentation layer.\\\\
+\textcolor{PineGreen}{\textbf{RTP Header:}} Has payload type (eg. mp3) which can vary, sequence number and timestamp (relative to the start of stream). \\\\ 
+\textcolor{PineGreen}{\textbf{Real Time Transport Control Protocol (RTCP):}} Used with RTP, and handles feedback, synchronization and UI, like pausing and rewinding. \\\\
+\textcolor{PineGreen}{\textbf{Feedback:}} Handing delays, bandwidth and congestion. RTCP can adapt the rate that data is sent to suit network conditions. \\\\
+\textcolor{PineGreen}{\textbf{Synchronization:}} Where different streams use different clocks or have different drifts. RTCP adjusts the playback to match accordingly. \\\\
+\textcolor{PineGreen}{\textbf{UI:}} RTCP can add additional features to RTP by adding names in a call, or pause/play functionality. \\\\
+\textcolor{PineGreen}{\textbf{RTP Playback:}} If there is a variation in the rate that packets are sent, eg, there is a large gap and by the time the playback has reached the packet it is not available. The application can choose how to handle it, by waiting for the packet to arrive or skip the packet altogether. 
+\section{Internet/Network Layer}
+\textcolor{Orange}{\textbf{Internet Layer:}} To get data from the source all the way to the destination. May be multiple hops (point to point) rather than end to end. As a result, traffic must be routed efficiently, and nodes need to be given names. \\\\ 
+\textcolor{Orange}{\textbf{Internet:}} A network of networks. It is a sublayer on top of the network layer. \\\\
+\textcolor{Orange}{\textbf{Hop:}} An entire network. \\\\
+\textcolor{Orange}{\textbf{Network Layer:}} Similar to the internet layer, however has links instead of networks. Can provide connectionless services, which is called a datagram network, or connection oriented services, which is called a virtual circuit network. \\\\
+\textcolor{Orange}{\textbf{Store and Forward Packet Switching:}} 
+\begin{enumerate}
+	\item Host H1 wants to send a packet to H2 
+	\item Host H1 transmits packet to the closest router A 
+	\item The packet is buffered while arriving, and the checksum is verified 
+	\item If valid, the packet is stored until the outgoing interface(node) is free
+	\item The router forwards the packet to the next router in the path 
+	\item steps 3 - 5 until it arrives at the destination H2
+\end{enumerate}
+\newpage 
+\subsection{Datagram Network}
+\textcolor{Orange}{\textbf{Packet forwarding:}} A routing/forwarding table is used to decide on the route for a packet. At each node it lists the destination and which node to send the packet to. \\\\
+Given a node A, which has connections to B and C. The routing table is as follows. 
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline 
+		Destination &Forwarding \\
+		\hline 
+		A &- \\
+		\hline 
+		B &B \\
+		\hline
+		C &C \\
+		\hline
+		D &B \\
+		\hline
+		E &C \\
+		\hline
+		F &C \\
+		\hline
+	\end{tabular}
+\end{center}
+\subsection{Virtual Circuit Network}
+\textcolor{Orange}{\textbf{Packet forwarding:}} In a connection oriented network, the paths are predetermined before the packet is sent, and routing tables are not changed often. \\\\ 
+Given a node A, which has two hosts H1 and H3 connect to it, and that connects to a node C which connects to E. \\\\
+Node A
+\begin{center}
+	\begin{tabular}{|c|c| |c|c|}
+		\hline
+		Host &Incoming Packet Number &Destination Host &Outcoming Packet Number \\
+		\hline
+		H1 &1 &C &1 \\
+		\hline
+		H2 &1 &C &2 \\
+		\hline
+	\end{tabular}
+\end{center}
+Node C
+\begin{center}
+	\begin{tabular}{|c|c| |c|c|}
+		\hline
+		Host &Incoming Packet Number &Destination Host &Outcoming Packet Number \\
+		\hline
+		A &1 &E &1 \\
+		\hline
+		A &2 &E &2 \\
+		\hline
+	\end{tabular}
+\end{center}
+\subsection{Connection Oriented Vs Connectionless}
+\begin{center}
+	\begin{tabular}{|c|p{0.35\linewidth}|p{0.35\linewidth}|}
+		\hline
+		\textbf{Issue} &\textbf{Datagram Network} &\textbf{Virtual Circuit} \\
+		\hline 
+		Type &Connectionless &Connection-oriented \\
+		\hline 
+		Addressing &Each packet has a full source and destination &Each packet contains a short VC number \\
+		 &Large header may be an issue &Small header is a benefit \\
+		\hline
+		State &Routers do not hold state information about connections &Each VC requires a router table space, which makes router reboots a problem \\
+		\hline
+		Routing &Each packet is routed independently (easy to change) &Routing is defined at setup (with a backup route) \\
+		\hline 
+		Quality of Service &Difficult &Easy if we have enough resources \\
+		\hline 
+		Congestion Control &Difficult &Easy if we have enough resources \\ 
+		\hline 
+		Link failure recovery &Simple &Extra work \\
+		\hline
+	\end{tabular}
+\end{center}
+\textcolor{Orange}{\textbf{Multiprotocol Label Switching:}} Widely deployed Virtual Circuit (connection-oriented) Network Layer protocol. Primary purpose of MPLS is quality of service, as it prioritises traffic, has reliable connectivity with known parameters and has service agreements for network performance. \\\\
+\textcolor{Orange}{\textbf{Quality of Service:}} Depending on the needs of your own network or a shared network, different services can be prioritised. For example YouTube would have streaming prioritised, while a home network might just have it optimised for web browsing. 
+\section{Internet Protocol}
+\textcolor{Orange}{\textbf{Internet Protocol:}} Designed with a number of principle in mind. 
+\begin{itemize}
+	\item Something that works OK is better than an ideal standard 'in progress'
+	\item Keep it simple 
+	\item Be strict when sending and tolerant when receiving eg. browsers can still display invalid HTML. 
+	\item Make clear choices - don't have different approaches in a standard 
+	\item Avoid static options and parameters 
+	\item Think about scalability
+\end{itemize}
+\textcolor{Orange}{\textbf{Responsibilities:}}
+\begin{itemize}
+	\item Responsible for moving the packets through the various networks from a source to a destination host
+	\item Multiple paths through network (important for redundancy)
+	\item Routing algorithms are used to determine the best path 
+	\item Nothing is guaranteed, just does its best
+\end{itemize}
+\subsection{IPv4}
+\textcolor{Orange}{\textbf{IP Header:}}
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline 
+		\textbf{Field} & \textbf{Usage} \\
+		\hline
+		\hline 
+		Version &Protocol Version 4 \\
+		\hline 
+		IHL &Header length in 32 bits words; min 5, max 15 \\
+		\hline 
+		Differentiated services &6 bits for service class, 2 bits for congestion control (ECN) \\
+		\hline 
+		Total length &Including payload, max of 65,535 \\
+		\hline 
+		Identification, DF, MF, Fragment offset &Used in the handling of fragmentation \\ 
+		\hline 
+		TTL &Countdown of hops, at zero packet is discarded \\ 
+		\hline 
+		Protocol &Transport layer service (UDP/TCP) \\
+		\hline 
+		Source and Destination &IPv4 address \\ 
+		\hline 
+		Options &Rarely used and poorly supported \\ 
+		\hline 
+	\end{tabular}
+\end{center}
+\textcolor{Orange}{\textbf{IPv4 Addresses:}} A 32 bit number, which is expressed in decimal notation. Each byte is shown as a decimal separated by a period. Min is 0.0.0.0 and Max is 255.255.255.255. Due to irresponsible assignment of addresses, IPv4 address allocations are basically exhausted.\\\\ 
+\textcolor{Orange}{\textbf{Address Types:}}
+\begin{itemize}
+	\item \textcolor{Orange}{Unicast:} One destination (Normal addresses)
+	\item \textcolor{Orange}{Broadcast:} Send to everyone 
+	\item \textcolor{Orange}{Multicast:} Sent to a particular set of nodes (eg. streaming of a live event) 
+	\item \textcolor{Orange}{Anycast:} Send to any one of a set of addresses (eg. database queries)
+	\item \textcolor{Orange}{Geocast:} Send to all users in a geographic service (eg. earthquake warnings)
+\end{itemize}
+\textcolor{Orange}{\textbf{Classes:}} No longer used, however originally IP addresses were allocated based on classes. If there was a small network but large amount of users, they would be allocated to 1.0.0.0 to 127.255.255.255 etc. Due to this method of assigning via classes, it was very wasteful, eg. a network with 260 nodes didn't fit in class A and had to be assigned to class B with 65,536 addresses. \\\\
+\newpage
+\noindent \textcolor{Orange}{\textbf{Classless InterDomain Routing (CIDR):}} Each interface/route explicitly specifies which bits are the network field. Networks with 260 nodes only need 9 bits for the host field. \\\\
+\textcolor{Orange}{\textbf{CIDR Prefix:}} A contiguous block of IP address space, assigned to a network. Prefixes are written as the lowest IP address, followed by a slash and the size of the network portion.  \\\\
+\textcolor{Orange}{\textbf{CIDR Suffix:}} Contains the hosts for a network. \\\\
+\textcolor{Orange}{\textbf{Network mask:}} Used for efficient routing on the internet. Routes are based on the network mask, and once it arrives at the destination, the network number can be extracted by using a network mask. Network number = network mask (bitwise AND) IP address. \\\\
+\textcolor{Orange}{\textbf{Route aggregation:}} Performed automatically, and the longest matching prefix is selected for a route. \\\\
+\textcolor{Orange}{\textbf{Special IP addresses:}}
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline
+	    \textbf{Networks} &\textbf{Private Address Range} &\textbf{Prefix and Mask} \\
+		\hline 
+		\hline 
+		Home &10.0.0.0 - 10.255.255.255 &10.0.0.0/8 (255.0.0.0) \\
+		\hline  
+		 &172.16.0.0 - 172.31.255.255 &172.16.0.0/12 (255.240.0.0) \\
+		\hline 
+		 &192.168.0.0 - 192.168.255.255 &192.168.0.0/16 (255.255.0.0) \\
+		\hline 
+		Broadcast &Network.255.255 & \\ 
+		\hline 
+		Loopback &127.Anything &   \\
+		\hline 
+	\end{tabular}
+\end{center}
+\subsection{IPv6}
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline 
+		\textbf{Field} & \textbf{Usage} \\
+		\hline
+		\hline 
+		Version &Protocol Version 6 \\
+		\hline 
+		Differentiated services &6 bits for service class, 2 bits for congestion control (ECN) \\
+		\hline 
+		Flow Label &Pseudo-Virtual Circuit Identifier \\
+		\hline 
+		Payload length &Bytes after the 40 byte header \\ 
+		\hline 
+		Next header &Used to specify additional headers or protocols (TCP/UDP) \\
+		\hline 
+		Hop limit &Same as TTL \\
+		\hline
+		Source and Destination &16 bytes IPv6 address \\ 
+		\hline 
+	\end{tabular}
+\end{center}
+\textcolor{Orange}{\textbf{IPv6 Addressing:}} Written as 8 groups of 4 hex digits. Can be optimised by stripping \emph{one} group of consecutive 0's. Also compatible with IPv4 by appending the IPv4 address to the back of the address.
+\subsection{Network Address Translation (NAT)}
+\textcolor{Orange}{\textbf{Responsibility:}} Due to the scarcity of IPv4 addresses, this method was used as a way to handle the limited addresses. Rather than giving multiple IP addresses, each customer/home was assigned one public IP address, and then the hosts or networks internal to them could all use the same private IP addresses. These private addresses could not be used on the public internet, and must be translated to a public IP address if it is heading out of the network. \\\\
+\textcolor{Orange}{\textbf{Local Area Network (LAN):}} Where internal/private IP addresses are used for communicating with hosts on the same network. \\\\
+\textcolor{Orange}{\textbf{Process:}} 
+\begin{enumerate}
+	\item A packet originates from a device on the network (laptop etc). These are all connected to a router on the network. 
+	\item The information is sent to a router, which has its own internal IP address and port number. The router is aware of which devices are connected to it. 
+	\item The router then forwards this packet to a NAT box which converts the private IP address of the router, into the public IP address and port number of the company or network. 
+	\item The translated packet is then forwarded to an ISP router, which forwards it through to the internet. 
+\end{enumerate}
+\textcolor{Orange}{\textbf{Notes on Process:}} When a packet enters the NAT box from the local network, the NAT translation table stores the index of entry with the original IP address and the original source number. This is used to traceback any responses from the packet. \\\\
+\textcolor{Orange}{\textbf{Criticisms:}} 
+\begin{itemize}
+	\item Breaks end to end connectivity, an interface in the private network can only receive packets once it has sent a packet out and created a mapping in the NAT box. 
+	\item Layering violations by assuming nature of payload. It assumes that it contains a port number to work (ok for TCP and UDP) but otherwise might have to snoop on FTP messages. 
+	\item Violates IP architectural model which states that every interface on the internet has a unique IP address. Not really an issue, but different from the original design of IP. 
+	\item Changes internet from being connectionless to pseudo connection oriented. As the NAT stores the connections made to it, if it crashes those connections are lost and we have to reestablish them again. 
+	\item Also has a limited number of outgoing connections to $2^{16} \approx 65000$. For larger companies can be an issue.  
+\end{itemize}
+\textcolor{Orange}{\textbf{Advantages:}} Has a significant security advantage as someone has to establish a connection first to receive a packet, which can be a benefit when dealing with unsolicited packets. Also has the ability to use \emph{Carrier Grade NAT}, which gives customers private addresses. I.e A private address can have more private addresses. 
+\subsection{Subnets}
+\textcolor{Peach}{\textbf{Subnetting:}} Allows networks to be split into several parts for internal use whilst acting like a single network for external use. \\\\
+\textcolor{Peach}{\textbf{Example:}} A university with a /16 prefix can subnet its network. /17 can be assigned to computer science (which is half the allocation), /18 can be assigned to arts (which is a quarter of the allocation). \\\\
+\textcolor{Peach}{\textbf{Subnetwork:}} When a packet arrives from the internet, the router can use the subnet masks (bitwise AND) to find which subnet it should sent the packet to, without knowing all hosts on the subnet. Eg. If a packet comes from X.X.X.1, we can send it immediately to the host beginning with 1. If there are more bits, we go down until it can be identified.
+\section{Fragmentation}
+\textcolor{Peach}{\textbf{Issue:}} Although IP packets can have a maximum size of 65,535 bits ($2^{16} - 1$), most networks cannot handle those sizes. All networks have a maximum size for packets due to limitations such as error handling, OS, hardware etc. \\\\
+\textcolor{Peach}{\textbf{Fragmentation:}} Divides packets into fragments which allows network gateways to meet size constraints. \\\\
+\textcolor{Peach}{\textbf{Goal:}} The host wants to transmits packets as large as possible, as the workload would be reduced on their end. However, not all networks will support such a large packet size. As a result we want a packet large enough that headers aren't considered a big load (eg. 1 byte with 40 byte header is non efficient), but small enough that the network can process it. \\\\
+\textcolor{Peach}{\textbf{Maximum Transmission Unit (MTU):}} The maximum size that each link in a network can carry. \\\\
+\textcolor{Peach}{\textbf{Path MTU:}} The maximum size for the path through the network, i.e. the minimum size for all links. Eg. if link A can accept 5 bytes, and link B can accept 10 bytes, then the path MTU is 5 bytes. This can change if the route is dynamic (eg. we remove link A and go through link C instead). 
+\newpage
+\noindent \textcolor{Peach}{\textbf{Transparent Fragmentation:}} Fragments are sent to a router, which then performs reassembly before sending it off to the next router. If the next router cannot handle the reassembled packet, it will fragment according to the next router's MTU. Eg. From A the packet is split into 5, when it reaches B it is reassembled, however it is too big for C. B splits the packet into 3 (based on C's MTU) and sends it as 3 fragments. This is more efficient in terms of packets, however does create more work for each router.\\\\
+\textcolor{Peach}{\textbf{Nontransparent Fragmentation:}} Reassembly is performed at the destination host. The packets remain the same size throughout the route, so the number of fragments is based on the Path's MTU rather than the routers. \\\\
+\noindent \textcolor{Peach}{\textbf{Fragmentation Header:}} 
+\begin{itemize}
+	\item Identification bits: used to identify a packet (same for all fragments of the same packet)
+	\item MF: More fragments bit. Will be 1 unless it is the last packet.
+	\item DF: Don't fragment, if 1 won't fragment
+	\item Fragment offset: Must be on an 8 byte boundary (multiple of 8), unless it is the last fragment. For example, we can have FO = 185, which means a fragment of size 1480 is sent (+ 20 for header).  
+\end{itemize}
+\textcolor{Peach}{\textbf{Disadvantages:}} Overhead from fragmentation (20 bytes) is incurred from the point of fragmentation to the host. If a single fragment is lost, we have to resent the entire packet. Overhead on hosts performing reassembly is higher than expected. \\\\
+\textcolor{Peach}{\textbf{Path MTU Discovery:}} Aims to avoid some of these disadvantages. Each packet is sent with the DF bit set (Don't fragment). If a router cannot handle the packet size, it sends an ICMP (Internet Control Message Protocol) to the sender host, telling it to fragment the packets to a smaller size. At first packets may be dropped, but then the host will learn the optimal size quickly and reduce subsequent fragmentation. 
+\begin{enumerate}
+	\item Source sends packet as is (non-fragmented)
+	\item Router 1 receives packet, however it can only handle packets of size 1400, so returns an ICMP and drops packet
+	\item Source sends packets as size 1400 
+	\item Router 1 accepts packet and forwards to Router 2 
+	\item Router 2 can only handle packets of size 1200, so returns ICMP to source and drops packet 
+	\item Source sends packet as size 1200 
+	\item Router 1 and 2 accept the packet, and Router 2 forwards it to the destination 
+	\item Destination rejects packet as it can only handle size 900 and sends ICMP back to source. 
+	\item Source sends packet as size 900
+	\item Packet reaches destination with no issues 
+	\item Source sends more packets as size 900 with no issues
+\end{enumerate}
+\textcolor{Peach}{\textbf{IPv4 Fragmentation:}} IPv4 allows for either nontransparent fragmentation, or path MTU discovery. IPv4 minimum accept size is 576 bytes, and if this is not satisfied, then applications have to handle packet delivery by themselves. \\\\
+\textcolor{Peach}{\textbf{IPv6 Fragmentation:}} IPv6 expects hosts to discover the optimal path MTU. Routers will not perform fragmentation in IPv6, however the sender and source and perform fragmentation if they wish. IPv6 minimum accept size is 1280 bytes. 
+\section{Internet (Network) Layer}
+\textcolor{Melon}{\textbf{Packet Forwarding:}} The process of delivering a packet according to each router's routing table. This maps destination addresses to outgoing interfaces. \\\\
+\textcolor{Melon}{\textbf{Routing:}} The process of deciding on the route rather than forwarding a packet. A routing algorithm is used to decide which output line an incoming packet should be transmitted on. These are run on a router to create a routing table. \\\\
+\textcolor{Melon}{\textbf{Routing Algorithm:}} 
+\begin{itemize}
+	\item Correctness - that a valid route is found between all pairs of nodes 
+	\item Simplicity - easy to understand and modify 
+	\item Robustness - a router crash should not require a network reboot, should be able to route around a broken node 
+	\item Stability - a stable algorithm should reach equilibrium and stay there, don't want flapping routes 
+	\item Fairness 
+	\item Efficiency 
+	\item Flexibility to implement policies  
+\end{itemize}
+\textcolor{Melon}{\textbf{Fairness vs. Efficiency:}} Can conflict with each other. For example if we have 2 routes, and one is faster than the other the most efficient method would be to just use the faster route. The fair solution would be to give equal time to both of the routes (assuming they can't be used at the same time). \\\\
+\textcolor{Melon}{\textbf{Delay vs. Bandwidth:}} Aims to optimise either packet delay or the network throughput. We can use a simple approach of minimizing hops which tends to reduce bandwidth but improve delay. An alternative is to use weighted paths which give a value to a path based on distance or if we want to use it or not. \\\\
+\textcolor{Melon}{\textbf{Non-adaptive Routing (static):}} 
+\begin{itemize}
+	\item The routing does not change (even in errors/broken links)
+	\item Does not adapt to the network topology 
+	\item Calculated offline and uploaded to the router when started
+	\item Does not respond to failure 
+	\item Mainly used where there is a clear or implicit choice. E.g. home networks likely only have one router, so if that router is down, then we cannot route around it regardless.  
+\end{itemize}
+\textcolor{Melon}{\textbf{Adaptive Routing:}} 
+\begin{itemize}
+	\item Adapts to changes in topology and potentially traffic levels 
+	\item Can also adapt to own requirements, such as we expect more traffic at a certain time of day, so we take this router, but change the route in off peak times 
+	\item Optimises some property: distance, hops, estimated transit time etc.
+	\item May get information from adjacent routers, or all routers in the network
+\end{itemize}
+\newpage
+\textcolor{Melon}{\textbf{Flooding:}} Simplest example of adaptive routing. 
+\begin{itemize}
+	\item Guarantees shortest distance and minimal delay 
+	\item Used as a benchmark in terms of speed 
+	\item Extremely robust - if a path exists, flooding will find it 
+	\item Highly inefficient - generates a lot of duplicate packets 
+	\item Have to have a method of discarding packets (TTL or through network)
+	\item Process is that we start from a node, which sends out packets to all neighbour nodes. The neighbour nodes will send out more packets to all nodes it is connected to and hasn't received a packet from until we have the topology of the network. 
+\end{itemize}
+\textcolor{Melon}{\textbf{Optimality Principle:}} Not always applicable for BGP, however assumes that there is an optimal path, and other optimal paths are within that path. A set of optimal routes from all sources will form a tree which has a root at the destination. \\\\
+\textcolor{Melon}{\textbf{Shortest Path Algorithm:}} Uses a labelled graph to find the shortest path between nodes. The most famous example is Dijkstra's algorithm.\\\\ 
+\textcolor{Melon}{\textbf{Dijkstra's Algorithm:}} Divides nodes into three groups: unseen, open and closed. We visit unseen or open nodes which have the current lowest value, and explore its neighbours. After a node is visited it will be marked as closed (cannot revisit). \\\\
+\textcolor{Melon}{\textbf{Unseen:}} Not a neighbour of a node which we have processed. \\\\
+\textcolor{Melon}{\textbf{Open:}} We have visited a neighbour of this node, but not this node yet. We are aware of at least one path to it. \\\\
+\textcolor{Melon}{\textbf{Closed:}} We have visited this node, and we know the best path to it. Cannot be revisited (in the algorithm). \\\\ 
+\textcolor{Melon}{\textbf{Dijkstra's Algorithm Process:}}
+\begin{enumerate}
+	\item Visit the source node, \emph{'open'} all of its neighbours and set their labels as the distance to them. 
+	\item Examine adjacent nodes to the 'working node', calculate the distances and update labels if it has improved (lower cost to visit from another node)
+	\item Examine all tentative/open nodes in the graph, then pick the one with the lowest distance and visit it. 
+	\item Repeat until all nodes are visited or the destination is found (depending on purpose) 
+\end{enumerate}
+\textcolor{Melon}{\textbf{Link State Routing:}} A distributed algorithm that replace Distance Vector Routing. Has 5 steps to the process. 
+\begin{enumerate}
+	\item Discover its neighbours and learn their network address 
+	\item Set the distance or cost metric to each of its neighbours 
+	\item Construct a packet containing all it has just learned 
+	\item Send the packet to, and receive packets from, all other routers
+	\item Compute the shortest path to every other router 
+\end{enumerate}
+\textcolor{Melon}{\textbf{HELLO packet:}} Used to discover neighbouring routers. When a router starts up it sends a HELLO packet on each interface and the router on the other end responds with its own ID. \\\\
+\textcolor{Melon}{\textbf{Link State Routing Costs:}} Can be set automatically, manually or using delays (ECHO packet). It can also be engineered based on traffic. \\\\
+\textcolor{Melon}{\textbf{Link State Packet:}} Consists of an ID, sequence number, age, a list of neighbours and their respective costs. Building a packet is easy, however deciding when to build them is difficult. \\\\
+\textcolor{Melon}{\textbf{Sending Packets:}} In link state routing, flooding is used to send packets to other routers. More specifically, reliable flooding which uses acknowledgements to guarantee every other router receives the packet. Routers also compares the packets it receives to check that the SEQ is higher than the last packet it has received. If it is, it will forward the packet otherwise it will discard it. \\\\
+\textcolor{Melon}{\textbf{Distance Vector Routing:}} Instead of a router sending packets, nodes announce the distance from themselves to each destination. When they receive a new announcement of others' distances, they update their own estimates and make a new announcement. This is however less efficient and has issues. \\\\
+\textcolor{Melon}{\textbf{Autonomous Systems (AS):}} Collections of routers under the same administrative control. \\\\
+\textcolor{Melon}{\textbf{Routing Protocols:}} Exist for both internal routing (within a network) and external routing (between ASes or different networks). \\\\
+\textcolor{Melon}{\textbf{Border Gateway Protocol (BGP):}} Routing between networks can be based on a lot more than just the shortest or most efficient route. It often also involves politics. As a result Bellman's principle will not apply, as though it might be the shortest path, it could route through a network that the client doesn't want. 
+\begin{itemize}
+	\item Companies may not want others using their networks for free 
+	\item Competing ISPs might not want to carry other ISP's traffic on their networks 
+	\item Not carrying commercial traffic on academic networks 
+	\item Prefers a provider because it is cheaper 
+	\item Not wanting to send traffic through a particular company or country
+\end{itemize}
+\textcolor{Melon}{\textbf{Border Gateway Protocol (BGP):}} Based on customer or provider agreements, either one pays to send or receive traffic, or there is a mutual agreement to carry each others traffic. Providers also only advertise their routes to their own network to avoid carrying other people's traffic. Most paths taken using BGP are valley free, most of the time it originates then goes up to a higher network and only comes back down when it reaches its destination.
+\newpage
+\section{Internet Control Protocols}
+\textcolor{RubineRed}{\textbf{Data plane vs Control plane:}} An alternative model to the stack of protocols. One plane is in charge of decisions and one is in charge of moving data. There can also be a management plane for setting policies. \\\\
+\textcolor{RubineRed}{\textbf{Data plane:}} Responsible for handling data, for example in the network layer, this would be in charge of forwarding packets. \\\\
+\textcolor{RubineRed}{\textbf{Control plane:}} Responsible for deciding how data will be handled. In the network layer, this would be choosing routes that the packets will be forwarded to. \\\\
+\textcolor{RubineRed}{\textbf{Internet Control Protocols:}} Protocols used by the internet layer to manage functionality. 
+\subsection{Internet Control Message Protocol (ICMP)}
+\textcolor{RubineRed}{\textbf{Messages:}}
+\begin{center}
+	\begin{tabular}{|c|c|}
+		\hline 
+		\textbf{Message Type} &\textbf{Description} \\
+		\hline 
+		\hline
+		Destination Unreachable &Packet could not be delivered \\
+		\hline 
+		Time exceeded &Time to live field hit 0 \\
+		\hline 
+		Parameter problem &Invalid header field \\ 
+		\hline 
+		Source quench &Choke packet (send packet more slowly) \\
+		\hline 
+		Redirect &Teach a router about geography \\
+		\hline 
+		Echo and echo reply &Checks if a machine is still alive \\
+		\hline 
+		Timestamp request or reply &Same as echo but with a timestamp \\
+		\hline 
+		Router advertisement &Finds a nearby router \\
+		\hline
+	\end{tabular}
+\end{center}
+\textcolor{RubineRed}{\textbf{Traceroute:}} Uses the TTL field to send out packets and detemine the paths and times of a route. For n amount of hops in a given destination, we can discover each router's IP address by sending a packet out to the same destination. We can increment the TTL from 1 to n, so that we can get the IP address of a router at x hops. 
+\begin{enumerate}
+	\item Traceroute sends out a packet with a TTL of 1
+	\item Packet reaches router, then is decremented and expires. Router returns a time exceeded message, which has its IP address in it. 
+	\item Traceroute sends out another packet with a TTL of 2, and repeats step 2 until n number of routers have been discovered. 
+	\item Sender can use this information to determine a path and the timings of a route the packet will take. 
+\end{enumerate}
+\subsection{Dynamic Host Configuration Protocol (DHCP)}
+\textcolor{RubineRed}{\textbf{DHCP:}} Automated way of handling IP address allocation. Has security concerns, but is more efficient than manually configuring each host. \\\\
+\textcolor{RubineRed}{\textbf{Process:}}
+\begin{enumerate}
+	\item Network has a DHCP server for issuing IP addresses 
+	\item Host sends out a DHCP DISCOVER packet
+	\item DHCP Server receives this packet and responds with a DHCP OFFER packet which contains an available IP address 
+	\item IP addresses are typically issued on a lease, and after it expires the server can reclaim it and re-issue it. Hosts can also requests for a renewal before the lease expires. 
+	\item Used to set a number of parameters, like default gateway, DNS servers addresses and time addresses
+\end{enumerate}
+\textcolor{RubineRed}{\textbf{Media Access Control (MAC) Address:}} Used as the DHCP won't know where to send the response to before issuing the IP address. It exists in the link layer, and is also known as the physical layer address. It is a globally unique identifier for the interface, is usually hard coded by the manufacturer, and is between 48 and 64 digits long. 
+\subsection{Address Resolution Protocol (ARP)} 
+\textcolor{RubineRed}{\textbf{ARP:}} The link between the internet layer and the physical network layer. It allows a host to translate an IP address to a physical address (MAC). \\\\
+\textcolor{RubineRed}{\textbf{Process:}}
+\begin{enumerate}
+	\item Broadcasts an Ethernet packet within its local network to ask who owns the target IP address
+	\item Broadcast arrives at every host on the network, the owner will respond with its MAC address 
+	\item The low level sending is done via MAC addresses, so this protocol is run often, even to find out how to communicate with the nearest router. 
+\end{enumerate}
+\textcolor{RubineRed}{\textbf{Proxy ARP:}} Rather than all routers being woken up for every ARP request that may or may not be relevant to it, we can direct our requests to a proxy, which contains the information on all MAC Address mappings. Once the packet reaches the proxy, the proxy forwards it to the relevant router, which will wake up and respond to the ARP request. \\\\
+\textcolor{RubineRed}{\textbf{Benefits:}} Incredible simple. \\\\
+\textcolor{RubineRed}{\textbf{Issues:}} Not efficient, and has security issues such as lack of authentication, ARP spoofing and intercepting ARP messages to associate attackers MAC address with a different host IP address. \\\\
+\end{document}

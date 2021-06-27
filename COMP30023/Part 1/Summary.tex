@@ -21,7 +21,6 @@
 \textcolor{WildStrawberry}{\textbf{Program:}} A set of instructions, considered static as it won't change (by itself). For example, a recipe is static, it'll guide the cook on what to do. Cooking is a dynamic process, it can change depending on the person. \\\\
 \textcolor{WildStrawberry}{\textbf{Memory:}} Where variables and data is stored.  \\\\
 \textbf{Computer Memory Hierarchy} 
-
 \begin{enumerate}
 \item \textcolor{WildStrawberry}{Registers:}\\
 Capacity of less than 1KB, stores things that are accessed very frequently for quick access (1nsec)
@@ -40,7 +39,7 @@ There are two modes of execution:
 \item \textcolor{WildStrawberry}{Kernel:} All instructions can be executed (including passwords so must have security to enter the Kernel execution process)
 \item \textcolor{WildStrawberry}{User:} A subset of instructions can be executed, for most normal operations
 \end{itemize}
-\textcolor{WildStrawberry}{\textbf{Registers:}} The memory, they keep some process state information. 
+\textcolor{WildStrawberry}{\textbf{Registers:}} The memory, they keep some process state information. \\\\
 \textcolor{WildStrawberry}{\textbf{Process Memory:}} Each process has its own address space. \\\\
 The process memory has three segments (current states): 
 \begin{itemize}
@@ -179,7 +178,7 @@ If a process goes from the \textcolor{Magenta}{running} state to the \textcolor{
 It runs on: 
 \begin{itemize}
 \item Process creation (Asks if it should run the new process or not)
-\item Process exit (Selectes the process to run next)
+\item Process exit (Selects the process to run next)
 \item Process blocks (When the current process is blocked, the CPU is not doing anything so the scheduler decides what to do next)
 \item Interrupt (Run process from before or the interrupt process)
 \end{itemize}
@@ -431,10 +430,4 @@ A signs B's certificate, B signs C's certificate: \\\\
 \end{itemize}
 \textcolor{BlueViolet}{\textbf{Local TLS Interception:}} Sometimes a local entity may need to intercept communication. An example is anti-virus software, which acts as a human in the middle (but non malicious). It can request to make changes to your computer, and install it's own certificate on your machine, appending itself as a root CA. It then has the ability to intercept all communication from a browser to the user, and make sure all messages are safe. An issue that can arise is if multiple machines have the same $P_k$ issued by the software, in which case other people can impersonate them. \\\\ 
 \textcolor{BlueViolet}{\textbf{Server-side issues:}} Proxies are used for privacy. The break the concept of end-to-end encryption. It'll analyse traffic, know which ips to block and filter, then forwards it to a server. An issue is that it has a lot of information from different sites, so if it exposes it, there will be a lot of potential breaches. \\\\
-\textcolor{BlueViolet}{\textbf{}}
-\textcolor{BlueViolet}{\textbf{}}
-\textcolor{BlueViolet}{\textbf{}}
-\textcolor{BlueViolet}{\textbf{}}
-\textcolor{BlueViolet}{\textbf{}}
-\textcolor{BlueViolet}{\textbf{}}
 \end{document} 
