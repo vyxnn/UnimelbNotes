@@ -1,0 +1,1132 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage{amssymb}
+
+\renewcommand{\labelitemi}{\textperiodcentered}
+\begin{document}
+\colorlet{shadecolor}{blue!10}
+\section*{Introduction}
+\textcolor{Periwinkle}{\textbf{Definitions of Machine Learning}} 
+\begin{shaded}
+\noindent \textbf{Definition} \\
+The automatic extraction of valid, novel, useful and comprehensible knowledge (rules, regularities, patterns, constraints, models etc) from arbitrary sets of data.
+\end{shaded}
+\noindent \textbf{What are we learning?} \\
+We are learning how to create a \textcolor{Periwinkle}{\textbf{task}} that accomplishes a goal. For example: 
+\begin{itemize}
+	\item Assigning continuous values to inputs (essay $\rightarrow$ grade)
+	\item Grouping inputs into known classes (email $\rightarrow {\text{spam, no spam}}$)
+	\item Understand regularities in data \\
+\end{itemize}
+\noindent \textbf{What are we learning from?}\\
+We use \textcolor{Periwinkle}{\textbf{data}} as a basis for machine learning. There are a few considerations that we need to make in regards to the quality of the data, for example is it reliable or representative of a population? If we are taking a survey on the students, then if we only survey domestic students we would have data biased towards domestic students. \\\\
+\noindent \textbf{How do we learn?}\\
+We can define a \textcolor{Periwinkle}{\textbf{model}} that explains how to get from input to output. \\
+We can derive a \textcolor{Periwinkle}{\textbf{learning algorithm}} to find the best model parameters. \\\\
+\noindent \textbf{How do we know the quality of the output?}\\
+If the algorithm improves at its task with exposure to more data, then we know that some form of learning is happening. We do however need to be able to evaluate its performance objectively (Eg. we don't want a chat bot to learn racist terms). \\\\
+\textcolor{Periwinkle}{\textbf{Ingredients for machine learning}}\\\\
+\noindent \textbf{Data}
+\begin{itemize}
+	\item Discrete vs continuous vs ....
+	\item Big data vs small data 
+	\item Labelled data vs unlabelled data 
+	\item Public vs sensitive data
+\end{itemize}
+\textbf{Models}
+\begin{itemize}
+	\item Function mapping from inputs to outputs 
+	\item Motivated by data generating a hypothesis 
+	\item Probabilistic machine learning models 
+	\item Geometric machine learning models 
+	\item Parameters of the functions are unknown
+\end{itemize}
+\textbf{Learning}
+\begin{itemize}
+	\item Improving (on a task) after data is taken into account
+	\item Finding the best model parameters (for a given task)
+	\item Supervised vs unsupervised learning 
+\end{itemize}
+\newpage
+\noindent \textcolor{Periwinkle}{\textbf{Examples of Machine Learning}}
+\begin{shaded}
+\noindent \textcolor{Violet}{\textbf{Clustering}}\\ 
+A type of unsupervised learning, this is a technique that groups similar entities or data together. It can be used to find similarities or patterns in data (creating its own grouping or classifications) as well as identifying any outliers.
+\end{shaded}
+\noindent We don't know class labels beforehand, and use this method to separate data into groups. \\
+\noindent \textbf{Example} \\
+An archaeologist is in charge of classifying a mountain of bones, and wants to quickly identify any 'finds of the century' before sending the bones off to a museum. \\\\
+\noindent \textbf{Solution}\\
+Identify any bones which are of different size/dimensions/characteristics to others in the sample and/or pre-identified bones. 
+\begin{shaded}
+\noindent \textcolor{Violet}{\textbf{Classification}}\\
+An example of supervised learning that provides labelled data to a machine learning algorithm, which then bases its output or classification of future data into groups using that input data. It can be used to process unsorted data into pre-defined groups. The groups are finite/discrete.  
+\end{shaded}
+\noindent We know class labels prior to training, and the goal of this technique is to predict a class label. \\
+\noindent \textbf{Example}\\
+An archaeologist is in charge of classifying a mountain of bones, and wants to come up with a consistent way of determining the species and type of each bone which doesn't require specialist skills. \\\\
+\noindent \textbf{Solution}\\
+Identify some easily measurable properties, such as size or shape, and compare them to a pre-classified database of bones. For example, humans have a very specific skull shape, so future bones which look similar could be classified as human.
+\begin{shaded}
+\noindent \textcolor{Violet}{\textbf{Regression}}\\
+A technique that uses mathematical methods to produce a continuous outcome ($y$) based on the values of the predictor variables ($x$). An extremely common example is linear regression $y = mx + c$. Used with numeric data and the output is continuous. 
+\end{shaded}
+\noindent Similar to Classification, however done with continuous (and numeric) values. Also an example of supervised learning. \\
+\noindent \textbf{Example}\\
+A person in charge of developing the next release of Coca Cola wants to be able to estimate how well a given recipe will be. \\\\
+\noindent \textbf{Solution}\\
+Carry out taste tests over various recipes with varying proportions of sugar, caramel, caffeine, and other variables/ingredients, then estimate the function which predicts customer satisfaction from these numbers. We can then use this equation to determine the optimal proportion of these ingredients that will maximise customer satisfaction.
+\newpage 
+\section*{Basics of Machine Learning}
+\textcolor{Periwinkle}{\textbf{Machine Learning Workflow}}
+\begin{enumerate}
+	\item \textbf{Business Understanding} \\
+	What is the purpose and scope of the problem? What is the issue we want to solve, or what are we trying to predict? 
+	\item \textbf{Data Understanding} \\
+	What type of data do we have? Is the data clean? How should we be using the data in our machine learning model? 
+	\item \textbf{Data Preparation}\\
+	Cleaning the data if it is noisy, or converting the data into the correct format (eg. discrete to continuous)
+	\item \textbf{Modelling} \\
+	Training the model using the training data
+	\item \textbf{Evaluation} \\
+	Testing the model using the test data, and evaluating how well it performs. If it doesn't produce the right outcome, then we might have to go back to step 1, and restart the process with a better understanding of business needs or data training. This cycle can be repeated several times. 
+	\item \textbf{Deployment}\\
+	If we are happy with the outcome of the model, and are confident that we can use it in the real world, then we can deploy the model. 
+\end{enumerate}
+\textcolor{Periwinkle}{\textbf{Terminology}}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Instances}}\\
+	The individual, independent examples of a concept, also known as exemplars. 
+\end{shaded}
+\noindent In other words, these are the inputs to the machine learning models that we use the train the model with. For example, to test if an email is spam or not, we can provide an instance of an email, with the message, sender ... etc, as mark if that particular instance is spam or not.
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Attributes}} \\
+	Measures aspects of an instance, also known as features or attributes.
+\end{shaded}
+\noindent Attributes are used to help quantify the value of an instance. For example, if we have an email instance, then the attributes would be the message, grammar and sender. To determine if the message is spam or not, we can use these features to predict an output. An email with a lot of grammar mistakes will be more likely to be spam than one without. 
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Concepts}} \\
+	The purpose of the machine learning model; or the thing that we're aiming to learn to predict. Generally, the output of a machine learning model comes in the form of a label or classes. 
+\end{shaded} 
+\noindent The outcome of the model. Eg. Is this email spam or not spam? Yes would be an outcome. This can also come in the form of a \emph{special attribute} where a feature/label is also the concept we want. \\
+\begin{itemize}
+	\item Predicting a discrete class (\textbf{Classification})
+	\item Grouping similar instances into clusters (\textbf{Clustering})
+	\item Predicting a numeric quantity (\textbf{Regression})
+	\item Detecting associations between attribute values (\textbf{Association Learning})
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Supervision}}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Supervised Learning}} \\
+	Supervised methods have prior knowledge of a closed set of classes, and set out to discover and categorise new instances according to these classes. 
+\end{shaded}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Unsupervised Learning}} \\
+	Unsupervised methods do not have access to an inventory of classes, and instead discover groups of \emph{similar} examples in a given dataset.
+\end{shaded}
+\noindent There are two types of unsupervised learning. 
+\begin{itemize}
+	\item \textbf{Strong} \\
+	Dynamically discovers the 'classes', which are implicitly derived from the grouping of instances, during the process of categorising the instances. No prior knowledge of classes whatsoever. 
+	\item \textbf{Weak} \\
+	Categorises instances as certain labels without the aid of pre-classified data. The model doesn't what the class labels are exactly, but might know to have 10 groups to classify data into. \\
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Classification}} \\
+Assigns an instance a discreet class label. 
+\begin{itemize}
+	\item Classification learning is \emph{supervised}
+	\item Scheme is provided with an actual outcome or \emph{class} 
+	\item The learning algorithm is provided with a set of classified \emph{training data} 
+	\item Can use \emph{test data} to measure success. Can compare the known class labels with the label from the ML model. \\
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Clustering}} \\
+Finds groups of items that are similar. 
+\begin{itemize}
+	\item Clustering is \emph{unsupervised}, the learner operates without a set of labelled training data 
+	\item The class of an example is not known, or not given to the learning algorithm 
+	\item Success is measured subjectively, and there's no definite method to measure success, which can be problematic. \\
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Regression}}\\
+Classification learning, however the class is continuous, and regression produces a numeric prediction.
+\begin{itemize}
+	\item Learning is \emph{supervised}
+	\item Unlike classification, infinite labels are possible, so a correct prediction is when the numeric value is acceptable close to the true value. \\ 
+\end{itemize}
+\newpage
+\noindent \textcolor{Periwinkle}{\textbf{Instances}}\\
+Instances can be characterised as 'feature vectors', and defined by a predetermined set of attributes. \\\\
+Input to learning scheme: dataset 
+\begin{itemize}
+	\item Flat file representation (can be represented as a vector) 
+	\item No relationships between objects - this may or may not be true
+	\item No explicit relationship between attributes 
+\end{itemize}
+Attribute data types: 
+\begin{itemize}
+	\item Discrete: nominal, categorical or ordinal 
+	\item Continuous: numeric \\
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Nominal Quantities}}
+\begin{itemize}
+	\item Values are distinct symbols eg. \texttt{\{sunny, overcast, rainy\}}
+	\item Values should only be used as a label or name
+	\item Also called categorical or discrete
+	\item Special case: dichotomy ('Boolean' attribute \texttt{\{0,1\}})
+	\item No relation is implied among nominal values (no ordering or distance measure), and only equality tests can be performed \\
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Ordinal Quantity}}
+\begin{itemize}
+	\item Numeric quantities are real-valued attributes 
+	\item Scalar(a single number) has the attribute \texttt{distance}
+	\item Vector-valued (a vector of numbers which each pertains to a feature or feature value) has the attribute \texttt{position} which is a set of coordinates $(x,y)$ 
+	\item All mathematical operations are allowed (such as addition, subtraction and scalar multiplication) \\
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Conversion of attribute types}}\\\\
+Some machine learning models assume a certain type of attribute. For example if we have linear regression, we can only have numeric inputs. To accommodate for these models, we have several methods to ensure that the input is always compatible with the model we want to use. 
+\begin{itemize}
+	\item Select only attributes with the correct type - discard attributes which do not 
+	\item Change the model assumptions to match the data - use a different ML model 
+	\item Change the attributes to match the model (most common) \\
+\end{itemize}
+\newpage
+\noindent \textcolor{Periwinkle}{\textbf{Converting Nominal to Numeric Attributes}}\\\\
+\textbf{Mapping category names to numbers} \\
+\texttt{\{red, blue, green, yellow\}} $\rightarrow$ \texttt{\{0,1,2,3\}}\\\\
+\textbf{Problems:} Creates an artificial ordering, we're saying that red is closer to blue than yellow. This can be problematic with a large number of categories as well. \\\\
+\textbf{One-hot Encoding} \\
+\texttt{'red' = [1,0,0,0]} \\
+\texttt{'blue' = [0,1,0,0]} \\
+\texttt{'green' = [0,0,1,0]} \\
+\texttt{'yellow' = [0,0,0,1]} \\\\
+Overall, better method of encoding categorical attributes in a numeric way \\\\
+\textbf{Problems:} Increases the dimensionality of the feature space, which can be an issue if we have a large number of dimensions. Distances between each feature will then be too small and become meaningless.\\\\ 
+\textcolor{Periwinkle}{\textbf{Numeric Feature Normalization}}\\\\
+Features of vastly different scales can be problematic. Some machine learning models assume features to follow a normal distribution, and some learning algorithms are overpowered by large feature values and can as a result, ignore smaller values. (eg. size of a house is 500sqm but prices can be 1M - the price of the house could have a bigger weighting due to the scale of the numbers)\\\\
+Feature \textbf{standardization} rescales features to be distributed at around a 0 mean with a unit standard deviation. \\
+\begin{equation*}
+	x' = \frac{x - \mu}{\sigma}
+\end{equation*} 
+\newline 
+Feature \textbf{scaling} rescales features to a given range. For example \emph{min-max scaling} rescales values to be between 0 and 1, using the minimum and maximum feature value observed in the data. \\
+\begin{equation*}
+	x' = \frac{x - x_{min}}{x_{max} - x_{min}}
+\end{equation*}
+\newline
+\newline
+\textcolor{Periwinkle}{\textbf{Converting Numeric to Nominal Attributes}}\\\\
+\textbf{Distcretization}\\
+Grouping numeric values into a pre-define set of distinct categories. \\
+Eg. housing prices $\rightarrow$ \texttt{\{high, medium, low\}} \\\\
+To do this, we need to decide on the number of categories and the category boundaries. There are a few options for this.
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Equal Widths Discretisation}} \\
+	Finds the minimum and maximum of the data, the partitions the values into n bins of width $\frac{\text{max - min}}{n}$ bins.
+\end{shaded}
+\noindent \textbf{Problems:} Outliers would be grouped together on both sides (have entire bins of outliers). Bins wouldn't have an even distribution of items, and we would have to choose how to select $n$.
+\newpage
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Equal Frequency Discretisation}} \\
+	Sort the values, then partition them into $n$ bins such that each bin has an identical number of items. 
+\end{shaded}
+\noindent \textbf{Problems:} Boundaries could be hard to interpret, and we would also have to choose how to select $n$. 
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Clustering}} \\
+	Uses unsupervised machine learning to group the value to into n clusters. Eg. K-means clustering.
+\end{shaded}
+\noindent \textbf{Problems:} How would we evaluate the result, and how do we select $K$ (number of groups)?\\\\
+\textcolor{Periwinkle}{\textbf{Preparing Input}}\\\\
+A few considerations when preparing data for input into a ML model, is missing attributes or inter-dependent attributes. If a piece of data is missing, there could be a variety of reasons from no being able to record the measurement, changes in experimental design etc, which are random. However if data is missing on purpose, then we might also have to find a way to encode that into a data eg. using a \texttt{missing} value in our class. \\\\
+Another consideration we have to make is getting to know the data or visualising it before we decide on the data and ML model to use. For example, we can use histograms to check if the distribution is consistent with our background knowledge (i.e if we're expecting a normal distribution but get a different one), or scatter plots to see if there is any obvious outliers we can remove before putting the data in. We can also check for dependencies between features (such as age and D.O.B) using 2-D/3-D plots. We can also consult domain experts if necessary. \\\\
+\newpage
+\section*{K-Nearest Neighbours}
+\textcolor{Periwinkle}{\textbf{Algorithm}}\\\\
+\textbf{Training}
+\begin{itemize}
+	\item Store all training examples
+\end{itemize}
+\textbf{Testing}
+\begin{itemize}
+	\item Compute \emph{distance} of test instance to all training data points 
+	\item Find the K closest training data points 
+	\item Compute \emph{target concept} of the test instance based on labels of the training instances. By target concept, it could be class label (most common label among neighbours) or a number (average among neighbours)
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Feature Vector}}\\
+For a dataset, each instance can be represented as a feature vector. \\
+\begin{equation*}
+	\texttt{feature vector} = 
+	\begin{bmatrix}
+		\texttt{Outlook}\\
+		\texttt{Temperature}\\
+		\texttt{Humidity}\\
+		\texttt{Windy}\\
+	\end{bmatrix}	
+\end{equation*}
+\textcolor{Periwinkle}{\textbf{Comparing Nominal Feature Vectors}}\\
+\noindent Example dataset:
+\begin{center}
+	\begin{tabular}{ |c|c|c|c|c|c|c| }
+		\hline 
+		instance &red &yellow &round &sweet &curved &small \\
+		\hline 
+		apple &1 &0 &1 &1 &0 &? \\
+		banana &0 &1 &0 &1 &1 &? \\
+		cherry &1 &0 &1 &1 &0 &1 \\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Hamming Distance}}\\
+	The number of differing elements in two 'strings' of equal length.
+\end{shaded}
+\noindent Eg. For the above dataset: 
+The hamming distance $d(apple, banana) = 4$ as they have 4 different features: red, yellow, round and curved.
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Simple Matching Distance}}\\
+	The number of matching features divided by the number of all features in the sample. 
+	\begin{equation*}
+		d = 1 - \frac{k}{m}
+	\end{equation*}
+\end{shaded}
+\noindent Where $d$ is distance, $k$ is number of matching features, $m$ is the total number of features. \\
+For the example dataset, $d(apple, banana) = 1 - \frac{2}{6} = \frac{4}{6}.$ There are a total of 6 features, 2 of which match.  
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Jaccard Distance}}\\
+	The Jaccard distances is 1 - J where J is the Jaccard similarity. The Jaccard similarity J is the intersection of two sets divided by their union. 
+	\begin{equation*}
+		d = 1 - J = 1 - \frac{|A \cap B|}{|A \cup B|} = 1 - \frac{|A \cap B|}{|A| + |B| - |A \cap B|}
+	\end{equation*}
+\end{shaded}
+\noindent Eg. $d(apple, banana) = 1 - \frac{1}{5} = \frac{4}{5}$. Note that only features with \texttt{1} can be included in sets. 
+\newpage
+\noindent \textcolor{Periwinkle}{\textbf{Comparing Numerical Feature Vectors}}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Manhattan Distance}}\\
+	Also known as L1 distance, the distance is the sum of absolute differences of each feature. 
+	\begin{equation*}
+		d(a,b) = \sum_{i=1}^{m}|a_{i} - b_{i}|
+	\end{equation*}
+\end{shaded}
+\noindent Eg. For two instances $a = [2.0, 1.4, 4.6, 5.5]$, $b = [1.0, 2.4, 6.6, 2.5]$
+\begin{equation*}
+	d(a,b) = |2.0 - 1.0| + |1.4 - 2.4| + |4.6 - 6.6| + |5.5 - 2.5| = 1 + 1 + 2 + 3 = 7
+\end{equation*}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Euclidean Distance}}\\
+	Also known as L2 distance, the distance is the squared root of the sum of squared differences of each feature. 
+	\begin{equation*}
+		d(a,b) = \sqrt{\sum_{i=1}^{m}(a_{i} - b_{i})^2}
+	\end{equation*}
+\end{shaded}
+\begin{equation*}
+	d(a,b) = \sqrt{(2.0 - 1.0)^2 + (1.4 - 2.4)^2 + (4.6 - 6.6)^2 + (5.5 - 2.5)^2} = \sqrt{15} = 3.87
+\end{equation*}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Cosine Distance}}\\
+	One minus cosine similarity, which is the cosine of the angle between two vectors (or inner product of the normalized vectors)
+	\begin{equation*}
+		cos(a,b) = \frac{a \cdot b}{|a||b|} = \frac{\sum_{i}a_{i}b_{i}}{\sqrt{\sum_{i}a_{i}^{2}}\sqrt{\sum_{i}b_{i}^{2}}}
+	\end{equation*}
+	\begin{equation*}
+		d(a,b) = 1 - cos(a,b)
+	\end{equation*}
+\end{shaded}
+\noindent Cosine distance is normalized by the magnitude of both feature vectors, so we can compare instances of different magnitude. \\
+\begin{center}
+	\begin{tabular}{ |c|c|c|c| }
+		\hline 
+		feature &doc1 &doc2 &doc3 \\
+		\hline 
+		word1 &200 &300 &50 \\
+		word2 &300 &200 &40 \\
+		word3 &200 &100 &25 \\
+		\hline
+	\end{tabular}
+\end{center}
+$cos(doc1, doc2) = \frac{200x300 + 300x200 + 200x100}{\sqrt{200^2 + 300^2 + 200^2}\sqrt{300^2+200^2+100^2}} = 0.93$ \\
+$d(doc1, doc2) = 1 - 0.93 = 0.07$ \\\\
+\noindent \textcolor{Periwinkle}{\textbf{Comparing Ordinal Feature Vectors}}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Normalized Ranks}}
+	\begin{itemize}
+		\item Sort values, and return a rank $r \in \{0...m\}$
+		\item Maps ranks to evenly spaced values between 0 and 1 using $z = 
+		\frac{r}{m}$
+		\item Compute a distance function for numeric features (eg. Euclidean)
+	\end{itemize}
+\end{shaded}
+Eg. For ratings \texttt{-2,-1,0,1,2} we can map this to \texttt{0,1,2,3,4} then do our usual distance calculations.
+\newpage
+\noindent \textcolor{Periwinkle}{\textbf{Deciding on neighbours}}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Majority Voting}}\\
+	Each neighbour within the range is given an equal weight, or vote. $w_{1} =... = w_{k} = 1$
+\end{shaded}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Inverse Distance}}\\
+	Weight is assigned based on distance 
+	\begin{equation*}
+		w_{j} = \frac{1}{d_{j} + \epsilon}
+	\end{equation*}
+\end{shaded}
+\noindent Where $\epsilon \approx 0$, and $d_{j}$ is distance. 
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Inverse Linear Distance}}\\
+	Weight is assigned based on distance 
+	\begin{equation*}
+		w_{j} = \frac{d_{k} - d_{j}}{d_{k} - d_{1}}
+	\end{equation*}
+\end{shaded}
+\noindent Where $d_{1}$ is the min d among neighbours, $d_{k}$ is the max d among neighbours and $d_{j}$ is the distance of the jth neighbour. \\\\
+\textcolor{Periwinkle}{\textbf{Selecting the value of K}}\\\\
+\textbf{Small K}
+\begin{itemize}
+	\item Jagged decision boundary 
+	\item Captures noise 
+	\item Lower classifier performance 
+\end{itemize}
+\textbf{Large K}
+\begin{itemize}
+	\item Smooth decision boundary 
+	\item Danger of grouping together unrelated classes 
+	\item Lower classifier performance 
+\end{itemize}
+\textbf{Breaking Ties}
+\begin{itemize}
+	\item Avoid an even K 
+	\item Random tie breaking 
+	\item Change distance metric
+	\item Pick class with highest prior probability
+\end{itemize}
+\newpage
+\section*{Probability}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Conditional Probability}}\\
+	The probability of A given that we know  B is denoted as $P(A | B) = \frac{P(A \cap B)}{P(B)}$ \\\\
+	\textcolor{Violet}{\textbf{Independence}}\\
+	A and B are independent iff $P(A \cap B) = P(A)P(B)$ \\\\
+	\textcolor{Violet}{\textbf{Disjoint Events}}\\
+	The probability of two disjoint events such that $A \cap B = \emptyset$ is $P(A \text{ or } B) = P(A) + P(B)$ \\\\
+	\textcolor{Violet}{\textbf{Product Rule}}\\
+	$P(A \cap B) = P(A|B)P(B) = P(B|A)P(A)$\\\\
+	\textcolor{Violet}{\textbf{Chain Rule}}\\
+	Note we can also choose the order of factorisation so that it makes sense. Eg. Pr(Rain$|$July) vs Pr(July$|$Rain), the first one makes more sense. \\
+	$P(A_{1} \cap ... \cap A_{n}) = P(A_{1})P(A_{2}|A_{1})P(A_{3}|A_{2}\cap A_{1}) ... P(A_{n}|\cap_{i=1}^{n-1}A_{i})$
+\end{shaded}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Bayes Rule}}\\
+	Allows us to manipulate the order of the conditional. \\
+	$P(A|B) = \frac{P(A)P(B|A)}{P(B)}$ \\\\
+	\textcolor{Violet}{\textbf{Posterior Probability $P(A|B)$}}\\
+	The degree of belief having accounted for B. \\\\
+	\textcolor{Violet}{\textbf{Prior Probability $P(A)$}}\\
+	The initial degree of belief in A, or the probability of A occurring given no additional knowledge about A. \\\\
+	\textcolor{Violet}{\textbf{Likelihood $P(B|A)$}} \\
+	The support B provides for A. \\\\
+	\textcolor{Violet}{\textbf{Normalising constant ('Evidence') $P(B)$}} \\
+	$P(B) = \sum_{A}P(B|A)P(A)$
+\end{shaded}	
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Binomial Distribution}}\\
+	A series of independent trials with only two outcomes (Bernoulli Trials) creates a binomial distribution. \\
+	\begin{equation*}
+		P(m,n,p) = {n \choose m} p^{m}(1-p)^{n-m} =\frac{n!}{m!(n-m)!} p^{m}(1-p)^{n-m}
+	\end{equation*}
+\end{shaded}
+\noindent Where p = probability of success, m = num successes we want, n = total trials
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Multinomial Distribution}}\\	
+	Models the probability of counts of different events from a series of independent trials with more than two possible outcomes. Eg. Probability of observing 5 threes when rolling a dice 5 times.\\
+	\begin{equation*}
+		P(X_{1} = x_{1} ... X_{n} = x_{n}; p) = \frac{(\sum_{i}x_{i})!}{x_{1}! ... x_{n}!} \prod_{i}p_{i}^{x_{i}}
+	\end{equation*}
+\end{shaded}
+\noindent Where $X_{1}, X_{2}, X_{3}$ = events, $p = p_{1}, p_{2}...p_{n}$ = probabilities, $x_{1}, x_{2} ... x_{n}$ is the occurrences. 
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Categorical Distribution}}\\	
+	The probability of events resulting from a single trial with more than two possible outcomes. Eg. Rolling a dice once and observing a 5. 
+	\begin{equation*}
+		P(X_{1} = x_{1} ... X_{n} = x_{n}; p) = \prod_{i}p_{i}^{x_{i}}
+	\end{equation*}
+\end{shaded}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Marginalization}}\\	
+	Summing all the possible outcomes of features/events we don't care about to obtain the probability of an event occurring. 
+	\begin{align*}
+		P(A) &= \sum_{b \in \beta}P(A, B = b) \\
+		P(A) &=\sum_{b \in \beta}P(A|B=b)P(B=b) \\
+		P(A|C) &= \sum_{b \in \beta}P(A|C, B=b)P(B=b|C)
+	\end{align*}
+\end{shaded}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Maximum Likelihood Estimate (MLE)}}\\
+	Picking a value of $\theta$ that would maximise the probability of the observed data. Eg. If we have 100 emails, 20 of which are spam, the value of $\theta = 0.2$ would maximise the observed data. 
+	\begin{equation*}
+		\hat{\theta} = \text{argmax P}(X; \theta; N)
+	\end{equation*}
+	We can then use this value to predict values for unseen data. Eg. Predicting likelihood from a binomial distribution. 
+	\begin{equation*}
+		\mathcal{L}(\theta) = P(X;\theta;N) = {n \choose m} \theta^{x} (1-\theta)^{N-x}
+	\end{equation*}
+\end{shaded}
+\noindent When simplifying the likelihood, we can $\propto$ make it proportional and remove constants that are independent from $\theta$
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Prior Belief}}\\
+	An alternative to choosing an estimator, used when we don't have observational data, but we believe that around 80\% of emails are not spam. Therefore we can set $\theta = 0.8$ where $\theta$ is the probability of an email not being spam. 
+	\begin{equation*}
+		\hat{\theta} = \text{argmax P}(\theta)P(x|\theta)
+	\end{equation*}
+	We can use this to get the \textbf{posterior probability distribution} of $\theta$
+	\begin{equation*}
+		P(\theta|x) = \frac{P(\theta)P(x|\theta)}{P(x)} \propto P(\theta)P(x|\theta)
+	\end{equation*}	
+\end{shaded}
+\newpage
+\section*{Optimization}
+\textcolor{Periwinkle}{\textbf{Machine Learning}}\\
+Involves building models, and finding model parameters that optimize some measure of performance. 
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Objective Functions}}\\
+	To find parameter values $\theta$ that maximize or minimize the value of a function $f(\theta)$. In other words, we want the extreme points of the objective function. \\\\
+	For a maximum this is: 
+	\begin{equation*}
+		\hat{\theta} = \text{argmax}f(\theta)
+	\end{equation*}
+	For a minimum (where $f$ is called a \textbf{loss function})
+	\begin{equation*}
+		\hat{\theta} = \text{argmin}f(\theta)
+	\end{equation*}
+\end{shaded}
+\noindent At its extreme point, $f(\theta)$ is flat, so its slope (derivative) is equal to zero. *This can also be a point on inflection. 
+\begin{equation*}
+	\frac{\delta f}{\delta \theta} = 0
+\end{equation*}
+Eg. For a function $f(\theta)$, we can solve for argmax$f(\theta)$
+\begin{align*}
+	f(\theta) &= \theta^{2} \\
+	\frac{\delta f}{\delta \theta} &= 2 \theta \\
+	2\theta &= 0 \\
+	\theta &= 0
+\end{align*}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Finding Minima/Maxima}}
+	\begin{enumerate}
+		\item Define your function of interest $f(\theta)$ 
+		\item Compute its first derivative with respect to its input $\theta$
+		\item Set the derivative equal to zero 
+		\item Solve for $\theta$
+	\end{enumerate}
+\end{shaded}
+\noindent Eg. For a data set of emails, where we want to identify each email x as \texttt{spam, not spam}. We have N observations, each with two possible outcomes, and data that follows a binomial distribution. 
+The objective function can be modelled as:
+\begin{equation*}
+	\mathcal{L}(\theta) = p(X; N, \theta) = \frac{N!}{x!(N-x)!}\theta^{x}(1-\theta)^{N-x}
+\end{equation*}
+Where the parameter $\theta$ = P(spam). \\
+If we have a set of 100 emails, and 20 are \texttt{spam}, then intuitively, 
+$P(spam) = \theta = \frac{20}{100} = \frac{x}{N}$. We can also prove this as follows. 
+\begin{align*}
+	\mathcal{L}(\theta) &= \frac{N!}{x!(N-x)!}\theta^{x}(1-\theta)^{N-x} \\
+	&\propto \theta^{x}(1-\theta)^{N-x} \\
+	log(\mathcal{L}(\theta)) &= log(\theta^{x}(1-\theta)^{N-x}) \\
+	&= log(\theta^x) + log((1 - \theta)^{N-x}) \\
+	&= xlog(\theta) + (N-x)log(1 - \theta) \\
+\end{align*}
+Finding the derivative: 
+\begin{align*}
+	\frac{\delta log \mathcal{L}(\theta)}{\delta \theta} &= \frac{x}{\theta} + (N-x)\frac{(-1)}{1-\theta} \\
+	&= \frac{x}{\theta} - \frac{N-x}{1 - \theta} \\
+\end{align*}
+Maximising this equation (set it to zero)
+\begin{align*}
+	\frac{x}{\theta} - \frac{N-x}{1 - \theta} &= 0 \\
+	x(1 - \theta) - (N-x)(\theta) &= 0 \\
+	x - x\theta - N\theta + x\theta &= 0 \\
+	x - N\theta &= 0 \\
+	N\theta &= x \\
+	\hat{\theta} &= \frac{x}{N}
+\end{align*}
+\begin{shaded}
+\noindent \textcolor{Violet}{\textbf{Constrained optimization}}\\
+When the parameters that we want to learn has to obey constraints.
+\begin{equation*}
+	\text{argmin}f(\theta) \text{ subject to g}(\theta) = 0
+\end{equation*}
+\end{shaded} 
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Lagrange multipliers}}\\
+	Allows us to incorporate equality constraints into our optimization, denoted by $\lambda$. We essentially introduce another variable multiplied by $\lambda$ to represent our constraints. 
+	\begin{equation*}
+		\mathcal{L}(\theta, \lambda) = f(\theta) - \lambda g(\theta)
+	\end{equation*}
+\end{shaded} 
+\noindent Eg. Find an optimal parameter vector $\theta$ such that each all $\theta_{i}$ sum up to a certain constant $b$. \\\\
+Formalizing the constraint: 
+\begin{equation*}
+	\sum_{i}\theta_{i} = b
+\end{equation*}
+Set the constraint to zero 
+\begin{equation*}
+	\sum_{i}\theta_{i} - b = 0 
+\end{equation*}
+Set the constraint and write the Lagrangian: 
+\begin{align*}
+	g_{c}(\theta) &= -b + \sum_{i}\theta_{i} \\
+	\mathcal{L}(\theta, \lambda) &= f(\theta) - \lambda g_{c}(\theta) \\
+	&= f(\theta) - \lambda(-b + \sum_{i}\theta_{i}) \\
+\end{align*}
+Then we can proceed as before, derive, set to zero and solve for $\theta$. 
+\newpage
+\section*{Naive Bayes}
+\textcolor{Periwinkle}{\textbf{Notation}}\\\\
+\textbf{label:} $y$ (eg. spam, play, ...) \\
+\textbf{observation:} $x$ (eg. email, day, ...)\\
+\textbf{features:} $x_m, m \in \{1,2,...,M\}$ (eg. temperature, words, ...)\\
+\textbf{observation-label pair:} $(x^{i}, y^{i})$ \\
+\textbf{parameters:} $\theta, \phi, \psi, ...$ \\
+\textbf{function:} $f(x,y;\theta)$ function of x and y with parameters $\theta$, also denoted $f_{\theta}(x,y)$
+\begin{shaded}
+\noindent \textcolor{Violet}{\textbf{Probabilistic Model:}}\\
+We can build a probabilistic model that encompasses all of the training data $D^{train}$. We learn from our model parameters $\theta$ such that they maximise the data log likelihood. And use the train model to predict the class labels of the test data. 
+\begin{equation*}
+	P_{\theta}(x,y) = \prod_{i \in D^{train}}(x^{i}, y^{i})
+\end{equation*}
+Based on the $\theta$, we can also find 
+\begin{equation*}
+	\hat{y} = \text{argmax}_{y \in Y} P(y|x)
+\end{equation*}
+\end{shaded}
+\noindent The obvious method of doing this would require a lot of data, more specifically $O(|Y|\cdot k^{m})$ instances, where Y = classes, m = num attributes, and k is the number of values those attributes can take. We would require every combination of features to accurately predict classes. \\\\
+Instead we can use Bayes' rule for this. \\
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Bayes' Rule:}}\\
+	\begin{align*}
+		P(x,y) &= P(y|x) P(x) = P(x|y)P(y) \\
+		P(y|x) &= \frac{P(x|y)P(y)}{P(x)}
+	\end{align*}
+	Finding $\hat{y}$ 
+	\begin{align*}
+		\hat{y} &= \text{argmax}_{y \in Y}P(y|x) \\
+		&= \text{argmax}_{y \in Y}\frac{P(x|y)P(y)}{P(x)} \\
+		&\propto \text{argmax}_{y \in Y}P(x|y)P(y) \\
+		&= \text{argmax}_{y \in Y}P(x_{1}, x_{2} ..., x_{M}|y)P(y)
+	\end{align*}
+\end{shaded}
+\noindent Eg. The resulting equation is still infeasible, so we can make a naive assumption that all features are conditionally independent. Occasionally, this is nonsense, but the model still works. 
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Naive Bayes:}}\\
+	Modelling the conditional independence assumption:
+	\begin{align*}
+		\text{argmax}_{y \in Y}P(x_{1}, x_{2} ..., x_{M}|y)P(y) &\approx P(x_{1}|y)P(x_{2}|y)...P(x_{M}|y)P(y) \\
+		&= P(y) \prod_{m=1}^{M}P(x_{m}|y)
+	\end{align*}
+	\textbf{Naive Bayes Classifier:}
+	\begin{align*}
+		\hat{y} = argmax_{y \in Y} P(y)\prod_{m=1}^{M}P(x_{m}|y)
+	\end{align*}
+	\textbf{Probabilistic Model:}
+	\begin{align*}
+		P(x,y) = \prod_{i=1}^{N}P(y^{i})\prod_{m=1}^{M}P(x_{m}^{i}|y^{i})
+	\end{align*}
+\end{shaded}
+\noindent Eg. Naive Bayes with a binary class label, and real valued feature vectors of length M. Assuming $y$ is drawn for Bernoulli distribution, and $x_m$ is drawn from a Gaussian distribution. 
+\begin{align*}
+	p(x,y) &= p_{\phi, \psi}(x_{1}, x_{2}, ..., x_{m}, y) = p_{\phi}(y)\prod_{m}^{M} \\
+	&= BN(y|\phi)\prod_{m}^{M}N(x_{k}|\psi = \{\mu_{m,y} \sigma_{m,y}\}) \\
+	&= \phi^{y}(1-\phi)^{(1-y)}\prod_{m=1}^{M}\frac{1}{\sqrt{2\pi\sigma_{m,y}^{2}}}exp(-\frac{1}{2}\frac{(x_{m} - \mu_{m,y})^{2}}{\sigma_{m,y}^{2}})
+\end{align*}
+Eg. Naive Bayes with binary classes and binary features. Assuming $y$ is drawn for Bernoulli distribution, and $x_m$ is drawn from a Bernoulli distribution.
+\begin{align*}
+		p(x,y) &= p_{\phi, \psi}(x_{1}, x_{2}, ..., x_{m}, y) = p_{\phi}(y)\prod_{m}^{M} \\
+	&= BN(y|\phi)\prod_{m}^{M}BN(x_{k}|\phi_{m,y}) \\
+	&= \phi^{y}(1-\phi)^{1-y}\prod_{m=1}^{M}(\phi_{y,m})^{x_{m}}(1-\phi_{y,m})^{(1-x_{m})}
+\end{align*}
+Eg. Naive bays with two categorical distributions. $y$ is drawn from a Categorical distribution with C classes, and $x_{m}$ is drawn from a Categorical distribution over K classes. 
+\begin{align*}
+	p(x,y) &= p_{\phi, \psi}(x_{1}, x_{2}, ..., x_{m}, y) = p_{\phi}(y)\prod_{m}^{M} \\
+	&= Cat(y|\phi)\prod_{m}^{M}Cat(x_{k}|\phi_{m,y}) \\
+	&= \phi_{y}\prod_{m=1}^{M}\prod_{k=1}^{K}(\phi_{y,m,k})
+\end{align*}
+\newpage
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Categorical Naive Bayes:}}\\
+	\textbf{Categorical distribution over class labels:} \\
+	$\phi$ is found by observing the relative frequencies of classes in the training data. 
+	\begin{equation*}
+		\phi_{y} = \frac{\text{count}(y)}{N}
+	\end{equation*}
+	\textbf{Categorical distribution over features given a class label:} \\
+	 $\psi$ is found by observing the relative frequency of each class,label pair among all instances with that class. 
+	\begin{equation*}
+		\psi_{y,m} = \frac{\text{count}(y,m)}{\text{count}(y)}
+	\end{equation*}
+\end{shaded}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Gaussian Naive Bayes:}}\\
+	\textbf{Mean:} \\
+	The average of all observed feature values for $x_{m}$ under class y. 
+	\begin{equation*}
+		\mu_{y,m} = \frac{1}{\text{count}(y)}\sum_{i:y_{i}=y}x_{m}^{i}
+	\end{equation*}
+	\textbf{Standard deviation:} \\
+	Sum of squared differences of observed values from the mean. Normalized and square rooted. 
+	\begin{equation*}
+		\sigma_{y,m} = \sqrt{\frac{\sum_{i:y_{i}=y}(x_{m}^{i} - \mu_{y,m})^{2}}{\text{count}(y)}}
+	\end{equation*}
+\end{shaded}
+\noindent \textcolor{Periwinkle}{\textbf{Smoothing}}\\
+If we have any term that is unseen, or has probability = 0, then the product of all the probabilities will also be 0. There are various methods we can use to adjust the values of the model parameters to ensure that every pr is bigger than 0, but the sum of total probabilities is still equal to 1. 
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Epsilon Smoothing}}\\
+	Replace any 0 with a $\epsilon$, which is a very small constant. The $\epsilon$ needs to be much smaller than $\frac{1}{N}$, which is the minimum probability of an instance. 
+\end{shaded}
+\begin{shaded}
+	\noindent \textcolor{Violet}{\textbf{Laplace Smoothing}}\\
+	Adds a pseudocount $\alpha$ to each feature observed during training. 
+	\begin{equation*}
+		P(x_{m} = j | y = k) = \frac{\alpha + \text{count}(y=k, x_{m}=j)}{M\alpha + \text{count}(y=k)}
+	\end{equation*}
+	Generally the value of $\alpha$ is 1, and all counts are incremented to maintain monotonicity. M is also the number of values $x_{m}$ can take on. \\\\
+	Generally good for large amounts of data, however overall reduces variance and adds bias to the classifier. As a result our MLE may not be true.
+\end{shaded}
+\newpage
+\section*{Evaluation}
+\subsection*{Classification Evaluation}
+\textcolor{Periwinkle}{\textbf{Input:}} A set of labelled training instances and a set of unlabelled test instances. \\
+\textcolor{Periwinkle}{\textbf{Model:}} An estimate of the underlying target function \\
+\textcolor{Periwinkle}{\textbf{Output:}} Prediction of the classes of the test instances. \\\\
+\textcolor{Periwinkle}{\textbf{Goals in Machine Learning}}
+\begin{enumerate}
+	\item \textbf{Model Evaluation} \\
+	Making predictions that are correct, and estimating the true performance of a model based on the errors it makes. 
+	\item \textbf{Model Selection} \\
+	Choosing the best model, which can be based on a number of reasons. Eg. Combination of algorithms, parameters etc that give the best error rate, or efficiency, understanding etc. 
+\end{enumerate}
+\subsection*{Evaluation Strategies}
+\textcolor{Periwinkle}{\textbf{Brute Force Training and Testing}}\\
+Build the model using all of the instances and evaluates the model using all of the instances. Very bad as we tend to over-estimate classifier performance, we essentially give the classifier all the answers, then tests it using the same questions. The classifier just memorises all of the answers, which gives it a high accuracy rate, which may perform poorly on unknown test sets. \\\\
+\textcolor{Periwinkle}{\textbf{Holdout Evaluation Strategy}}\\
+Each instance is randomly assigned as either a training instance or a testing instance. The data is randomly partitioned so there is no overlapping instances between data set, and the split can be assigned according to probabilities eg. 50-50, 80-20, 90-10. \\\\
+\textbf{Advantages}
+\begin{itemize}
+	\item Simple to work with and implement 
+	\item Fairly high reproducability 
+\end{itemize} 
+\textbf{Disadvantages}
+\begin{itemize}
+	\item Size of the split affects the estimate of the model's behaviour, while it is randomly assigned, it isn't certain that we will have an exact split for percentages (depending on implementation). 
+	\item Have a lot of test instances, and few training instances means the learner won't have enough information to build an accurate model. 
+	\item Lots of training instances, few test instances means the learner builds an accurate model but the test data might not be representative. (Estimates could be too high or too low)
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Repeated Random Subsampling}}\\
+Similar to holdout, but the process is iterated multiple times. A new training and test set are chosen each time, a new model is built, and is evaluated by averaging over the iterations. \\\\
+\textbf{Advantages}
+\begin{itemize}
+	\item Averaging holdout method tends to product more reliable results 
+\end{itemize}
+\textbf{Disadvantages}
+\begin{itemize}
+	\item More difficult to reproduce 
+	\item Slower than holdout 
+	\item Wrong choice of training set/test size can lead to misleading results (difficult to check as averaged)
+\end{itemize}
+\newpage
+\noindent \textcolor{Periwinkle}{\textbf{Cross Validation}}\\
+Data is progressively split into a number of partitions ($m$). Iteratively, one partition is used as test data, and all the other $m-1$ partitions are used as training data. This repeats until all the partitions are used as test data. The evaluation metric is then aggregated across all the models. \\\\
+\textbf{Advantages}
+\begin{itemize}
+	\item Every instance is a test instance for some partition. Evaluation metrics would be calculated with respect to a dataset that looks like the entire dataset. 
+	\item Takes roughly the same time as Repeated Random Subsampling 
+	\item Very reproducible 
+	\item Can be shown to minimize bias and variance of our estimates of the classifier's performance. 
+\end{itemize}
+\textbf{Deciding $m$}
+\begin{itemize}
+	\item Number of folds impacts the runtime and size of datasets//
+	Fewer folds means more instances per partition, more variance in performance \\
+	More folds means fewer instances per partition, less variance but slower to run \\
+	\item Most common choice of $m$ (how many partitions) \\
+	$m = 10$ mimics a 90-10 holdout, and is more reliable
+	\item Best choice: $m = N$, where $N$ is the number of instances. This is also known as the leave one out cross validation method. \\
+	It maximises training data for the model, and mimics actual testing behaviour. It is however, not practical to use due to the time it takes. 
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{No Free Lunch Theorem}}\\\\
+\textit{A learner that makes no \textbf{a priori assumptions} regarding the identity of the target concept has no \textbf{rational basis} for classifying any unseen instances.} \\\\
+Essentially, you can't get a good classifier without making assumptions. \\
+Additionally, averaged cross all possible problems, the performance of any two algorithms is identical. If Algorithm A does well on p1, then it will perform worse on some p2. \\\\
+\textcolor{Periwinkle}{\textbf{Inductive Learning Hypothesis}}\\\\
+Any hypothesis found to approximate the target function well over a sufficiently large training data set will also approximate the target function over unseen test examples. \\
+\textit{*not always applicable eg. data in 1970s might not work in 2021}
+\textcolor{Periwinkle}{\textbf{Stratification}}\\\\
+A typical inductive bias (assumption) in our evaluation framework. This assumes that the class distribution of unseen instances will be the same as the distribution of seen instances. I.e. that the training and test data both have the same class distribution as the dataset. 
+\newpage
+\subsection*{Evaluation Measures}
+\textcolor{Periwinkle}{\textbf{Error $E$}}
+\begin{shaded}
+	\begin{equation*}
+		E = \frac{1}{N}(1 - I(y_{i}, \hat{y}_{i}))\text{  where  } I(a,b)
+		\begin{cases}
+			1, \text{  if } a == b \\
+			0, \text{  otherwise}
+		\end{cases}
+	\end{equation*}
+\end{shaded}
+\noindent \textcolor{Periwinkle}{\textbf{Error Rate Reduction (ERR)}}
+\begin{shaded}
+	\begin{equation*}
+		ERR = \frac{E_{0} - E}{E_{0}}
+	\end{equation*}
+\end{shaded}
+\textcolor{Periwinkle}{\textbf{Types of Errors}}\\
+\textbf{Contingency Tables}
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline 
+		&1 $(\hat{y} = 1)$ &0 $\hat{y} = 0$\\
+		\hline
+		1 $(y = 1)$ &True Positive (TP) &False Negative(FN) \\
+		\hline 
+		0 $(y = 0)$ &False Positive (FP) &True Negative(TN) \\
+		\hline 
+	\end{tabular}
+\end{center}
+\noindent Some errors might have a higher cost depending on the type. For example we might want to penalise false negative errors for cancer detection, as the consequences of that can be quite disastrous.  \\\\
+\textcolor{Periwinkle}{\textbf{Accuracy}}\\
+A basic evaluation metric. Equal to $1 - E$, or number of correctly labelled test instances over total number of test instances. Measures how frequently the classifier is correct. 
+\begin{shaded}
+	\begin{equation*}
+		\text{Accuracy} = \frac{TP + TN}{TP + FP + TN + FN}
+	\end{equation*}
+\end{shaded}
+\noindent \textcolor{Periwinkle}{\textbf{Precision}}\\
+How often are we correct, when we predict that an instance is interesting (1)? Out of all the 1s predicted, which ones are correct? 
+\begin{shaded}
+	\begin{equation*}
+		\text{Precision} = \frac{TP}{TP + FP}
+	\end{equation*}
+\end{shaded}
+\noindent \textcolor{Periwinkle}{\textbf{Recall}}\\
+What proportion of the truly interesting instances have we correctly identified as interesting? Out of all the true 1s, which ones did we correctly predict? 
+\begin{shaded}
+	\begin{equation*}
+		\text{Recall} = \frac{TP}{TP + FN}
+	\end{equation*}
+\end{shaded}
+\noindent The relationship between Precision and Recall are inverse. We can set up our classifier so that it has high Precision but low Recall, or high Recall but low Precision. 
+\newpage
+\noindent If we want both Precision and Recall to be high, we can evaluate this using the F-score. 
+\begin{shaded}
+	\begin{align*}
+		F_{\beta} &= \frac{(1 + \beta^{2})PR}{\beta^{2}P + R} \\
+		F_{1} &= \frac{2PR}{P + R}
+	\end{align*}
+\end{shaded}
+\noindent Where $\beta$ is the weight we want towards either Recall or Precision. Typically $\beta = 1$. \\\\
+\textcolor{Periwinkle}{\textbf{Receiver Operating Characteristics (ROC)}}\\
+A curve where we aim to minimize the false alarms, and maximize the true alarms. Ideally, we want to have the maximum area under the curve, though there is a tradeoff. The x-axis is the FP rate, and the y-axis is the TP rate. 
+\subsection*{Multi Class Evaluation}
+\textcolor{Periwinkle}{\textbf{Confusion Matrix}}\\
+Typically, all classes are considered 'Interesting' in a multi-class context. We can typically represent this in a matrix which has all the labels, and identifies the type of error it is. \\\\ 
+\textcolor{Periwinkle}{\textbf{Macro-Averaging}}\\
+Calculates P,R per class, and then averages over number of classes. Good for small classes, as all classes are treated as equal. 
+\begin{shaded}
+	\begin{align*}
+		\text{Precision}_{M} &= \frac{\sum_{i=1}^{c} \text{Precision}_{i}}{c} \\
+		\text{Recall}_{M} &= \frac{\sum_{i=1}^{c} \text{Recall}_{i}}{c}
+	\end{align*}
+\end{shaded}
+\noindent \textcolor{Periwinkle}{\textbf{Micro-Averaging}}\\
+The TP, FP rates are calculated per class, but averaged together over the total pool of test instances. Micro average is dominated by large classes, should use if more important. 
+\begin{shaded}
+	\begin{align*}
+		\text{Precision}_{\mu} &= \frac{\sum_{i=1}^{c} TP_{i}}{\sum_{i=1}^{c} TP_{i} + FP_{i}} \\
+		\text{Recall}_{\mu} &= \frac{\sum_{i=1}^{c} TP_{i}}{\sum_{i=1}^{c} TP_{i} + FN_{i}}
+	\end{align*}
+\end{shaded}
+\noindent \textcolor{Periwinkle}{\textbf{Weighted Averaging}}\\
+Calculates P,R per class, and then averages based on the proportion of instances in that class. 
+\begin{shaded}
+	\begin{align*}
+		\text{Precision}_{w} &= \sum_{i = 1}^{c}\text{Precision}_{i} \times (\frac{n_{i}}{N}) \\
+		\text{Recall}_{w} &= \sum_{i = 1}^{c}\text{Recall}_{i} \times (\frac{n_{i}}{N}) 
+	\end{align*}
+\end{shaded}
+\newpage
+\subsection*{Model Comparisons}
+\textcolor{Periwinkle}{\textbf{Baseline:}} A naive method in which we would expect any reasonably well-developed method to be better. Basically the bare minimum that a model should perform, eg. accuracy should be better than randomly assigning a label. \\\\
+\textcolor{Periwinkle}{\textbf{Benchmark:}} Established rival technique in which we are pitching our method against. Eg. We want it to be better than the accuracy of Naive Bayes.\\\\
+\textcolor{Periwinkle}{\textbf{Random Assignment:}} Randomly assign a class to each test instance.\\\\
+\textcolor{Periwinkle}{\textbf{Random Weighted Assignment:}} Randomly assigns a class to each test instance, weighting the class assignment according the prior belief. \\\\
+\textcolor{Periwinkle}{\textbf{Zero - R}} The majority class baseline. Classifies all test instances according to the most common class in the training data. Inappropriate if the majority class is \texttt{FALSE} and the goal is to identify a \texttt{TRUE} value in a majority. \\\\	
+\textcolor{Periwinkle}{\textbf{One - R}} Select one attribute and use it to predict an instance's class. Test each attribute and select the one with the smallest error rate. Eg. If Outlook = Sunny has majority \texttt{Yes} class, we assign any test instance with Outlook = Sunny, Class = \texttt{Yes} \\\\
+\textbf{Advantages:} Easy to understand and implement, often presents good results. \\\\
+\textbf{Disadvantages:} Unable to capture attribute interactions, and has a bias towards attributes with many possible values. 
+\section*{Feature Selection}
+\textcolor{Periwinkle}{\textbf{Goals:}} Leads to better performance according to some evaluation metric. Seeing important features can also give more information about the problem, and reducing features can result in a faster answer. Generally, we care more about accuracy than speed.
+\subsection*{Iterative Feature Selections: Wrappers}
+\textcolor{Periwinkle}{\textbf{Wrapper}} \\
+Chooses the subset of attributes that give the best performance on the development data. Builds, trains and tests a model on all combinations of features (eg. [f1], [f1,f2], [f2]).\\\\
+\textbf{Advantages}\\
+Feature set with the optimal performance on development data is chosen. \\\\
+\textbf{Disadvantages}\\
+Takes a long time (around $2^{m}$ for m features)
+\textcolor{Periwinkle}{\textbf{Greedy Search}}\\
+Trains and evaluates model on each single attribute. Based on the evaluation metric, will pick the best attribute. Eg.($\{f_{0}\}$ = 0.2, $\{f_{1}\}$ = 0.4, $\{f_{2}\}$= 0.5), $f_{2}$ will be picked. The process is then repeated for 2 attributes and so on, until the accuracy stops increasing based on some small value epsilon. \\\\
+\textbf{Advantages}\\ 
+Is quadratic in speed, takes $\frac{1}{2}m^{2}$ cycles for m attributes, though in practice it often converges quicker. Faster than exponential time, but still slow. \\\\
+\textbf{Disadvantages} \\
+Converges to a sub-optimal and even bad solution. Due to the greedy nature of the algorithm, if make the wrong choice at step 1, there could be a better solution out there. \\\\
+\newpage
+\noindent \textcolor{Periwinkle}{\textbf{Ablation}}\\
+Starts with all the attributes, then removes one attribute at a time until it diverges (according to some value epsilon). Eg. ($\{f_{0}, f_{1}, f_{2}\}$ = 0.5, $\{f_{0}, f_{1}\}$ = 0.499, $\{f_{0}, f_{2}\}$ = 0.3), then will pick $\{f_{0}, f_{1}\}$ for the next iteration. It removes the attribute that causes the least performance degradation, it stops when it degrades more than epsilon. \\\\
+\textbf{Advantages} \\
+Mostly removes irrelevant attributes (at the start) \\\\
+\textbf{Disadvantages} \\ 
+Assumes attributes are independent, and not feasible on non-trivial data sets. It also takes quadratic time $m^2$. 
+\subsection*{Feature Filtering}
+\textcolor{Periwinkle}{\textbf{Filtering:}} Evaluates the 'goodness' of each feature, separate from other features. \\\\
+\noindent \textcolor{Periwinkle}{\textbf{Pointwise Mutual Information (PMI)}}
+Gives a value that describes how related a class (C) and feature (A) are.  
+\begin{shaded}
+	\begin{equation*}
+		PMI(A,C) = log_{2}\frac{P(A,C)}{P(A)P(C)}
+	\end{equation*}
+\end{shaded}
+\noindent If PMI $>>$ 0: Attribute and class occur together much more often than randomly. \\
+\noindent If PMI $~$ 0: Attribute and class occur as often as we'd expect from random chance. \\
+\noindent If PMI $<<$ 0: Attribute and class are negatively correlated. \\\\
+Generally, we want attributes with the greatest PMI, however any non-zero PMI is also considered helpful information. \\\\
+\textcolor{Periwinkle}{\textbf{Contingency Table}}\\
+Compact representation of frequency counts for each class and attribute. 
+\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		&a &$\bar{a}$ &Total \\
+		\hline 
+		c &$\sigma(a,c)$ &$\sigma(\bar{a},c)$ &$\sigma(c)$ \\
+		$\bar{c}$ &$\sigma(a,\bar{c})$ &$\sigma(\bar{a},\bar{c})$ &$\sigma(\bar{c})$ \\
+		\hline 
+		Total &$\sigma(a)$ &$\sigma(\bar{a})$ &N \\
+		\hline
+	\end{tabular}
+\end{center}
+\noindent Where $P(a,c) = \frac{\sigma(a,c)}{N}$ etc. \\\\
+\textcolor{Periwinkle}{\textbf{Mutual Information}}\\
+The expected value of PMI over all possible events. 
+\begin{shaded}
+	\begin{equation*}
+		MI(A,C) = \sum_{i \in \{a, \bar{a}\}} \sum_{j \in \{c, \bar{c}\}} P(i,j) log_{2} \frac{P(i,j)}{P(i)P(j)}
+	\end{equation*}
+\end{shaded}
+\noindent Where 0 log 0 $\equiv 0$ \\\\
+\newpage
+\noindent \textcolor{Periwinkle}{\textbf{Chi Square}}\\
+Similar idea to MI, but different solution.Considers the expected value $E(W)$ if an attribute and class were independent. \\\\
+\textcolor{Periwinkle}{\textbf{Contingency Table(Chi Square)}}\\
+Compact representation of frequency counts for each class and attribute. 
+\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		&a &$\bar{a}$ &Total \\
+		\hline 
+		c &W &X &W+X \\
+		$\bar{c}$ &Y &Z &Y+Z \\
+		\hline 
+		Total &W+Y &X+Z &N = W+X+Y+Z \\
+		\hline
+	\end{tabular}
+\end{center}
+\textcolor{Periwinkle}{\textbf{Process}}\\
+We make the assumption that an attribute a, and class c are independent. 
+\begin{shaded}
+	\begin{align*}
+		P(a,c) &= P(a)P(c) \\
+		\sigma(a,c) &= \frac{\sigma(a)\sigma(c)}{N} \\
+		E(W) &= \frac{(W+Y)(W+X)}{W+X+Y+Z}
+	\end{align*}
+\end{shaded}
+\noindent We then calculate the expected value $E(W)$ as above, and compare it to the observed value $O(W)$. \\
+If the observed value is much greater than the expected value, then a occurs more often with c than we would expect at random. The value $W$ can be predictive. \\
+If the observed value is much smaller than the expected value, then a occurs less often with c than we would expect at random. The value $W$ can be predictive. \\
+If the observed value is close to expected value, then a occurs as often with c as we would expect randomly. The value $W$ is not predictive (same as independent).\\
+We can repeat the process with other attributes $X,Y,Z$ etc. \\\\
+\textcolor{Periwinkle}{\textbf{Chi square calculation}}
+\begin{shaded}
+	\begin{equation*}
+		\chi^{2} = \sum_{i=1}^{r}\sum_{j=1}^{c}\frac{(O_{i,j} - E_{i,j})^{2}}{E_{i,j}}
+	\end{equation*}
+\end{shaded}
+\noindent Where i sums over rows, and j sums over columns. \\
+Because the values are squared, $\chi^{2}$ becomes much greater when $|O-E|$ is large, even if $E$ is also large. 
+\subsection*{Non Binary Attributes}
+\textcolor{Periwinkle}{\textbf{Nominal}}
+\begin{itemize}
+	\item Can treat as multiple binary attributes (not great, loses information)
+	\item Can modify contingency tables and formula
+\end{itemize}
+\newpage
+\noindent \textcolor{Periwinkle}{\textbf{Modified MI}}
+\begin{shaded}
+	\begin{equation*}
+		MI(O,C) = \sum_{i \in {s,o,r}} \sum_{j \in {c, \bar{c}}} P(i,j) log_{2} \frac{P(i,j)}{P(i)P(j)} 
+	\end{equation*}
+\end{shaded}
+\noindent \textcolor{Periwinkle}{\textbf{Continuous}}
+\begin{itemize}
+	\item Estimate probability based on a Gaussian distribution 
+	\item Most random variables are normally distributed due to central limit theorem 
+	\item Otherwise, for small data sets might need to use binomial/multinomial distributions \\
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Ordinal}}
+\begin{itemize}
+	\item Treat as binary (Good for frequency counts)
+	\item Treat as continuous
+	\item Treat as nominal (Not great)
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Multi-class problems}}
+\begin{itemize}
+	\item PMI, MI, $\chi^{2}$ are all calculated per-class
+	\item Need to make a point of selected features for each class to give our classifier the best chance of predicting everything correctly
+	\item Features that are seen rarely but always with a given class will be seen as 'good'
+\end{itemize}
+\newpage
+\section*{Iterative Optimisation}
+\textcolor{Periwinkle}{\textbf{Iterative Optimization}}\\
+Used when there is no closed form solution to an equation, and we are unable to find the minimum and maximum from deriving and setting to zero. In these cases, we iteratively improve our estimate of $\hat{theta}$ until we arrive at a satisfactory solution. One of these methods is called \emph{Gradient descent}. \\\\
+\textcolor{Periwinkle}{\textbf{Gradient Descent}}\\
+Descends the function to find the optimum. 
+\begin{itemize}
+	\item Picks a random point in the function 
+	\item 'Descends' the function by moving in the opposite direction of the gradient (towards the minimum)
+	\item Increments the location by a step size
+	\item Stops when it reaches the minimum, or the value stops improving by $\epsilon$
+\end{itemize}
+\begin{shaded}
+	\noindent \textcolor{RoyalPurple}{\textbf{Gradient Descent Equation}}\\
+	For each step, a new $\theta$ is calculated
+	\begin{equation*}
+		\theta \leftarrow \theta + \Delta\theta
+	\end{equation*}
+	Where $\Delta\theta$ is the derivative $\frac{\delta f}{\delta \theta}$, and the step size
+\end{shaded}
+\begin{itemize}
+	\item If $\dfrac{\delta f}{\delta \theta} > 0: f(\theta): \nearrow$ as $\theta \nearrow$ 
+	\item If $\dfrac{\delta f}{\delta \theta} < 0: f(\theta): \nearrow$ as $\theta \searrow$ 
+	\item If $\dfrac{\delta f}{\delta \theta} = 0:$ we are at a minimum 
+\end{itemize}
+\begin{shaded}
+	\noindent \textcolor{RoyalPurple}{\textbf{Approaching the minimum}}\\
+	From the prior equation, we know the direction of the gradient is the opposite of the minimum. So to approach the minimum: 
+	\begin{equation*}
+		\theta \leftarrow \theta - \eta \dfrac{\delta f}{\delta \theta}
+	\end{equation*}
+\end{shaded}
+\noindent \textcolor{Periwinkle}{\textbf{Gradient Descent with multiple parameters}}\\
+If we have multiple parameters that need to be optimised,then we compute the partial derivative of $f(\theta)$ wrt $\theta_{n}$, then we update the parameter individually. 
+\begin{itemize}
+	\item $\theta_{1} \leftarrow \theta_{1} -\eta \dfrac{\delta f}{\delta \theta_{1}}$
+	\item $\theta_{2} \leftarrow \theta_{2} -\eta \dfrac{\delta f}{\delta \theta_{2}}$
+	\item etc
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Local Minima and Maxima}}\\
+If a function is not convex, then we may reach a local minima or maxima instead of the global one. Gradient guarantees a global extrema for convex functions which are differentiable, and at least a local extrema for non convex functions. While local extrema can still work, we note that it won't necessarily be the optimal solution in non convex functions. \\\\
+\newpage
+\section*{Logistic Regression}
+\textcolor{Periwinkle}{\textbf{Model}}\\
+\textbf{Logistic Regression} differs from Naive Bayes as it models $P(y|x)$ directly, whereas Naive Bayes \emph{generates} this value from priors and likelihoods. It is also a binary classifier. \\\\
+\textcolor{Periwinkle}{\textbf{Generative Models}}\\
+Naive Bayes is a generative model, and uses the prior distribution of a dataset to generate a probability for a specific instance. (Uses Bayes rule to convert into the desired probability, and makes the assumption that features are conditionally independent). \\\\
+\textcolor{Periwinkle}{\textbf{Discriminative Models}}\\
+Logistic Regression is a discriminative model, and uses the observed data to determine the class (y) of an instance based on x. It does this based on the optimized value of $P(y|x)$. It also doesn't need to make any assumptions about the features. \\\\
+\textcolor{Periwinkle}{\textbf{Linear Regression}}\\
+Used to predict a value $y$ given $x$. 
+\begin{equation*}
+	\hat{y} = \theta_{0} + \theta_{1}x_{1} + \theta_{2}x_{2} + ... = \theta_{0} + \sum_{i} \theta_{i}x_{i}
+\end{equation*}
+Where $\theta_{0}, \theta_{1}, ...$ are weights and model parameters, and are what needs to be optimized. \\
+We can measure the error by the sum of squared errors (SSE): 
+\begin{equation*}
+	L = \sum_{i=1}^{N}(\hat{y}^{i} - y^{i})^{2}
+\end{equation*}
+\begin{shaded}
+	\noindent \textcolor{RoyalPurple}{\textbf{Log Odds}}\\
+	Another name for logistic transformation. The odds are the fraction of successes of the fraction of failures. \\
+	\begin{equation*}
+		\text{odds} = \dfrac{\text{P(success)}}{\text{P(failures)}} = \dfrac{\text{P(success)}}{1 - \text{P(success)}}
+	\end{equation*}
+\end{shaded}
+\noindent \textcolor{Periwinkle}{\textbf{Deriving Logistic Regression}}\\
+We use a logistic transformation for $p(x)$ to obtain the sigmoid function. The logistic transformation is unbounded for x, but binds the probability $p(x)$ to be between 0 and 1. 
+\begin{align*}
+	log(\dfrac{p(x)}{1-p(x)}) &= \theta_{0} + \theta_{1}x_{1} + ... + \theta_{F}x_{F} \\
+	p(x) &= \dfrac{1}{1 + exp(-(\theta_{0} + \sum_{f=1}^{F}\theta_{f}x_{f}))}
+\end{align*}
+\begin{itemize}
+	\item $(\theta_{0} + \sigma_{f=1}^{F}\theta_{f}x_{f}) > 0$ means y = 1
+	\item $(\theta_{0} + \sigma_{f=1}^{F}\theta_{f}x_{f}) \approx 0$ means y  has a lot of uncertainty (cannot be classified, or questionable classification)
+	\item $(\theta_{0} + \sigma_{f=1}^{F}\theta_{f}x_{f}) < 0$ means y = 0 \\
+\end{itemize}
+We can also denote the logistic function as a sigmoid function $\sigma(x;\theta)$. \\
+We can also define a \textbf{decision boundary}, such as $p(x) = 0.5$, where $p(x) > 0.5$ means y = 1, and $p(x) < 0.5$ means y = 0.  
+\begin{shaded}
+	\begin{equation*}
+		P(y=1|x_{1}, x_{2}, ... , x_{F};\theta) = \dfrac{1}{1+exp(-(\theta^{T}x))} = \sigma(\theta^{T}x)
+	\end{equation*}
+\end{shaded}
+\newpage
+\noindent \textcolor{Periwinkle}{\textbf{Finding Parameters($\theta$)}}\\
+Minimize the negative conditional log likelihood. \\
+\begin{equation*}
+	\mathcal{L}(\theta) = -P(Y|X;\theta) = - \prod_{i=1}^{N}P(y^{i}|x^{i};\theta)
+\end{equation*}
+Where $P(y=1|x;\theta) = \sigma(\theta^{T}x)$, $P(y=0|x;\theta) = 1 - \sigma(\theta^{T}x)$ \\\\
+Substituting: 
+\begin{equation*}
+	\mathcal{L}(\theta) = - \prod_{i=1}^{N}(\sigma(\theta^{T}x^{i}))^{y^{i}} \times (1 - \sigma(\theta^{T}x^{i}))^{1-y^{i}}
+\end{equation*}
+Taking the log of this function: 
+\begin{equation*}
+	log(\mathcal{L}(\theta)) = - \sum_{i=1}^{N}y^{i}log \sigma (\theta^{T}x^{i}) + (1 - y^{i}) log(1 - \sigma(\theta^{T}x^{i}))
+\end{equation*}
+Notes: \\
+The derivative of the sigmoid function is $\dfrac{\delta \sigma (z)}{\delta z} = \sigma(z)[1 - \sigma(z)]$ \\
+The chain rule: $\dfrac{\delta A}{\delta D} = \dfrac{\delta A}{\delta B} \times \dfrac{\delta B}{\delta C} \times \dfrac{\delta C}{\delta D}$ \\
+We also compute one instance at a time, and one feature at a time. 
+\begin{shaded}
+	\noindent The derivative of the log likelihood wrt. a single parameter $\theta_{j}$ for all training examples can be given as: 
+	\begin{equation*}
+		\dfrac{log \mathcal{L}(\theta)}{\delta \theta_{j}} = \sum_{i=1}^{N}(\sigma(\theta^{T}x^{i}) - y^{i})x_{j}^{i}
+	\end{equation*}
+\end{shaded}
+\noindent We would usually solve this by setting the derivative to zero and solving, but since we can't, we can use Gradient Descent. \\
+\begin{equation*}
+	\theta_{j} \leftarrow \theta_{j} - \eta \sum_{i = 1}^{N}(\sigma(\theta^{T}x^{i}) - y^{i})x_{j}^{i}
+\end{equation*}
+\textcolor{Periwinkle}{\textbf{Multinomial Logistic Regression}}\\
+Instead of using the sigmoid function, we can use the softmax function (which is a generalization of the sigmoid function). 
+\begin{equation*}
+	p(y=c|x;\theta) = \dfrac{exp(\theta_{c}x)}{\sum_{k}exp(\theta_{k}x)}
+\end{equation*}
+And for each different class c, we learn a parameter vector $\theta_{c} = [\theta_{1}, \theta_{2} ... \theta_{k}]$\\
+\textcolor{Periwinkle}{\textbf{Pros}}
+\begin{itemize}
+	\item Probabilistic interpretation 
+	\item No assumptions on features 
+	\item Often outperforms Naive Bayes 
+	\item Suited to frequency based features 
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{Cons}}
+\begin{itemize}
+	\item Only works for linear feature-data relationships 
+	\item Some feature scaling issues 
+	\item Often needs a lot of data to work well 
+	\item Regularization is required as overfitting is a big problem 
+\end{itemize}
+\textcolor{Periwinkle}{\textbf{}}\\
+\textcolor{Periwinkle}{\textbf{}}\\
+\textcolor{Periwinkle}{\textbf{}}\\
+\end{document}
